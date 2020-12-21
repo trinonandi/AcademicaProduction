@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "85563202512",
+    "project_id": "academica-fed9a",
+    "storage_bucket": "academica-fed9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85563202512:android:44eaea129ac3782e5137d5",
+        "android_client_info": {
+          "package_name": "com.example.academica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85563202512-b784r8c3cft9sod170qs53485snclmit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSe2q3NzIOvXhvhRoQfFP1GCzUsLyyB7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85563202512-b784r8c3cft9sod170qs53485snclmit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
