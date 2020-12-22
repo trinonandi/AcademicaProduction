@@ -20,7 +20,7 @@
         android:paddingBottom="0dp">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/teacherReg_name_Edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -34,21 +34,23 @@
             app:layout_constraintVertical_bias="0.183" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/teacherReg_name_Editpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="316dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
-            app:layout_constraintBottom_toBottomOf="@+id/button2"
+            app:layout_constraintBottom_toBottomOf="@+id/teacherRegzBtn"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.724" />
+            app:layout_constraintVertical_bias="0.088" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress2"
+            android:id="@+id/teacherReg_name_EditEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -57,12 +59,13 @@
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-            app:layout_constraintVertical_bias="0.184" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.432" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/teacherRegzBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/register"

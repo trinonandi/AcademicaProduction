@@ -20,7 +20,7 @@
         android:paddingBottom="0dp">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/adminReg_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -36,7 +36,7 @@
             tools:layout_editor_absoluteY="58dp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/adminReg_editPAssword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -45,12 +45,13 @@
             android:inputType="textPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.608" />
+            app:layout_constraintVertical_bias="0.62" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress2"
+            android:id="@+id/adminReg_editemail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -60,23 +61,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/adminReg_edittext"
             app:layout_constraintVertical_bias="0.184"
             tools:layout_editor_absoluteX="71dp"
             tools:layout_editor_absoluteY="128dp" />
 
-        <Button
-            android:id="@+id/button2"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/adminReg_button"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/register"
             android:text="@string/register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.853" />
+            app:layout_constraintVertical_bias="0.814" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

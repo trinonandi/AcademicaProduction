@@ -1,12 +1,26 @@
 package com.example.academica;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +29,10 @@ import android.view.ViewGroup;
  */
 public class Admin extends Fragment {
 
+    private static final String TAG = "Admin";
+    private EditText AdminName, AdminEmail, AdminPwd;
+    private AppCompatButton AdminRegsterBtn;
+    private FirebaseAuth mAuth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -58,7 +76,87 @@ public class Admin extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin, container, false);
+
+        AdminName = view.findViewById(R.id.adminReg_edittext);
+        AdminEmail = view.findViewById(R.id.adminReg_editemail);
+        AdminPwd = view.findViewById(R.id.adminReg_editPAssword);
+        AdminRegsterBtn = view.findViewById(R.id.adminReg_button);
+
+        if(AdminEmail == null){
+            Log.d(TAG, "onCreate: null returned");
+        }
+
+        AdminRegsterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doRegistration();
+            }
+        });
+
+        //FirebaseApp.initializeApp(getApplicationContext());
+        mAuth = FirebaseAuth.getInstance();
+        return view;
+         // Inflate the layout for this fragment
+
+    }
+    private void doRegistration(){
+
+        String name = AdminName.getText().toString();
+        String pwd = AdminPwd.getText().toString();
+        String email = AdminEmail.getText().toString();
+
+        if(!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()){
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(pwd.length()<6){
+                Toast.makeText(getContext(), "Password length must be at least 6 digits", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else{
+            Toast.makeText(getContext(), "Empty fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    emailVerification();
+                } else if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                    Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
+
+
+    }
+
+    private void emailVerification(){
+        final FirebaseUser firebaseUser=mAuth.getCurrentUser();
+        if(firebaseUser!=null)
+        {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+
+                        Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
+                        mAuth.signOut();
+                        startActivity(new Intent(getContext(),MainActivity.class));
+                    }
+                    else{
+                        Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            });
+        }
     }
 }
