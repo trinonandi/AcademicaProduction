@@ -10,5 +10,6 @@
     <string name="name">Name</string>
     <string name="button">Button</string>
     <string name="student_login">Student login</string>
+    <string name="logo">logo</string>
 
 </resources>
