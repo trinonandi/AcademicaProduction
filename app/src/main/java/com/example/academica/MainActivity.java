@@ -4,20 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
-import  android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,18 +53,23 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(emailVerificationStatus()){
-                    Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),StudentHome.class);
-                    startActivity(intent);
-                } else{
-                    Toast.makeText(getApplicationContext(),"User not found", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
+        mAuth.signInWithEmailAndPassword(email,pwd)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(emailVerificationStatus()){
+                            Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(),StudentHome.class);
+                            startActivity(intent);
+                        } else{
+                            Toast.makeText(getApplicationContext(),"User not found", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        emailEditText.setText(null);
+        pwdEditText.setText(null);
     }
 
 

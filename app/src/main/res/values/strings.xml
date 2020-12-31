@@ -11,5 +11,10 @@
     <string name="button">Button</string>
     <string name="student_login">Student login</string>
     <string name="logo">logo</string>
+    <string name="attendance">Attendance</string>
+
+
+    <string name="todo">TODO</string>
+    <string name="logout">logout</string>
 
 </resources>
