@@ -1,14 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-    <GridView
-        android:layout_width="291dp"
-        android:layout_height="575dp"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="95dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/student_main_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#ff4141"
+                app:title="Student Dashboard"
+                app:titleTextColor="#fff" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="1"
+            android:columnOrderPreserved="false"
+            android:padding="20dp"
+            android:rowCount="4">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_row="1"
+                android:layout_gravity="center"
+                android:backgroundTint="#911212"
+                android:text="Attendance"
+                android:textAlignment="center"
+                android:textSize="45dp"
+                android:textStyle="bold"
+
+                app:cornerRadius="35dp"
+                android:onClick="showattendance"
+                >
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_row="2"
+                android:layout_gravity="center"
+                android:backgroundTint="#911212"
+                android:text="Result"
+                android:textAlignment="center"
+                android:textSize="45dp"
+                android:textStyle="bold"
+
+
+                app:cornerRadius="35dp"
+                android:onClick="showresult">
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_row="2"
+                android:layout_gravity="center"
+                android:backgroundTint="#911212"
+                android:text="Result"
+                android:textAlignment="center"
+                android:textSize="45dp"
+                android:textStyle="bold"
+
+                app:cornerRadius="35dp">
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_row="2"
+                android:layout_gravity="center"
+                android:backgroundTint="#911212"
+                android:text="Result"
+                android:textAlignment="center"
+                android:textSize="45dp"
+                android:textStyle="bold"
+
+                app:cornerRadius="35dp">
+
+            </com.google.android.material.button.MaterialButton>
+        </GridLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+
+        android:id="@+id/student_Nav_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/student_drawer"
+
+        />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

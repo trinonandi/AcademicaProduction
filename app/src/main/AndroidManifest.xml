@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Academica">
-        <activity android:name=".StudentHome"></activity>
-        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".StudentAttendance"></activity>
+        <activity android:name=".StudentHome" />
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

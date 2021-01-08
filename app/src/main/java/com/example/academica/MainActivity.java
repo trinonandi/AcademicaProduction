@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        emailEditText.setText(null);
-        pwdEditText.setText(null);
+        emailEditText.setText("");
+        pwdEditText.setText("");
     }
 
 

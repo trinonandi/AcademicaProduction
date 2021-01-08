@@ -12,9 +12,14 @@
     <string name="student_login">Student login</string>
     <string name="logo">logo</string>
     <string name="attendance">Attendance</string>
+    <string name="draweropen">open</string>
+    <string name="drawerclose">close</string>
 
 
     <string name="todo">TODO</string>
     <string name="logout">logout</string>
+    <string name="profileimg">profileImg</string>
+    <string name="username">Username</string>
+    <string name="email_email_com">email@email.com</string>
 
 </resources>
