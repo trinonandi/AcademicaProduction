@@ -18,9 +18,9 @@
                 android:id="@+id/student_attendance_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#ff4141"
+                android:background="@color/blue_accent_custom"
                 app:title="Attendnce"
-                app:titleTextColor="#fff" />
+                app:titleTextColor="@color/white" />
         </com.google.android.material.appbar.AppBarLayout>
 
 

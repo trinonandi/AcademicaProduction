@@ -16,11 +16,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class StudentAttendance extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class StudentAttendanceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth mAuth;
 
     
-    private Toolbar toolbar; DrawerLayout drawerLayout ;NavigationView navigationView;
+    private Toolbar toolbar;
+    DrawerLayout drawerLayout ;
+    NavigationView navigationView;
+    private final int personalisedAttendanceID = R.id.personalized_attendance,
+    personalisedResultID = R.id.Personalized_result,
+    profilePageID = R.id.profile_page,logoutID = R.id.logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +54,21 @@ public class StudentAttendance extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
-            case R.id.personalized_attendance:
-
+            case personalisedAttendanceID:
                 drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(getApplicationContext(),StudentHomeActivity.class));
                 break;
-            case R.id.Personalized_result:
+            case personalisedResultID:
                 Toast.makeText(getApplicationContext(),"profile result",Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.profile_page:
+            case profilePageID:
                 Toast.makeText(getApplicationContext(),"profile page",Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.logout:
+            case logoutID:
                 mAuth.signOut();
-                startActivity(new Intent(StudentAttendance.this,MainActivity.class));
-
+                startActivity(new Intent(StudentAttendanceActivity.this,MainActivity.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }

@@ -5,21 +5,43 @@
     <string name="password">Password</string>
     <string name="forgetPwd">Forgot Password ?</string>
     <string name="register">Register</string>
+    <string name="instructions">Need Instructions ?</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
-    <string name="button">Button</string>
-    <string name="student_login">Student login</string>
     <string name="logo">logo</string>
-    <string name="attendance">Attendance</string>
     <string name="draweropen">open</string>
     <string name="drawerclose">close</string>
 
 
-    <string name="todo">TODO</string>
-    <string name="logout">logout</string>
     <string name="profileimg">profileImg</string>
     <string name="username">Username</string>
     <string name="email_email_com">email@email.com</string>
+
+    <string-array name="departments">
+        <item>CSE1</item>
+        <item>CSE2</item>
+        <item>ME1</item>
+        <item>ME2</item>
+        <item>ECE1</item>
+        <item>ECE2</item>
+        <item>EE</item>
+        <item>AEIE</item>
+    </string-array>
+
+    <!-- the below three strings are auth ids of corresponding user type -->
+    <string name="studentAuthID">STUDENT</string>
+    <string name="teacherAuthID">TEACHER</string>
+    <string name="adminAuthID">ADMIN</string>
+
+    <!-- the below three strings are form fill up instructions of corresponding user type -->
+    <string name="studentInstructions">
+        Students are requested to follow the following instructions:\n
+            1. Full name must be in the format \"Firstname Lastname\" \n
+            2. Password must be at least 6 characters long.\n
+            3. Email must be the official college id.\n
+            4. University roll can be left empty if not received.\n
+            5. Auth ID must be the id sent in email.\n
+            6. Semester should be only single digit from 1-8.
+    </string>
 
 </resources>

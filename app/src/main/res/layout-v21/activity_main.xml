@@ -51,7 +51,8 @@
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintVertical_bias="0.25"
+            android:fontFamily="@font/open_sans"/>
 
         <EditText
             android:id="@+id/main_pwd_editText"
@@ -72,13 +73,18 @@
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            android:fontFamily="@font/open_sans"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/main_forgotPwd_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
             android:text="@string/forgetPwd"
+            android:textAllCaps="false"
             android:textColor="#009EFD"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -87,21 +93,23 @@
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.61" />
+            app:layout_constraintVertical_bias="0.61"
+            android:fontFamily="@font/open_sans"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
             android:textColor="@color/blue_gray_custom"
-            android:textSize="30sp"
+            android:textSize="38sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81" />
+            app:layout_constraintVertical_bias="0.81"
+            android:fontFamily="@font/bubblegum_sans"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_signin_btn"
@@ -131,7 +139,7 @@
         android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
@@ -139,6 +147,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.917"
         android:onClick="startRegActivity"
+        android:fontFamily="@font/bubblegum_sans"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
