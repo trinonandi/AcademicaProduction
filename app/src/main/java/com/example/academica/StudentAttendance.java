@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 public class StudentAttendance extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth mAuth;
 
-    StudentHome studentHome = new StudentHome();
+    
     private Toolbar toolbar; DrawerLayout drawerLayout ;NavigationView navigationView;
 
     @Override
@@ -41,6 +41,8 @@ public class StudentAttendance extends AppCompatActivity implements NavigationVi
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -62,6 +64,7 @@ public class StudentAttendance extends AppCompatActivity implements NavigationVi
             case R.id.logout:
                 mAuth.signOut();
                 startActivity(new Intent(StudentAttendance.this,MainActivity.class));
+
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }
