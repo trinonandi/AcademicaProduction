@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- System colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#009EFD</color>
@@ -8,6 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- sign in / sign up colors -->
     <color name="blue_gray_custom">#7493BC</color>
     <color name="blue_accent_custom">#009EFD</color>
     <color name="blue_ripple_custom">#0073B8</color>

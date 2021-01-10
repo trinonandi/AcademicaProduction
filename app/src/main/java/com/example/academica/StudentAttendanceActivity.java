@@ -9,7 +9,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,9 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.navigation.NavigationView;
 
 public class StudentAttendanceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private FirebaseAuth mAuth;
 
+    private static final String TAG = "StudentAttendance";
     
+    private FirebaseAuth mAuth;
     private Toolbar toolbar;
     DrawerLayout drawerLayout ;
     NavigationView navigationView;
@@ -46,7 +50,7 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
+        
         mAuth = FirebaseAuth.getInstance();
     }
 

@@ -12,21 +12,33 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StudentHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private static final String TAG = "StudentHomeActivity";
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase rootNode;
+    private DatabaseReference referenceDB;
+    private StudentRegDataHelper currentUserData;
+    private RelativeLayout progressBarLayout;
     private CardView cardView1;
    // private TextView navUserName;
 
@@ -37,8 +49,10 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
-        mAuth = FirebaseAuth.getInstance();
 
+        progressBarLayout = findViewById(R.id.student_home_progressBar_layout);
+
+        mAuth = FirebaseAuth.getInstance();
         toolbar=findViewById(R.id.student_main_drawer);
         drawerLayout = findViewById(R.id.student_drawer_layout);
         navigationView  = findViewById(R.id.student_Nav_menu);
@@ -53,9 +67,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-//        String name = "Trinanjan";
-//        navUserName = navigationView.findViewById(R.id.nav_header_userName);
-//        navUserName.setText(name);
+        fetchUserData();
 
         cardView1 = findViewById(R.id.student_home_cardView1);
         cardView1.setOnClickListener(new View.OnClickListener() {
@@ -97,5 +109,41 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         }
         return true;
+    }
+
+    private void fetchUserData(){ // method to fetch data from firebase
+
+        progressBarLayout.setVisibility(View.VISIBLE);
+
+        // getting user data from firebase
+        String dbKey = StudentRegDataHelper.generateKeyFromEmail(mAuth.getCurrentUser().getEmail());    // generates firebase user key
+        rootNode = FirebaseDatabase.getInstance();
+        referenceDB = rootNode.getReference("users").child("students").child(dbKey);
+        referenceDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                currentUserData = snapshot.getValue(StudentRegDataHelper.class);    // user data object instantiated
+                setNavData();   // private method to set data on nav header elements
+
+
+                progressBarLayout.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(StudentHomeActivity.this, "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setNavData(){  // method to set user data in the navigationView
+        // getting the navigation element's references
+        View navHeaderView = navigationView.getHeaderView(0);
+        TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
+        TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        navHeaderUserName.setText(currentUserData.getFullName());
+        navHeaderEmail.setText(currentUserData.getEmail());
+
     }
 }

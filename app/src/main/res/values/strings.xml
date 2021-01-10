@@ -13,7 +13,6 @@
     <string name="drawerclose">close</string>
 
 
-    <string name="profileimg">profileImg</string>
     <string name="username">Username</string>
     <string name="email_email_com">email@email.com</string>
 
@@ -30,8 +29,6 @@
 
     <!-- the below three strings are auth ids of corresponding user type -->
     <string name="studentAuthID">STUDENT</string>
-    <string name="teacherAuthID">TEACHER</string>
-    <string name="adminAuthID">ADMIN</string>
 
     <!-- the below three strings are form fill up instructions of corresponding user type -->
     <string name="studentInstructions">
