@@ -123,9 +123,12 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentUserData = snapshot.getValue(StudentRegDataHelper.class);    // user data object instantiated
+                if(currentUserData == null){
+                    progressBarLayout.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "No data found corresponding to this user", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 setNavData();   // private method to set data on nav header elements
-
-
                 progressBarLayout.setVisibility(View.GONE);
 
             }
