@@ -25,11 +25,12 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
     
     private FirebaseAuth mAuth;
     private Toolbar toolbar;
-    DrawerLayout drawerLayout ;
-    NavigationView navigationView;
+    private DrawerLayout drawerLayout ;
+    private NavigationView navigationView;
     private final int personalisedAttendanceID = R.id.personalized_attendance,
     personalisedResultID = R.id.Personalized_result,
     profilePageID = R.id.profile_page,logoutID = R.id.logout;
+    private StudentRegDataHelper currentUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,11 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        
+
+        //set data to nav headers
+        currentUserData = (StudentRegDataHelper)getIntent().getSerializableExtra("UserData");   // retrieve user data object from home activity
+        setNavData();   // private method to set nav header data : declared below
+
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -78,5 +83,15 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         }
 
         return true;
+    }
+
+    private void setNavData(){  // method to set user data in the navigationView
+        // getting the navigation element's references
+        View navHeaderView = navigationView.getHeaderView(0);
+        TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
+        TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        navHeaderUserName.setText(currentUserData.getFullName());
+        navHeaderEmail.setText(currentUserData.getEmail());
+
     }
 }

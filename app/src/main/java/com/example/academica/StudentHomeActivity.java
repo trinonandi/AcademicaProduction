@@ -73,7 +73,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),StudentAttendanceActivity.class));
+                showAttendance(v);
             }
         });
 
@@ -91,8 +91,10 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
     }
 
-    public void showAttendance(View view){
-        startActivity(new Intent(getApplicationContext(), StudentAttendanceActivity.class));
+    private void showAttendance(View view){
+        Intent intent = new Intent(getApplicationContext(), StudentAttendanceActivity.class);
+        intent.putExtra("UserData", currentUserData);
+        startActivity(intent);
     }
 
     @Override

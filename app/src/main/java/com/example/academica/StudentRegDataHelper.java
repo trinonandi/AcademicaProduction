@@ -1,6 +1,8 @@
 package com.example.academica;
 
-public class StudentRegDataHelper {
+import java.io.Serializable;
+
+public class StudentRegDataHelper implements Serializable {
     // a helper class to fetch student user data from firebase database
     String fullName, email, classRoll, univRoll, sem, dept;
 
