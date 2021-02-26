@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -30,8 +32,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class Admin extends Fragment {
 
     private static final String TAG = "Admin";
-    private EditText AdminName, AdminEmail, AdminPwd;
-    private AppCompatButton AdminRegsterBtn;
+    private TextInputLayout AdminName, AdminEmail, AdminPwd;
+    private ExtendedFloatingActionButton AdminRegsterBtn;
     private FirebaseAuth mAuth;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,10 +80,10 @@ public class Admin extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin, container, false);
 
-        AdminName = view.findViewById(R.id.adminReg_edittext);
-        AdminEmail = view.findViewById(R.id.adminReg_editemail);
-        AdminPwd = view.findViewById(R.id.adminReg_editPAssword);
-        AdminRegsterBtn = view.findViewById(R.id.adminReg_button);
+        AdminName = view.findViewById(R.id.adminReg_name_editText);
+        AdminEmail = view.findViewById(R.id.adminReg_email_editText);
+        AdminPwd = view.findViewById(R.id.adminReg_pwd_editText);
+        AdminRegsterBtn = view.findViewById(R.id.adminReg_reg_btn);
 
         if(AdminEmail == null){
             Log.d(TAG, "onCreate: null returned");
@@ -102,10 +104,11 @@ public class Admin extends Fragment {
     }
     private void doRegistration(){
 
-        String name = AdminName.getText().toString();
-        String pwd = AdminPwd.getText().toString();
-        String email = AdminEmail.getText().toString();
+        String name = AdminName.getEditText().toString();
+        String pwd = AdminPwd.getEditText().toString();
+        String email = AdminEmail.getEditText().toString();
 
+        Log.i(name, "name");
         if(!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()){
             if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                 Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();

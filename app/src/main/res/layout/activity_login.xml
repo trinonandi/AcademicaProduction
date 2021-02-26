@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/vector_background"
-    android:padding="0dp">
+    android:padding="0dp"
+    tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="350dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.569">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_email_editText"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -41,6 +41,7 @@
             android:drawableStart="@drawable/ic_baseline_email_24"
             android:drawablePadding="10dp"
             android:drawableTint="@color/blue_gray_custom"
+            android:fontFamily="@font/open_sans"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textColor="@color/blue_gray_custom"
@@ -52,9 +53,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.25"
-            android:fontFamily="@font/open_sans"/>
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
 
-        <EditText
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_pwd_editText"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -63,6 +72,7 @@
             android:drawableStart="@drawable/ic_baseline_vpn_key_24"
             android:drawablePadding="10dp"
             android:drawableTint="@color/blue_gray_custom"
+            android:fontFamily="@font/open_sans"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textColor="@color/blue_gray_custom"
@@ -74,7 +84,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            android:fontFamily="@font/open_sans"/>
+            app:endIconMode="password_toggle"
+            app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/main_forgotPwd_textView"
@@ -83,6 +104,7 @@
             android:background="@color/white"
             android:clickable="true"
             android:focusable="true"
+            android:fontFamily="@font/open_sans"
             android:text="@string/forgetPwd"
             android:textAllCaps="false"
             android:textColor="#009EFD"
@@ -93,12 +115,12 @@
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.61"
-            android:fontFamily="@font/open_sans"/>
+            app:layout_constraintVertical_bias="0.61" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bubblegum_sans"
             android:text="@string/sign_in"
             android:textColor="@color/blue_gray_custom"
             android:textSize="38sp"
@@ -108,14 +130,14 @@
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81"
-            android:fontFamily="@font/bubblegum_sans"/>
+            app:layout_constraintVertical_bias="0.81" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_signin_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/sign_in"
+            android:onClick="doSignIn"
             android:src="@drawable/ic_baseline_arrow_forward_24"
             app:backgroundTint="#009EFD"
             app:fabCustomSize="80dp"
@@ -126,8 +148,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.847"
             app:rippleColor="@color/blue_ripple_custom"
-            app:tint="@color/white"
-            android:onClick="doSignIn"/>
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -135,7 +156,9 @@
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:background="@drawable/round_button"
+        android:fontFamily="@font/bubblegum_sans"
         android:gravity="center"
+        android:onClick="startRegActivity"
         android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -145,9 +168,6 @@
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917"
-        android:onClick="startRegActivity"
-        android:fontFamily="@font/bubblegum_sans"
-        />
+        app:layout_constraintVertical_bias="0.917" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

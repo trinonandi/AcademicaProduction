@@ -2,14 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Student" >
+    tools:context=".Student">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/stuLayout"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:background="@drawable/reg_form_background"
         android:padding="0dp"
@@ -20,156 +20,186 @@
         android:paddingRight="0dp"
         android:paddingBottom="0dp">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/studentReg_name_editText"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="327dp"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="15"
-            android:hint="Full name"
-            android:inputType="textPersonName"
-            android:textColor="@color/blue_gray_custom"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1"
-            tools:ignore="LabelFor"
-            />
+            app:layout_constraintVertical_bias="0.09"
 
-        <EditText
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/studentReg_pwd_editText"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="328dp"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="15"
+            android:layout_marginBottom="5dp"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/blue_gray_custom"
+            app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.43"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25"
-            />
+            app:layout_constraintVertical_bias="0.253"
+            app:placeholderText="@string/name">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/studentReg_email_editText"
-            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="327dp"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="15"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/blue_gray_custom"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.41000003">
 
-        <EditText
-            android:id="@+id/studentReg_univRoll_editText"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/email" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/studentReg_sem_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="136dp"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="8"
-            android:hint="University Roll"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/blue_gray_custom"
+            android:layout_marginBottom="6dp"
+            android:hint="@string/sem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHorizontal_bias="0.16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.55" />
+            app:layout_constraintVertical_bias="0.55">
 
-
-        <EditText
-            android:id="@+id/studentReg_authId_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="6"
-            android:hint="Auth ID"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/blue_gray_custom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.828"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.548" />
-
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.527"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.7">
-
-            <EditText
-                android:id="@+id/studentReg_sem_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:ems="5"
-                android:hint="Semester"
-                android:textColor="@color/blue_gray_custom" />
-
-            <EditText
-                android:id="@+id/studentReg_classRoll_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:ems="3"
-                android:hint="Roll"
-                android:textColor="@color/blue_gray_custom" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/studentReg_dept_spinner"
-                android:layout_width="133dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@id/studentReg_classRoll_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="148dp"
             android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:textColor="@color/blue_gray_custom"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="@string/classRoll"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.161"
+            app:layout_constraintHorizontal_bias="0.16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.919" />
+            app:layout_constraintVertical_bias="0.68">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/studentReg_univRoll_editText"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="321dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="5dp"
+            android:hint="@string/univroll"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.422"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.831">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/studentReg_dept"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="148dp"
+            android:layout_height="70dp"
+            android:layout_margin="5dp"
+            android:text="Department"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.821"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.552" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@id/studentReg_authId_editText"
+            android:layout_width="139dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.83"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.68"
+            android:hint="@string/studentAuthID">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/studentReg_reg_btn"
+            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/register"
-            android:src="@drawable/ic_baseline_arrow_forward_24"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/register"
-            app:backgroundTint="#009EFD"
-            app:fabCustomSize="80dp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.851"
+            app:layout_constraintHorizontal_bias="0.841"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95"
-            app:rippleColor="@color/blue_ripple_custom"
-            app:tint="@color/white" />
+            app:layout_constraintVertical_bias="0.948" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
-

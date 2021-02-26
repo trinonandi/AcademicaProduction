@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="studentReg_name_editText" type="id" />
+    <item name="studentReg_pwd_editText" type="id" />
+    <item name="studentReg_email_editText" type="id" />
+    <item name="studentReg_classRoll_editText" type="id" />
+    <item name="studentReg_univRoll_editText" type="id" />
+    <item name="studentReg_sem_editText" type="id" />
+    <item name="studentReg_reg_btn" type="id" />
+    <item name="studentReg_authId_editText" type="id" />
+    <item name="teacherReg_authId_editText" type="id" />
+</resources>

@@ -7,15 +7,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,7 +27,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -36,17 +43,18 @@ import com.google.firebase.database.FirebaseDatabase;
  * Use the {@link Student#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Student extends Fragment implements AdapterView.OnItemSelectedListener {
+public class Student extends Fragment  {
 
     private static final String TAG = "Student";
-    private EditText studentName, studentEmail, studentPwd,studentUnivRoll,studentClassRoll,studentSem,studentAuthId;
+    private TextInputLayout studentName, studentEmail, studentPwd,studentUnivRoll,studentClassRoll,studentSem,studentAuthId;
     private TextView studentInstructions;
-    private FloatingActionButton studentRegisterBtn;
-    private Spinner deptSpin;
+    private ExtendedFloatingActionButton studentRegisterBtn;
+    private Button studentdept;
     private Dialog instructionDialog;
     private FirebaseAuth mAuth;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,6 +95,8 @@ public class Student extends Fragment implements AdapterView.OnItemSelectedListe
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+
     }
 
     @Override
@@ -102,24 +112,36 @@ public class Student extends Fragment implements AdapterView.OnItemSelectedListe
         studentUnivRoll = view.findViewById(R.id.studentReg_univRoll_editText);
         studentRegisterBtn = view.findViewById(R.id.studentReg_reg_btn);
         studentAuthId= view.findViewById(R.id.studentReg_authId_editText);
+        studentdept=view.findViewById(R.id.studentReg_dept);
 
         // code to implement instructions dialog box
         instructionDialog = new Dialog(getContext());
         instructionDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        studentInstructions = view.findViewById(R.id.studentReg_instructions_textView);
-        studentInstructions.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+        // code to popup Window for Department Selection
+        studentdept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInstructions(v);
+                PopupMenu dept = new PopupMenu(getContext(),studentdept,Gravity.CENTER);
+                dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
+                dept.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        studentdept.setText(item.getTitle());
+                        return true;
+                    }
+                });
+
+
+                dept.show();
             }
         });
 
-        // code to implement the department spinner
-        deptSpin = view.findViewById(R.id.studentReg_dept_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.departments, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        deptSpin.setAdapter(adapter);
-        deptSpin.setOnItemSelectedListener(this);   // check the overridden method setOnItemSelectedListener() below
+
 
 
         studentRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -129,21 +151,26 @@ public class Student extends Fragment implements AdapterView.OnItemSelectedListe
             }
         });
 
-        //FirebaseApp.initializeApp(getApplicationContext());
+
+
+
         mAuth = FirebaseAuth.getInstance();
         return view;
     }
 
+
     private void doRegistration(){
 
-        String name = studentName.getText().toString();
-        String pwd = studentPwd.getText().toString();
-        String email = studentEmail.getText().toString();
-        String classRoll = studentClassRoll.getText().toString();
-        String univRoll = studentUnivRoll.getText().toString();
-        String sem = studentSem.getText().toString();
-        String dept = deptSpin.getSelectedItem().toString();
-        String currentAuthId = studentAuthId.getText().toString();
+//      getting text from Text Input layout
+        String name = studentName.getEditText().getText().toString().trim();
+        String pwd = studentPwd.getEditText().getText().toString().trim();
+        String email = studentEmail.getEditText().getText().toString().trim();
+        String classRoll = studentClassRoll.getEditText().getText().toString().trim();
+        String univRoll = studentUnivRoll.getEditText().getText().toString().trim();
+        String sem = studentSem.getEditText().getText().toString().trim();
+        String sdept = studentdept.getText().toString();
+        String currentAuthId = studentAuthId.getEditText().getText().toString().trim();
+
 
 
 
@@ -178,7 +205,8 @@ public class Student extends Fragment implements AdapterView.OnItemSelectedListe
                     // sending student data to firebase realtime database
                     rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
                     reference = rootNode.getReference(); // getting root reference of the DB
-                    StudentRegDataHelper data = new StudentRegDataHelper(name,email,classRoll,univRoll,sem,dept); // helper object to be passed in DB
+
+                    StudentRegDataHelper data = new StudentRegDataHelper(name,email,classRoll,univRoll,sem,sdept); // helper object to be passed in DB
 
                     String key = StudentRegDataHelper.generateKeyFromEmail(email);
 
@@ -207,7 +235,7 @@ public class Student extends Fragment implements AdapterView.OnItemSelectedListe
 
                         Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
                         mAuth.signOut();
-                        startActivity(new Intent(getContext(),MainActivity.class));
+                        startActivity(new Intent(getContext(),Login.class));
                     }
                     else{
                         Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
@@ -218,26 +246,9 @@ public class Student extends Fragment implements AdapterView.OnItemSelectedListe
         }
     }
 
-    private void showInstructions(View view){
-        instructionDialog.setContentView(R.layout.student_instructions_dialog);
-        AppCompatButton close = instructionDialog.findViewById(R.id.student_instructions_close_btn);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                instructionDialog.dismiss();
-            }
-        });
-        instructionDialog.show();
-    }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String dept = parent.getItemAtPosition(position).toString();
-        Toast.makeText(getContext(), ""+dept, Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
-    }
+
+
 }

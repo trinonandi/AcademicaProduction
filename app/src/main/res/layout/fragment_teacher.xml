@@ -2,15 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Teacher">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="307dp"
-        android:layout_height="561dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@drawable/shadow_card_glow_40"
+        android:background="@drawable/reg_form_background"
         android:padding="0dp"
         android:paddingStart="0dp"
         android:paddingLeft="0dp"
@@ -19,62 +20,123 @@
         android:paddingRight="0dp"
         android:paddingBottom="0dp">
 
-        <EditText
-            android:id="@+id/teacherReg_name_Edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/name"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/teacherReg_name_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="327dp"
+            android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.183" />
+            app:layout_constraintVertical_bias="0.09"
+            android:layout_marginBottom="5dp"
 
-        <EditText
-            android:id="@+id/teacherReg_name_Editpassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="316dp"
-            android:autofillHints=""
-            android:ems="10"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/teacherReg_pwd_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="322dp"
+            android:layout_height="68dp"
+            android:layout_marginBottom="5dp"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toBottomOf="@+id/teacherRegzBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.088" />
-
-        <EditText
-            android:id="@+id/teacherReg_name_EditEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
+            app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintHorizontal_bias="0.43"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.432" />
+            app:layout_constraintVertical_bias="0.253"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/teacherReg_email_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="323dp"
+            android:layout_height="66dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.41000003">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/email" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@id/teacherReg_authId_editText"
+
+            android:layout_width="139dp"
+            android:layout_height="55dp"
+            android:layout_margin="10dp"
+            android:hint="@string/teacheAuthID"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.83"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.594"
+            >
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/teacherRegzBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/register"
-            android:text="@string/register"
+            android:id="@+id/teacherReg_dep"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_margin="10dp"
+            android:layout_width="148dp"
+            android:layout_height="70dp"
+            android:text="Department"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.144"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.853" />
+            app:layout_constraintVertical_bias="0.586" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/teacherReg_reg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.831" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

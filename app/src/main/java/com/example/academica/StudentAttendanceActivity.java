@@ -77,7 +77,7 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
                 break;
             case logoutID:
                 mAuth.signOut();
-                startActivity(new Intent(StudentAttendanceActivity.this,MainActivity.class));
+                startActivity(new Intent(StudentAttendanceActivity.this,Login.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }

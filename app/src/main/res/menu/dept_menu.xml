@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/CSE1"
+        android:title="CSE1" />
+    <item android:id="@+id/CSE2"
+        android:title="CSE2" />
+    <item android:id="@+id/IT1"
+        android:title="IT1" />
+    <item android:id="@+id/IT2"
+        android:title="IT2" />
+    <item android:id="@+id/ME1"
+        android:title="ME1" />
+    <item android:id="@+id/ME2"
+        android:title="ME2" />
+    <item android:id="@+id/ECE1"
+        android:title="ECE1" />
+    <item android:id="@+id/ECE2"
+        android:title="ECE2" />
+    <item android:id="@+id/EE1"
+        android:title="EE1" />
+    <item android:id="@+id/EE2"
+        android:title="EE2" />
+    <item android:id="@+id/MCA"
+        android:title="MCA" />
+
+</menu>
