@@ -4,9 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/vector_background"
-    android:padding="0dp">
+    android:background="#454810"
+    android:padding="0dp"
+    tools:context=".MainActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/splash_intro"
+        android:layout_width="358dp"
+        android:layout_height="381dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/intro_anim" />
 
     <ImageView
         android:layout_width="350dp"
@@ -15,139 +28,9 @@
         android:src="@drawable/logo_vector_academica"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.071" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
-        android:layout_height="450dp"
-        android:background="@drawable/shadow_card"
-        android:padding="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569">
-
-        <EditText
-            android:id="@+id/main_email_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/email"
-            android:backgroundTint="@color/blue_gray_custom"
-            android:drawableStart="@drawable/ic_baseline_email_24"
-            android:drawablePadding="10dp"
-            android:drawableTint="@color/blue_gray_custom"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/blue_gray_custom"
-            android:textColorHint="@color/blue_gray_custom"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25"
-            android:fontFamily="@font/open_sans"/>
-
-        <EditText
-            android:id="@+id/main_pwd_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/password"
-            android:backgroundTint="@color/blue_gray_custom"
-            android:drawableStart="@drawable/ic_baseline_vpn_key_24"
-            android:drawablePadding="10dp"
-            android:drawableTint="@color/blue_gray_custom"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/blue_gray_custom"
-            android:textColorHint="@color/blue_gray_custom"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            android:fontFamily="@font/open_sans"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/main_forgotPwd_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/forgetPwd"
-            android:textAllCaps="false"
-            android:textColor="#009EFD"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.61"
-            android:fontFamily="@font/open_sans"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_in"
-            android:textColor="@color/blue_gray_custom"
-            android:textSize="38sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81"
-            android:fontFamily="@font/bubblegum_sans"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/main_signin_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/sign_in"
-            android:src="@drawable/ic_baseline_arrow_forward_24"
-            app:backgroundTint="#009EFD"
-            app:fabCustomSize="80dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.775"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.847"
-            app:rippleColor="@color/blue_ripple_custom"
-            app:tint="@color/white"
-            android:onClick="doSignIn"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/main_reg_btn"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:background="@drawable/round_button"
-        android:gravity="center"
-        android:text="@string/register"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917"
-        android:onClick="startRegActivity"
-        android:fontFamily="@font/bubblegum_sans"
-        />
+        app:layout_constraintVertical_bias="0.972" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

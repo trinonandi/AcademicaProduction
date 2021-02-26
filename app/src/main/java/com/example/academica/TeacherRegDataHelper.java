@@ -2,22 +2,20 @@ package com.example.academica;
 
 import java.io.Serializable;
 
-public class StudentRegDataHelper implements Serializable {
+public class TeacherRegDataHelper implements Serializable {
     // a helper class to fetch student user data from firebase database
-    String fullName, email, classRoll, univRoll, sem, dept,type;
+    String fullName, email,  dept,type;
 
-    public StudentRegDataHelper(){
+    public TeacherRegDataHelper(){
         // this is mandatory for firebase passing
     }
 
-    public StudentRegDataHelper(String fullName, String email, String classRoll, String univRoll, String sem, String dept){
+    public TeacherRegDataHelper(String fullName, String email,  String dept){
         this.fullName = fullName;
         this.email = email;
-        this.classRoll = classRoll;
-        this.univRoll = univRoll;
-        this.sem = sem;
+
         this.dept = dept;
-        this.type="STUDENT";
+        this.type="TEACHER";
     }
 
     public static String generateKeyFromEmail(String email){
@@ -29,9 +27,7 @@ public class StudentRegDataHelper implements Serializable {
         return key;
     }
 
-    public String getClassRoll() {
-        return classRoll;
-    }
+
 
     public String getDept() {
         return dept;
@@ -45,14 +41,9 @@ public class StudentRegDataHelper implements Serializable {
         return fullName;
     }
 
-    public String getSem() {
-        return sem;
-    }
-
-    public String getUnivRoll() {
-        return univRoll;
-    }
     public String getType(){return type ;}
+
+
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
@@ -62,17 +53,7 @@ public class StudentRegDataHelper implements Serializable {
         this.email = email;
     }
 
-    public void setClassRoll(String classRoll) {
-        this.classRoll = classRoll;
-    }
 
-    public void setUnivRoll(String univRoll) {
-        this.univRoll = univRoll;
-    }
-
-    public void setSem(String sem) {
-        this.sem = sem;
-    }
 
     public void setDept(String dept) {
         this.dept = dept;

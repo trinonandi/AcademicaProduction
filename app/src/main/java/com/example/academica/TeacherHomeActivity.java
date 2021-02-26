@@ -28,7 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class StudentHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TeacherHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "StudentHomeActivity";
 
     private Toolbar toolbar;
@@ -40,7 +40,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     private StudentRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
     private CardView cardView1;
-   // private TextView navUserName;
+    // private TextView navUserName;
 
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
 
@@ -48,14 +48,14 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_home);
+        setContentView(R.layout.activity_teacher_home);
 
-        progressBarLayout = findViewById(R.id.student_home_progressBar_layout);
+        progressBarLayout = findViewById(R.id.teacher_home_progressBar_layout);
 
         mAuth = FirebaseAuth.getInstance();
-        toolbar=findViewById(R.id.student_main_drawer);
-        drawerLayout = findViewById(R.id.student_drawer_layout);
-        navigationView  = findViewById(R.id.student_Nav_menu);
+        toolbar=findViewById(R.id.teacher_main_drawer);
+        drawerLayout = findViewById(R.id.teacher_drawer_layout);
+        navigationView  = findViewById(R.id.teacher_Nav_menu);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,
@@ -69,7 +69,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-        cardView1 = findViewById(R.id.student_home_cardView1);
+        cardView1 = findViewById(R.id.teacher_home_cardView1);
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,10 +91,6 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         startActivity(new Intent(getApplicationContext(),Login.class));
     }
 
-    public void showProfile(){
-        startActivity(new Intent(getApplicationContext(),StudentProfileActivity.class));
-    }
-
     private void showAttendance(View view){
         Intent intent = new Intent(getApplicationContext(), StudentAttendanceActivity.class);
         intent.putExtra("UserData", currentUserData);
@@ -106,7 +102,6 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         switch (item.getItemId()){
             case idProfilePage:
                 Toast.makeText(this,"profile page",Toast.LENGTH_LONG).show();
-                showProfile();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case idLogOut:
@@ -142,7 +137,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(StudentHomeActivity.this, "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TeacherHomeActivity.this, "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

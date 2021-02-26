@@ -7,7 +7,7 @@
     <string name="register">Register</string>
     <string name="instructions">Need Instructions ?</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="name">Name</string>
+    <string name="nam">Name</string>
     <string name="logo">logo</string>
     <string name="draweropen">open</string>
     <string name="drawerclose">close</string>
@@ -40,5 +40,14 @@
             5. Auth ID must be the id sent in email.\n
             6. Semester should be only single digit from 1-8.
     </string>
+    <string name="univroll">UnivRoll</string>
+    <string name="sem">sem</string>
+    <string name="classRoll">classRoll</string>
+    <string name="teacheAuthID">teacherAuth</string>
+    <string name="university_roll">University Roll</string>
+    <string name="name">Name</string>
+    <string name="sem1">Sem</string>
+    <string name="todo">TODO</string>
+    <string name="dept">Dept</string>
 
 </resources>
