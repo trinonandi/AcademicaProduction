@@ -48,7 +48,7 @@ public class Student extends Fragment  {
     private static final String TAG = "Student";
     private TextInputLayout studentName, studentEmail, studentPwd,studentUnivRoll,studentClassRoll,studentSem,studentAuthId;
     private TextView studentInstructions;
-    private ExtendedFloatingActionButton studentRegisterBtn;
+    private AppCompatButton studentRegisterBtn;
     private Button studentdept;
     private Dialog instructionDialog;
     private FirebaseAuth mAuth;
@@ -122,37 +122,20 @@ public class Student extends Fragment  {
 
 
         // code to popup Window for Department Selection
-        studentdept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu dept = new PopupMenu(getContext(),studentdept,Gravity.CENTER);
-                dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
-                dept.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
+        studentdept.setOnClickListener(v -> {
+            PopupMenu dept = new PopupMenu(getContext(),studentdept,Gravity.CENTER);
+            dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
+            dept.setOnMenuItemClickListener(item -> {
 
-                        studentdept.setText(item.getTitle());
-                        return true;
-                    }
-                });
+                studentdept.setText(item.getTitle());
+                return true;
+            });
 
 
-                dept.show();
-            }
+            dept.show();
         });
 
-
-
-
-        studentRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doRegistration();
-            }
-        });
-
-
-
+        studentRegisterBtn.setOnClickListener(v -> doRegistration());
 
         mAuth = FirebaseAuth.getInstance();
         return view;
@@ -196,29 +179,25 @@ public class Student extends Fragment  {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    emailVerification();
+        mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                emailVerification();
 
-                    // sending student data to firebase realtime database
-                    rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
-                    reference = rootNode.getReference(); // getting root reference of the DB
+                // sending student data to firebase realtime database
+                rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
+                reference = rootNode.getReference(); // getting root reference of the DB
 
-                    StudentRegDataHelper data = new StudentRegDataHelper(name,email,classRoll,univRoll,sem,sdept); // helper object to be passed in DB
+                StudentRegDataHelper data = new StudentRegDataHelper(name,email,classRoll,univRoll,sem,sdept); // helper object to be passed in DB
 
-                    String key = StudentRegDataHelper.generateKeyFromEmail(email);
+                String key = StudentRegDataHelper.generateKeyFromEmail(email);
 
-                    reference.child("users").child("students").child(key).setValue(data); // sending data to the proper child node under root->users->students
+                reference.child("users").child("students").child(key).setValue(data); // sending data to the proper child node under root->users->students
 
 
-                } else if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                    Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
-                } else{
-                    Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            } else if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -228,19 +207,16 @@ public class Student extends Fragment  {
         final FirebaseUser firebaseUser=mAuth.getCurrentUser();
         if(firebaseUser!=null)
         {
-            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
+            firebaseUser.sendEmailVerification().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
 
-                        Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
-                        mAuth.signOut();
-                        startActivity(new Intent(getContext(),Login.class));
-                    }
-                    else{
-                        Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
+                    startActivity(new Intent(getContext(),Login.class));
+                }
+                else{
+                    Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
 
-                    }
                 }
             });
         }

@@ -157,18 +157,18 @@
         </ScrollView>
         <RelativeLayout
             android:id="@+id/student_home_progressBar_layout"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="@drawable/round_button"
+            android:background="#8DFFFFFF"
             android:elevation="10dp"
             android:visibility="gone">
             <ProgressBar
                 android:id="@+id/student_home_progressBar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_centerInParent="true"
-                android:indeterminateTint="@color/white"
+                android:indeterminateTint="@color/blue_accent_custom"
                 />
         </RelativeLayout>
 

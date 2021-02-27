@@ -23,44 +23,52 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/studentReg_name_editText"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="327dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.448"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.09"
-
+            app:layout_constraintVertical_bias="0.05"
+            android:hint="@string/name"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/name" />
+                android:textColor="@color/blue_gray_custom"
+                android:fontFamily="@font/open_sans"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/studentReg_pwd_editText"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="328dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="6dp"
             android:hint="@string/password"
             app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.43"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.253"
-            app:placeholderText="@string/name">
+            app:layout_constraintVertical_bias="0.2"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
+                android:textColor="@color/blue_gray_custom"
+                android:fontFamily="@font/open_sans"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,138 +76,174 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/studentReg_email_editText"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="327dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.45"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.41000003">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/email" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/studentReg_sem_editText"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="136dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
-            android:hint="@string/sem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.55">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@id/studentReg_classRoll_editText"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="148dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:hint="@string/classRoll"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.68">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-
-            android:id="@+id/studentReg_univRoll_editText"
-
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="321dp"
-            android:layout_height="wrap_content"
-
-            android:layout_marginBottom="5dp"
-            android:hint="@string/univroll"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.422"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.831">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/studentReg_dept"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="148dp"
-            android:layout_height="70dp"
-            android:layout_margin="5dp"
-            android:text="Department"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.821"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.552" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@id/studentReg_authId_editText"
-            android:layout_width="139dp"
-            android:layout_height="55dp"
-            android:layout_margin="5dp"
-            app:endIconMode="password_toggle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.83"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.68"
-            android:hint="@string/studentAuthID">
+            app:layout_constraintVertical_bias="0.35"
+            android:hint="@string/email"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textPassword"/>
+                android:textColor="@color/blue_gray_custom"
+                android:fontFamily="@font/open_sans"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/studentReg_univRoll_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.50"
+            android:hint="@string/university_roll"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/blue_gray_custom"
+                android:fontFamily="@font/open_sans"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.65">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/studentReg_sem_editText"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:hint="@string/sem"
+                android:layout_marginEnd="10dp"
+                app:boxStrokeColor="@color/blue_gray_custom"
+                android:textColorHint="@color/blue_gray_custom"
+                app:hintTextColor="@color/blue_gray_custom"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/blue_gray_custom"
+                    android:fontFamily="@font/open_sans"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@id/studentReg_classRoll_editText"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:hint="@string/classRoll"
+                android:layout_marginStart="10dp"
+                app:boxStrokeColor="@color/blue_gray_custom"
+                android:textColorHint="@color/blue_gray_custom"
+                app:hintTextColor="@color/blue_gray_custom"
+
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/blue_gray_custom"
+                    android:fontFamily="@font/open_sans"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@id/studentReg_authId_editText"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/auth_id"
+                app:endIconMode="password_toggle"
+                app:boxStrokeColor="@color/blue_gray_custom"
+                android:textColorHint="@color/blue_gray_custom"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/open_sans"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/studentReg_dept"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="140dp"
+                android:layout_height="68dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginStart="10dp"
+                android:text="Department"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:textColor="@color/blue_gray_custom"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/open_sans"
+                app:rippleColor="@color/blue_ripple_custom"
+                 />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/studentReg_reg_btn"
-            android:layout_margin="5dp"
+            android:width="120dp"
+            android:height="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
             android:gravity="center"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/blue_accent_custom"
             android:text="@string/register"
             android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:fontFamily="@font/bubblegum_sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.841"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.948" />
+            app:layout_constraintVertical_bias="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

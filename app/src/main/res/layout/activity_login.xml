@@ -40,12 +40,11 @@
             android:backgroundTint="@color/blue_gray_custom"
             android:drawableStart="@drawable/ic_baseline_email_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/blue_gray_custom"
-            android:fontFamily="@font/open_sans"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/blue_gray_custom"
             android:textColorHint="@color/blue_gray_custom"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,12 +54,12 @@
             app:layout_constraintVertical_bias="0.25"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconDrawable="@drawable/ic_baseline_email_24"
-
             >
-
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/blue_gray_custom"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -71,12 +70,11 @@
             android:backgroundTint="@color/blue_gray_custom"
             android:drawableStart="@drawable/ic_baseline_vpn_key_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/blue_gray_custom"
-            android:fontFamily="@font/open_sans"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColor="@color/blue_gray_custom"
             android:textColorHint="@color/blue_gray_custom"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/blue_gray_custom"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

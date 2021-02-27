@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,10 +14,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,11 +39,9 @@ public class Login extends AppCompatActivity {
         forgotPwdDialogue = new Dialog(this);   // instantiates dialogue box
         forgotPwdDialogue.getWindow().setBackgroundDrawableResource(android.R.color.transparent);   // sets the background to transparent
         forgotPwdTextView = findViewById(R.id.main_forgotPwd_textView);
-        forgotPwdTextView.setOnClickListener(new View.OnClickListener() {   // as it is a TextView so setOnClickListener is required
-            @Override
-            public void onClick(View v) {
-                openForgetPwdDialogue(v); // private method defined below
-            }
+        // as it is a TextView so setOnClickListener is required
+        forgotPwdTextView.setOnClickListener(v -> {
+            openForgetPwdDialogue(); // private method defined below
         });
         /* forgot password dialogue box setup END */
     }
@@ -86,20 +80,17 @@ public class Login extends AppCompatActivity {
 
 
         mAuth.signInWithEmailAndPassword(email,pwd)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(mAuth.getCurrentUser() == null){
-                            Toast.makeText(getApplicationContext(), "Incorrect UserID or Password", Toast.LENGTH_SHORT).show();
-                        }
-                        else if(emailVerificationStatus()){
-                            Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
-                            finish();
-                            Intent intent = new Intent(getApplicationContext(), StudentHomeActivity.class);
-                            startActivity(intent);
-                        } else{
-                            Toast.makeText(getApplicationContext(),"User not found", Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(task -> {
+                    if(mAuth.getCurrentUser() == null){
+                        Toast.makeText(getApplicationContext(), "Incorrect UserID or Password", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(emailVerificationStatus()){
+                        Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
+                        finish();
+                        Intent intent = new Intent(getApplicationContext(), StudentHomeActivity.class);
+                        startActivity(intent);
+                    } else{
+                        Toast.makeText(getApplicationContext(),"User not found", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -122,40 +113,25 @@ public class Login extends AppCompatActivity {
         return flag;
     }
 
-    private void openForgetPwdDialogue(View view){ // method for complete forgot password feature
+    private void openForgetPwdDialogue(){ // method for complete forgot password feature
         forgotPwdDialogue.setContentView(R.layout.forgot_password_dialog); // setting the layout for the dialogue box
         EditText resetEmail = forgotPwdDialogue.findViewById(R.id.forgot_password_reset_email); // getting id reference through the dialogue reference
         AppCompatButton reset = forgotPwdDialogue.findViewById(R.id.forgot_password_reset_btn);
         AppCompatButton close = forgotPwdDialogue.findViewById(R.id.forgot_password_close_btn);
 
 
-        close.setOnClickListener(new View.OnClickListener() { // local onClickListener for convenience
-            @Override
-            public void onClick(View v) {
-                forgotPwdDialogue.dismiss();    // closes the dialogue box
-            }
+        // local onClickListener for convenience
+        close.setOnClickListener(v -> {
+            forgotPwdDialogue.dismiss();    // closes the dialogue box
         });
 
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = resetEmail.getText().toString();
-                if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        reset.setOnClickListener(v -> {
+            String email = resetEmail.getText().toString();
+            if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
 
-                    mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(Login.this, "Reset email sent successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Login.this, "Reset email cannot be sent: " +e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else{
-                    Toast.makeText(getApplicationContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
-                }
+                mAuth.sendPasswordResetEmail(email).addOnSuccessListener(aVoid -> Toast.makeText(Login.this, "Reset email sent successfully", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(Login.this, "Reset email cannot be sent: " +e.getMessage(), Toast.LENGTH_LONG).show());
+            } else{
+                Toast.makeText(getApplicationContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
             }
         });
 

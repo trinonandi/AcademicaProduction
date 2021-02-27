@@ -92,7 +92,7 @@
             android:layout_width="139dp"
             android:layout_height="55dp"
             android:layout_margin="10dp"
-            android:hint="@string/teacheAuthID"
+            android:hint="@string/auth_id"
             app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -53,7 +53,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
         progressBarLayout = findViewById(R.id.teacher_home_progressBar_layout);
 
         mAuth = FirebaseAuth.getInstance();
-        toolbar=findViewById(R.id.teacher_main_drawer);
+        toolbar = findViewById(R.id.teacher_main_drawer);
         drawerLayout = findViewById(R.id.teacher_drawer_layout);
         navigationView  = findViewById(R.id.teacher_Nav_menu);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,

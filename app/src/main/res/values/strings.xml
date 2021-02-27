@@ -1,20 +1,28 @@
 <resources>
     <string name="app_name">Academica</string>
     <string name="sign_in">Sign In</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="forgetPwd">Forgot Password ?</string>
-    <string name="register">Register</string>
-    <string name="instructions">Need Instructions ?</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="nam">Name</string>
     <string name="logo">logo</string>
     <string name="draweropen">open</string>
     <string name="drawerclose">close</string>
-
-
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgetPwd">Forgot Password ?</string>
+    <string name="register">Register</string>
+    <string name="instructions">Need Instructions ?</string>
     <string name="username">Username</string>
     <string name="email_email_com">email@email.com</string>
+    <string name="sem1">sem</string>
+    <string name="classRoll">Class Roll</string>
+    <string name="university_roll">University Roll</string>
+    <string name="name">Name</string>
+    <string name="sem">Semester</string>
+    <string name="todo">TODO</string>
+    <string name="dept">Department</string>
+    <string name="auth_id">Auth ID</string>
+    <string name="edit_profile">Edit Profile</string>
 
     <string-array name="departments">
         <item>CSE1</item>
@@ -29,6 +37,7 @@
 
     <!-- the below three strings are auth ids of corresponding user type -->
     <string name="studentAuthID">STUDENT</string>
+    <string name="teacherAuthID">teacherAuth</string>
 
     <!-- the below three strings are form fill up instructions of corresponding user type -->
     <string name="studentInstructions">
@@ -40,14 +49,7 @@
             5. Auth ID must be the id sent in email.\n
             6. Semester should be only single digit from 1-8.
     </string>
-    <string name="univroll">UnivRoll</string>
-    <string name="sem">sem</string>
-    <string name="classRoll">classRoll</string>
-    <string name="teacheAuthID">teacherAuth</string>
-    <string name="university_roll">University Roll</string>
-    <string name="name">Name</string>
-    <string name="sem1">Sem</string>
-    <string name="todo">TODO</string>
-    <string name="dept">Dept</string>
+
+
 
 </resources>

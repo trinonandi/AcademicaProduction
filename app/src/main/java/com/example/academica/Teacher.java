@@ -101,29 +101,16 @@ public class Teacher extends Fragment {
         }
 
 
-        teacherRegBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doRegistration();
-            }
-        });
+        teacherRegBtn.setOnClickListener(v -> doRegistration());
 
-        teacherDeptBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu dept = new PopupMenu(getContext(), teacherDeptBtn);
-                dept.getMenuInflater().inflate(R.menu.teacher_dept, dept.getMenu());
-                dept.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-
-                        teacherDeptBtn.setText(item.getTitle());
-                        return true;
-                    }
-                });
-
-                dept.show();
-            }
+        teacherDeptBtn.setOnClickListener(v -> {
+            PopupMenu dept = new PopupMenu(getContext(), teacherDeptBtn);
+            dept.getMenuInflater().inflate(R.menu.teacher_dept, dept.getMenu());
+            dept.setOnMenuItemClickListener(item -> {
+                teacherDeptBtn.setText(item.getTitle());
+                return true;
+            });
+            dept.show();
         });
         //FirebaseApp.initializeApp(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
@@ -141,7 +128,6 @@ public class Teacher extends Fragment {
         String teacherDep = teacherDeptBtn.getText().toString().trim();
         String currentAuthId = teacherAuthID.getEditText().getText().toString().trim();
 
-        Log.d("TAG", String.valueOf(teacherEmail.toString()));
         if (!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()  && !currentAuthId.isEmpty()) {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {   // email pattern checking
                 Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
@@ -153,7 +139,7 @@ public class Teacher extends Fragment {
                 return;
             }
 
-            String actualAuthId = "TEACHER" ;  // retrieves the actual authId from strings.xml
+            String actualAuthId = getResources().getString(R.string.teacherAuthID); // retrieves the actual authId from strings.xml
             if (!currentAuthId.equals(actualAuthId)) {    // auth id validity checking
                 Toast.makeText(getContext(), "Invalid Auth ID", Toast.LENGTH_SHORT).show();
                 return;
@@ -164,29 +150,25 @@ public class Teacher extends Fragment {
             return;
 
         }
-        mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    emailVerification();
+        mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                emailVerification();
 
-                    // sending student data to firebase realtime database
-                    rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
-                    reference = rootNode.getReference(); // getting root reference of the DB
+                // sending student data to firebase realtime database
+                rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
+                reference = rootNode.getReference(); // getting root reference of the DB
 
-                    TeacherRegDataHelper data = new TeacherRegDataHelper(name, email, teacherDep); // helper object to be passed in DB
+                TeacherRegDataHelper data = new TeacherRegDataHelper(name, email, teacherDep); // helper object to be passed in DB
 
-                    String key = TeacherRegDataHelper.generateKeyFromEmail(email);
+                String key = TeacherRegDataHelper.generateKeyFromEmail(email);
 
-                    reference.child("users").child("teachers").child(key).setValue(data); // sending data to the proper child node under root->users->students
+                reference.child("users").child("teachers").child(key).setValue(data); // sending data to the proper child node under root->users->students
 
 
-                } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                    Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -195,18 +177,15 @@ public class Teacher extends Fragment {
     private void emailVerification() {
         final FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
-            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
 
-                        Toast.makeText(getContext(), "Registration Successful,Verify Email", Toast.LENGTH_SHORT).show();
-                        mAuth.signOut();
-                        startActivity(new Intent(getContext(), Login.class));
-                    } else {
-                        Toast.makeText(getContext(), "Verification Email Cannot Be Sent", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Registration Successful,Verify Email", Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
+                    startActivity(new Intent(getContext(), Login.class));
+                } else {
+                    Toast.makeText(getContext(), "Verification Email Cannot Be Sent", Toast.LENGTH_LONG).show();
 
-                    }
                 }
             });
         }

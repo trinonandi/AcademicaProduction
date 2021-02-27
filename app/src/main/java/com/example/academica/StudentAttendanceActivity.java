@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -45,7 +46,8 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
                 drawerLayout,
                 toolbar,
                 R.string.draweropen,
-                R.string.drawerclose);
+                R.string.drawerclose
+        );
 
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -68,11 +70,10 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
                 startActivity(new Intent(getApplicationContext(),StudentHomeActivity.class));
                 break;
             case personalisedResultID:
-                Toast.makeText(getApplicationContext(),"profile result",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"result",Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case profilePageID:
-                Toast.makeText(getApplicationContext(),"profile page",Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case logoutID:
@@ -90,7 +91,9 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
         TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        navHeaderUserName.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderUserName.setText(currentUserData.getFullName());
+        navHeaderEmail.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderEmail.setText(currentUserData.getEmail());
 
     }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class StudentRegDataHelper implements Serializable {
     // a helper class to fetch student user data from firebase database
-    String fullName, email, classRoll, univRoll, sem, dept,type;
+    private String fullName, email, classRoll, univRoll, sem, dept,type;
 
     public StudentRegDataHelper(){
         // this is mandatory for firebase passing
@@ -52,6 +52,7 @@ public class StudentRegDataHelper implements Serializable {
     public String getUnivRoll() {
         return univRoll;
     }
+
     public String getType(){return type ;}
 
     public void setFullName(String fullName) {
@@ -77,5 +78,6 @@ public class StudentRegDataHelper implements Serializable {
     public void setDept(String dept) {
         this.dept = dept;
     }
+
     public void setType(String type){this.type = type;}
 }

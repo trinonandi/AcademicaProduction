@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +36,6 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
-    private FirebaseDatabase rootNode;
     private DatabaseReference referenceDB;
     private StudentRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
@@ -92,7 +92,9 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     }
 
     public void showProfile(){
-        startActivity(new Intent(getApplicationContext(),StudentProfileActivity.class));
+        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
+        intent.putExtra("UserData", currentUserData);
+        startActivity(intent);
     }
 
     private void showAttendance(View view){
@@ -105,7 +107,6 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case idProfilePage:
-                Toast.makeText(this,"profile page",Toast.LENGTH_LONG).show();
                 showProfile();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
@@ -124,8 +125,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         // getting user data from firebase
         String dbKey = StudentRegDataHelper.generateKeyFromEmail(mAuth.getCurrentUser().getEmail());    // generates firebase user key
-        rootNode = FirebaseDatabase.getInstance();
-        referenceDB = rootNode.getReference("users").child("students").child(dbKey);
+        referenceDB = FirebaseDatabase.getInstance().getReference("users").child("students").child(dbKey);
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -152,7 +152,9 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
         TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        navHeaderUserName.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderUserName.setText(currentUserData.getFullName());
+        navHeaderEmail.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderEmail.setText(currentUserData.getEmail());
 
     }
