@@ -264,7 +264,7 @@
                     android:layout_width="155dp"
                     android:layout_height="60dp"
                     android:contentDescription="@string/edit_profile"
-                    android:text="Reset Password"
+                    android:text="@string/reset_password"
                     android:textAlignment="center"
                     android:textColor="@color/blue_accent_custom"
                     android:fontFamily="@font/open_sans"
