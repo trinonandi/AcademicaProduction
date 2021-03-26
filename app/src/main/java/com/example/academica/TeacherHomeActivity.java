@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class TeacherHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "StudentHomeActivity";
 
@@ -118,9 +120,9 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
         progressBarLayout.setVisibility(View.VISIBLE);
 
         // getting user data from firebase
-        String dbKey = StudentRegDataHelper.generateKeyFromEmail(mAuth.getCurrentUser().getEmail());    // generates firebase user key
+        String dbKey = StudentRegDataHelper.generateKeyFromEmail(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()));    // generates firebase user key
         rootNode = FirebaseDatabase.getInstance();
-        referenceDB = rootNode.getReference("users").child("students").child(dbKey);
+        referenceDB = rootNode.getReference("users").child(dbKey);
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

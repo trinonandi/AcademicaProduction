@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Teacher#newInstance} factory method to
@@ -104,7 +106,7 @@ public class Teacher extends Fragment {
         teacherRegBtn.setOnClickListener(v -> doRegistration());
 
         teacherDeptBtn.setOnClickListener(v -> {
-            PopupMenu dept = new PopupMenu(getContext(), teacherDeptBtn);
+            PopupMenu dept = new PopupMenu(Objects.requireNonNull(getContext()), teacherDeptBtn);
             dept.getMenuInflater().inflate(R.menu.teacher_dept, dept.getMenu());
             dept.setOnMenuItemClickListener(item -> {
                 teacherDeptBtn.setText(item.getTitle());
@@ -122,11 +124,11 @@ public class Teacher extends Fragment {
     }
 
     private void doRegistration() {
-        String name = teacherName.getEditText().getText().toString().trim();
-        String pwd = teacherPwd.getEditText().getText().toString().trim();
-        String email = teacherEmail.getEditText().getText().toString().trim();
+        String name = Objects.requireNonNull(teacherName.getEditText()).getText().toString().trim();
+        String pwd = Objects.requireNonNull(teacherPwd.getEditText()).getText().toString().trim();
+        String email = Objects.requireNonNull(teacherEmail.getEditText()).getText().toString().trim();
         String teacherDep = teacherDeptBtn.getText().toString().trim();
-        String currentAuthId = teacherAuthID.getEditText().getText().toString().trim();
+        String currentAuthId = Objects.requireNonNull(teacherAuthID.getEditText()).getText().toString().trim();
 
         if (!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()  && !currentAuthId.isEmpty()) {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {   // email pattern checking
@@ -162,7 +164,7 @@ public class Teacher extends Fragment {
 
                 String key = TeacherRegDataHelper.generateKeyFromEmail(email);
 
-                reference.child("users").child("teachers").child(key).setValue(data); // sending data to the proper child node under root->users->students
+                reference.child("users").child(key).setValue(data); // sending data to the proper child node under root->users->students
 
 
             } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {

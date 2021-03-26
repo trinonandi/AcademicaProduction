@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Academica">
-        <activity android:name=".StudentProfileActivity"></activity>
+        <activity android:name=".AdminHomeActivity" />
+        <activity android:name=".TeacherHomeActivity"/>
+        <activity android:name=".StudentProfileUpdateActivity" />
+        <activity android:name=".StudentProfileActivity" />
         <activity android:name=".Login" />
         <activity android:name=".StudentAttendanceActivity" />
         <activity android:name=".StudentHomeActivity" />

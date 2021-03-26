@@ -38,6 +38,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Student#newInstance} factory method to
@@ -123,7 +125,7 @@ public class Student extends Fragment  {
 
         // code to popup Window for Department Selection
         studentdept.setOnClickListener(v -> {
-            PopupMenu dept = new PopupMenu(getContext(),studentdept,Gravity.CENTER);
+            PopupMenu dept = new PopupMenu(Objects.requireNonNull(getContext()),studentdept,Gravity.CENTER);
             dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
             dept.setOnMenuItemClickListener(item -> {
 
@@ -145,14 +147,14 @@ public class Student extends Fragment  {
     private void doRegistration(){
 
 //      getting text from Text Input layout
-        String name = studentName.getEditText().getText().toString().trim();
-        String pwd = studentPwd.getEditText().getText().toString().trim();
-        String email = studentEmail.getEditText().getText().toString().trim();
-        String classRoll = studentClassRoll.getEditText().getText().toString().trim();
-        String univRoll = studentUnivRoll.getEditText().getText().toString().trim();
-        String sem = studentSem.getEditText().getText().toString().trim();
+        String name = Objects.requireNonNull(studentName.getEditText()).getText().toString().trim();
+        String pwd = Objects.requireNonNull(studentPwd.getEditText()).getText().toString().trim();
+        String email = Objects.requireNonNull(studentEmail.getEditText()).getText().toString().trim();
+        String classRoll = Objects.requireNonNull(studentClassRoll.getEditText()).getText().toString().trim();
+        String univRoll = Objects.requireNonNull(studentUnivRoll.getEditText()).getText().toString().trim();
+        String sem = Objects.requireNonNull(studentSem.getEditText()).getText().toString().trim();
         String sdept = studentdept.getText().toString();
-        String currentAuthId = studentAuthId.getEditText().getText().toString().trim();
+        String currentAuthId = Objects.requireNonNull(studentAuthId.getEditText()).getText().toString().trim();
 
 
 
@@ -191,7 +193,7 @@ public class Student extends Fragment  {
 
                 String key = StudentRegDataHelper.generateKeyFromEmail(email);
 
-                reference.child("users").child("students").child(key).setValue(data); // sending data to the proper child node under root->users->students
+                reference.child("users").child(key).setValue(data); // sending data to the proper child node under root->users->students
 
 
             } else if(task.getException() instanceof FirebaseAuthUserCollisionException){

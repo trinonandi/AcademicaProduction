@@ -37,7 +37,7 @@
 
     <!-- the below three strings are auth ids of corresponding user type -->
     <string name="studentAuthID">STUDENT</string>
-    <string name="teacherAuthID">teacherAuth</string>
+    <string name="teacherAuthID">TEACHER</string>
 
     <!-- the below three strings are form fill up instructions of corresponding user type -->
     <string name="studentInstructions">

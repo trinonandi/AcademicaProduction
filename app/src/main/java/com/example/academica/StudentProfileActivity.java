@@ -3,20 +3,30 @@ package com.example.academica;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class StudentProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,7 +38,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
             personalisedResultID = R.id.Personalized_result,
             profilePageID = R.id.profile_page,logoutID = R.id.logout;
     private StudentRegDataHelper currentUserData;
-
+    private Dialog resetPwdDialog;
     private TextView nameTextView, emailTextView, univRollTextView, classRollTextView, semTextView, deptTextView;
 
     @Override
@@ -66,6 +76,10 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
 
         setDataInView(); // sets profile data
 
+        /* reset password dialogue box setup START */
+        resetPwdDialog = new Dialog(this);   // instantiates dialogue box
+        resetPwdDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);   // sets the background to transparent
+
     }
 
     @Override
@@ -81,7 +95,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case profilePageID:
-                Toast.makeText(getApplicationContext(),"profile page",Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case logoutID:
@@ -112,5 +125,48 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
         univRollTextView.setText(currentUserData.getUnivRoll());
         deptTextView.setText(currentUserData.getDept());
         classRollTextView.setText(currentUserData.getClassRoll());
+    }
+
+    public void updateProfile(View view){
+        Intent intent = new Intent(getApplicationContext(),StudentProfileUpdateActivity.class);
+        intent.putExtra("UserData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void resetPassword(View view){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        resetPwdDialog.setContentView(R.layout.reset_password_dialog);
+        TextInputLayout newPasswordLayout = resetPwdDialog.findViewById(R.id.reset_pwd_editText);
+        AppCompatButton reset = resetPwdDialog.findViewById(R.id.reset_password_reset_btn);
+        AppCompatButton close = resetPwdDialog.findViewById(R.id.reset_password_close_btn);
+
+        close.setOnClickListener(v -> {
+            resetPwdDialog.dismiss();    // closes the dialogue box
+        });
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pwd = Objects.requireNonNull(newPasswordLayout.getEditText()).getText().toString();
+                assert user != null;
+                user.updatePassword(pwd).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(StudentProfileActivity.this, "Password successfully updated", Toast.LENGTH_SHORT).show();
+                        resetPwdDialog.dismiss();
+                        mAuth.signOut();
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),Login.class));
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(StudentProfileActivity.this, "Failed to reset password", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        resetPwdDialog.show();
     }
 }

@@ -3,6 +3,7 @@ package com.example.academica;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -19,9 +20,18 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Objects;
 
 
 public class Login extends AppCompatActivity {
+    private static final String TAG = "Login Page";
     private TextInputLayout emailEditText, pwdEditText;
     private AppCompatTextView forgotPwdTextView;
     private FirebaseAuth mAuth;
@@ -61,8 +71,8 @@ public class Login extends AppCompatActivity {
 
 
     public void doSignIn(View view){
-        String email = emailEditText.getEditText().getText().toString().trim();
-        String pwd = pwdEditText.getEditText().getText().toString().trim();
+        String email = Objects.requireNonNull(emailEditText.getEditText()).getText().toString().trim();
+        String pwd = Objects.requireNonNull(pwdEditText.getEditText()).getText().toString().trim();
 
         if(!email.isEmpty() && !pwd.isEmpty()){
             if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
@@ -85,17 +95,44 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Incorrect UserID or Password", Toast.LENGTH_SHORT).show();
                     }
                     else if(emailVerificationStatus()){
-                        Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
-                        finish();
-                        Intent intent = new Intent(getApplicationContext(), StudentHomeActivity.class);
-                        startActivity(intent);
+                        String key = StudentRegDataHelper.generateKeyFromEmail(email);
+                        DatabaseReference accountData = FirebaseDatabase.getInstance().getReference("users").child(key).child("type");
+                        accountData.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String accountType = snapshot.getValue(String.class);
+                                Intent intent = new Intent(getApplicationContext(), StudentHomeActivity.class);
+                                assert accountType != null;
+                                switch (accountType) {
+                                    case "STUDENT":
+                                        intent = new Intent(getApplicationContext(), StudentHomeActivity.class);
+                                        break;
+                                    case "TEACHER":
+                                        intent = new Intent(getApplicationContext(), TeacherHomeActivity.class);
+                                        break;
+                                    case "ADMIN":
+                                        intent = new Intent(getApplicationContext(), AdminHomeActivity.class);
+                                        break;
+                                }
+                                finish();
+                                Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getApplicationContext(), "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
                     } else{
                         Toast.makeText(getApplicationContext(),"User not found", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-        emailEditText.getEditText().setText("");
-        pwdEditText.getEditText().setText("");
+        Objects.requireNonNull(emailEditText.getEditText()).setText("");
+        Objects.requireNonNull(pwdEditText.getEditText()).setText("");
     }
 
     private boolean emailVerificationStatus(){

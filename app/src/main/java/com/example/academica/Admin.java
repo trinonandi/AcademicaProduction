@@ -24,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Admin#newInstance} factory method to
@@ -104,9 +106,9 @@ public class Admin extends Fragment {
     }
     private void doRegistration(){
 
-        String name = AdminName.getEditText().toString();
-        String pwd = AdminPwd.getEditText().toString();
-        String email = AdminEmail.getEditText().toString();
+        String name = Objects.requireNonNull(AdminName.getEditText()).toString();
+        String pwd = Objects.requireNonNull(AdminPwd.getEditText()).toString();
+        String email = Objects.requireNonNull(AdminEmail.getEditText()).toString();
 
         Log.i(name, "name");
         if(!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()){

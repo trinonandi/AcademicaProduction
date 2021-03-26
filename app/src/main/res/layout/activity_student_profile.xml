@@ -271,7 +271,8 @@
                     app:strokeColor="@color/blue_accent_custom"
                     android:textAllCaps="false"
                     android:layout_marginEnd="10dp"
-                    app:rippleColor="@color/blue_ripple_custom"/>
+                    app:rippleColor="@color/blue_ripple_custom"
+                    android:onClick="resetPassword"/>
 
                 <com.google.android.material.button.MaterialButton
                     style="?attr/materialButtonOutlinedStyle"
@@ -287,6 +288,7 @@
                     app:strokeColor="@color/blue_accent_custom"
                     android:textAllCaps="false"
                     app:rippleColor="@color/blue_ripple_custom"
+                    android:onClick="updateProfile"
                     />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
