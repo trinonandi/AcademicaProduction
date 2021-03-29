@@ -59,10 +59,10 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
-        }
+//        if (mAuth.getCurrentUser() != null) {
+//            finish();
+//            startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+//        }
     }
 
     public void startRegActivity(View view) {

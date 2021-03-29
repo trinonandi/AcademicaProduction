@@ -3,7 +3,6 @@ package com.example.academica;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class TabPageAdapter extends FragmentStateAdapter {
@@ -12,11 +11,11 @@ public class TabPageAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new Student();
+                return new StudentRegistrationFragment();
             case 1:
-                return  new Teacher();
+                return  new TeacherRegistrationFragment();
             default:
-                return new Admin();
+                return new AdminRegistrationFragment();
 
         }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/CSE"
-        android:title="CSE1" />
+        android:title="CSE" />
 
     <item android:id="@+id/IT"
         android:title="IT" />
@@ -13,7 +13,7 @@
         android:title="ECE" />
 
     <item android:id="@+id/EE"
-        android:title="EE1" />
+        android:title="EE" />
 
     <item android:id="@+id/MCA"
         android:title="MCA" />

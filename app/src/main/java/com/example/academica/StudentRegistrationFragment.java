@@ -4,34 +4,20 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,10 +28,10 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Student#newInstance} factory method to
+ * Use the {@link StudentRegistrationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Student extends Fragment  {
+public class StudentRegistrationFragment extends Fragment  {
 
     private static final String TAG = "Student";
     private TextInputLayout studentName, studentEmail, studentPwd,studentUnivRoll,studentClassRoll,studentSem,studentAuthId;
@@ -67,7 +53,7 @@ public class Student extends Fragment  {
     private String mParam1;
     private String mParam2;
 
-    public Student() {
+    public StudentRegistrationFragment() {
         // Required empty public constructor
     }
 
@@ -80,8 +66,8 @@ public class Student extends Fragment  {
      * @return A new instance of fragment Student.
      */
     // TODO: Rename and change types and number of parameters
-    public static Student newInstance(String param1, String param2) {
-        Student fragment = new Student();
+    public static StudentRegistrationFragment newInstance(String param1, String param2) {
+        StudentRegistrationFragment fragment = new StudentRegistrationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

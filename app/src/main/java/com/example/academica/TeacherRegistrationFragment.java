@@ -3,26 +3,19 @@ package com.example.academica;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,10 +26,10 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Teacher#newInstance} factory method to
+ * Use the {@link TeacherRegistrationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Teacher extends Fragment {
+public class TeacherRegistrationFragment extends Fragment {
 
 
     private static final String TAG = "Teacher";
@@ -55,7 +48,7 @@ public class Teacher extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Teacher() {
+    public TeacherRegistrationFragment() {
         // Required empty public constructor
     }
 
@@ -68,8 +61,8 @@ public class Teacher extends Fragment {
      * @return A new instance of fragment Teacher.
      */
     // TODO: Rename and change types and number of parameters
-    public static Teacher newInstance(String param1, String param2) {
-        Teacher fragment = new Teacher();
+    public static TeacherRegistrationFragment newInstance(String param1, String param2) {
+        TeacherRegistrationFragment fragment = new TeacherRegistrationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

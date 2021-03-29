@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,10 +26,10 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Admin#newInstance} factory method to
+ * Use the {@link AdminRegistrationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Admin extends Fragment {
+public class AdminRegistrationFragment extends Fragment {
 
     private static final String TAG = "Admin";
     private TextInputLayout AdminName, AdminEmail, AdminPwd;
@@ -46,7 +44,7 @@ public class Admin extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Admin() {
+    public AdminRegistrationFragment() {
         // Required empty public constructor
     }
 
@@ -59,8 +57,8 @@ public class Admin extends Fragment {
      * @return A new instance of fragment Admin.
      */
     // TODO: Rename and change types and number of parameters
-    public static Admin newInstance(String param1, String param2) {
-        Admin fragment = new Admin();
+    public static AdminRegistrationFragment newInstance(String param1, String param2) {
+        AdminRegistrationFragment fragment = new AdminRegistrationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -110,12 +108,11 @@ public class Admin extends Fragment {
         String pwd = Objects.requireNonNull(AdminPwd.getEditText()).toString();
         String email = Objects.requireNonNull(AdminEmail.getEditText()).toString();
 
-        Log.i(name, "name");
         if(!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()){
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {   // email pattern checking
+//                Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
             if(pwd.length()<6){
                 Toast.makeText(getContext(), "Password length must be at least 6 digits", Toast.LENGTH_SHORT).show();

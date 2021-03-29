@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/CSE1"
+        android:title="1st" />
+    <item android:id="@+id/CSE2"
+        android:title="2nd" />
+    <item android:id="@+id/IT1"
+        android:title="3rd" />
+    <item android:id="@+id/IT2"
+        android:title="4th" />
+    <item android:id="@+id/ME1"
+        android:title="5th" />
+    <item android:id="@+id/ME2"
+        android:title="6th" />
+    <item android:id="@+id/ECE1"
+        android:title="7th" />
+    <item android:id="@+id/ECE2"
+        android:title="8th" />
+</menu>

@@ -13,10 +13,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +39,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     private DatabaseReference referenceDB;
     private StudentRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
-    private CardView cardView1;
+    private CardView attendanceCardView;
    // private TextView navUserName;
 
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
@@ -71,8 +69,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-        cardView1 = findViewById(R.id.student_home_cardView1);
-        cardView1.setOnClickListener(new View.OnClickListener() {
+        attendanceCardView = findViewById(R.id.student_home_cardView1);
+        attendanceCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAttendance(v);
