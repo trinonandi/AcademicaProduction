@@ -139,7 +139,7 @@ public class StudentRegistrationFragment extends Fragment  {
         String classRoll = Objects.requireNonNull(studentClassRoll.getEditText()).getText().toString().trim();
         String univRoll = Objects.requireNonNull(studentUnivRoll.getEditText()).getText().toString().trim();
         String sem = Objects.requireNonNull(studentSem.getEditText()).getText().toString().trim();
-        String sdept = studentdept.getText().toString();
+        String dept = studentdept.getText().toString().trim();
         String currentAuthId = Objects.requireNonNull(studentAuthId.getEditText()).getText().toString().trim();
 
 
@@ -175,7 +175,7 @@ public class StudentRegistrationFragment extends Fragment  {
                 rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
                 reference = rootNode.getReference(); // getting root reference of the DB
 
-                StudentRegDataHelper data = new StudentRegDataHelper(name,email,classRoll,univRoll,sem,sdept); // helper object to be passed in DB
+                StudentRegDataHelper data = new StudentRegDataHelper(name,email,classRoll,univRoll,sem,dept); // helper object to be passed in DB
 
                 String key = StudentRegDataHelper.generateKeyFromEmail(email);
 

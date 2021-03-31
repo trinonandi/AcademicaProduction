@@ -155,6 +155,8 @@
             </LinearLayout>
 
         </ScrollView>
+
+        <!-- Circular Progress Bar Code -->
         <RelativeLayout
             android:id="@+id/student_home_progressBar_layout"
             android:layout_width="match_parent"

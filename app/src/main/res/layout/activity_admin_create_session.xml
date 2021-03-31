@@ -19,16 +19,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/blue_accent_custom"
-                app:title="Create Session"
+                app:title="Create Students"
                 app:titleTextColor="@color/white"
                 />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -46,27 +48,28 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/open_sans"
                     android:text="@string/dept"
                     android:textColor="@color/blue_gray_custom"
-                    android:fontFamily="@font/open_sans"
-                    app:rippleColor="@color/blue_ripple_custom"
                     android:textStyle="bold"
-                    app:strokeColor="@color/blue_gray_custom"/>
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_gray_custom" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="180dp"
                     android:layout_height="50dp"
+                    android:fontFamily="@font/open_sans"
                     android:text="@string/sem"
                     android:textColor="@color/blue_gray_custom"
-                    android:fontFamily="@font/open_sans"
-                    app:rippleColor="@color/blue_ripple_custom"
                     android:textStyle="bold"
-                    app:strokeColor="@color/blue_gray_custom"/>
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_gray_custom" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -84,12 +87,13 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="35dp"
+                    android:fontFamily="@font/open_sans"
                     android:text="Close"
                     android:textColor="@color/blue_accent_custom"
-                    android:fontFamily="@font/open_sans"
-                    app:strokeColor="@color/blue_accent_custom"
+                    android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    android:textStyle="bold"/>
+                    app:strokeColor="@color/blue_accent_custom"
+                    android:onClick="closeWindow"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_addBtn"
@@ -97,38 +101,40 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="35dp"
+                    android:fontFamily="@font/open_sans"
+                    android:onClick="addItem"
                     android:text="Add"
                     android:textColor="@color/blue_accent_custom"
-                    android:fontFamily="@font/open_sans"
+                    android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    app:strokeColor="@color/blue_accent_custom"
-                    android:textStyle="bold"/>
+                    app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_submitBtn"
+                    android:id="@+id/admin_createSession_nextBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:text="Submit"
                     android:backgroundTint="@color/blue_accent_custom"
-                    android:textColor="@color/white"
                     android:fontFamily="@font/open_sans"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_accent_custom"
-                    android:textStyle="bold"/>
+                    android:onClick="openSubjectActivity"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/admin_createSession_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="140dp"
-                android:layout_marginBottom="90dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.1"/>
+                android:layout_height="500dp"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                tools:layout_editor_absoluteX="0dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout

@@ -63,14 +63,15 @@ public class StudentProfileUpdateActivity extends AppCompatActivity {
 
     public void cancel(View view){
         onBackPressed();
+        finish();
     }
 
     public void updateDate(View view){
-        String name = Objects.requireNonNull(nameLayout.getEditText()).getText().toString();
-        String univRoll = Objects.requireNonNull(univRollLayout.getEditText()).getText().toString();
-        String classRoll = Objects.requireNonNull(classRollLayout.getEditText()).getText().toString();
-        String sem = Objects.requireNonNull(semLayout.getEditText()).getText().toString();
-        String dept = deptButton.getText().toString();
+        String name = Objects.requireNonNull(nameLayout.getEditText()).getText().toString().trim();
+        String univRoll = Objects.requireNonNull(univRollLayout.getEditText()).getText().toString().trim();
+        String classRoll = Objects.requireNonNull(classRollLayout.getEditText()).getText().toString().trim();
+        String sem = Objects.requireNonNull(semLayout.getEditText()).getText().toString().trim();
+        String dept = deptButton.getText().toString().trim();
 
         currentUserData.setClassRoll(classRoll);
         currentUserData.setFullName(name);

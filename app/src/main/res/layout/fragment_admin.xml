@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TeacherRegistrationFragment">
+    tools:context=".AdminRegistrationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,6 +33,10 @@
             app:layout_constraintVertical_bias="0.09"
             android:layout_marginBottom="5dp"
 
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
+
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -55,11 +59,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.253"
-            app:placeholderText="@string/name">
+            app:placeholderText="@string/name"
+
+            app:endIconTint="@color/common_google_signin_btn_text_light_pressed"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +87,11 @@
             app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.41000003">
+            app:layout_constraintVertical_bias="0.41000003"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -85,6 +102,31 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/adminReg_authId_editText"
+
+            android:layout_width="159dp"
+            android:layout_height="84dp"
+            android:hint="@string/auth_id"
+            app:layout_constraintBottom_toTopOf="@+id/adminReg_reg_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.158"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adminReg_email_editText"
+            app:layout_constraintVertical_bias="0.387"
+            app:passwordToggleEnabled="true"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            android:textColorHint="@color/blue_gray_custom"
+            app:hintTextColor="@color/blue_gray_custom"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                tools:layout_editor_absoluteX="37dp"
+                tools:layout_editor_absoluteY="410dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/adminReg_reg_btn"
@@ -100,6 +142,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.831" />
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

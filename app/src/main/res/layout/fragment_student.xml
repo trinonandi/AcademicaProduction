@@ -219,6 +219,7 @@
                 android:textAlignment="textStart"
                 android:fontFamily="@font/open_sans"
                 app:rippleColor="@color/blue_ripple_custom"
+                app:strokeColor="@color/blue_gray_custom"
                  />
         </LinearLayout>
 

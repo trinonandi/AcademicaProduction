@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +23,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -32,9 +36,12 @@ import java.util.Objects;
 public class AdminRegistrationFragment extends Fragment {
 
     private static final String TAG = "Admin";
-    private TextInputLayout AdminName, AdminEmail, AdminPwd;
+    private TextInputLayout AdminName, AdminEmail, AdminPwd,AdminAuthId;
     private ExtendedFloatingActionButton AdminRegsterBtn;
     private FirebaseAuth mAuth;
+
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,6 +91,7 @@ public class AdminRegistrationFragment extends Fragment {
         AdminEmail = view.findViewById(R.id.adminReg_email_editText);
         AdminPwd = view.findViewById(R.id.adminReg_pwd_editText);
         AdminRegsterBtn = view.findViewById(R.id.adminReg_reg_btn);
+        AdminAuthId = view.findViewById(R.id.adminReg_authId_editText);
 
         if(AdminEmail == null){
             Log.d(TAG, "onCreate: null returned");
@@ -99,23 +107,30 @@ public class AdminRegistrationFragment extends Fragment {
         //FirebaseApp.initializeApp(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
         return view;
-         // Inflate the layout for this fragment
+        // Inflate the layout for this fragment
 
     }
     private void doRegistration(){
 
-        String name = Objects.requireNonNull(AdminName.getEditText()).toString();
-        String pwd = Objects.requireNonNull(AdminPwd.getEditText()).toString();
-        String email = Objects.requireNonNull(AdminEmail.getEditText()).toString();
+        String name = Objects.requireNonNull(AdminName.getEditText().getText()).toString();
+        String pwd = Objects.requireNonNull(AdminPwd.getEditText().getText()).toString();
+        String email = Objects.requireNonNull(AdminEmail.getEditText().getText()).toString();
+        String currentAuthId = Objects.requireNonNull(AdminAuthId.getEditText().getText()).toString();
 
-        if(!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()){
-//            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {   // email pattern checking
-//                Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
+        Log.i(name, "name");
+        if(!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty() && !currentAuthId.isEmpty()){
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if(pwd.length()<6){
                 Toast.makeText(getContext(), "Password length must be at least 6 digits", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String actualAuthId = getResources().getString(R.string.adminAuthID);
+            if(!currentAuthId.equals(actualAuthId)){    // auth id validity checking
+                Toast.makeText(getContext(), "Invalid Auth ID", Toast.LENGTH_SHORT).show();
                 return;
             }
         } else{
@@ -123,17 +138,25 @@ public class AdminRegistrationFragment extends Fragment {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    emailVerification();
-                } else if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                    Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
-                } else{
-                    Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                emailVerification();
+
+                // sending student data to firebase realtime database
+                rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
+                reference = rootNode.getReference(); // getting root reference of the DB
+
+                AdminRegDataHelper data = new AdminRegDataHelper(name, email); // helper object to be passed in DB
+
+                String key = AdminRegDataHelper.generateKeyFromEmail(email);
+
+                reference.child("users").child(key).setValue(data); // sending data to the proper child node under root->users->students
+
+
+            } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                Toast.makeText(getContext(), "User Already Registered", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -151,7 +174,7 @@ public class AdminRegistrationFragment extends Fragment {
 
                         Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
                         mAuth.signOut();
-                        startActivity(new Intent(getContext(),MainActivity.class));
+                        startActivity(new Intent(getContext(),Login.class));
                     }
                     else{
                         Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
