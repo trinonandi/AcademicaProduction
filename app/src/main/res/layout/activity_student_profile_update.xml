@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".StudentProfileUpdateActivity">
+    tools:context=".StudentProfileUpdateActivity"
+    android:padding="20dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/student_profile_update_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1"
-        android:hint="@string/name"
         app:boxStrokeColor="@color/blue_gray_custom"
         android:textColorHint="@color/blue_gray_custom"
         app:hintTextColor="@color/blue_gray_custom"
@@ -29,13 +29,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/blue_gray_custom"
-            android:fontFamily="@font/open_sans"/>
+            android:fontFamily="@font/open_sans"
+            android:hint="@string/name"/>
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/student_profile_update_univRoll"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +62,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/student_profile_update_classRoll"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,7 +87,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/student_profile_update_sem"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -110,7 +112,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/student_profile_update_dept"
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,20 +124,22 @@
         android:textSize="16sp"
         android:textAllCaps="false"
         android:textColor="@color/blue_gray_custom"
+        app:strokeColor="@color/blue_gray_custom"
         android:textAlignment="textStart"
         android:fontFamily="@font/open_sans"
         app:rippleColor="@color/blue_ripple_custom"
         />
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9">
+        app:layout_constraintVertical_bias="0.9"
+        android:gravity="center">
 
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
@@ -148,7 +152,7 @@
             android:fontFamily="@font/open_sans"
             app:strokeColor="@color/blue_accent_custom"
             android:textAllCaps="false"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             app:rippleColor="@color/blue_ripple_custom"
             android:onClick="cancel"
             android:textStyle="bold"

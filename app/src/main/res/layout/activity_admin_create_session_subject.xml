@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/blue_accent_custom"
-                app:title="Create Students"
+                app:title="Create Subjects"
                 app:titleTextColor="@color/white"
                 />
         </com.google.android.material.appbar.AppBarLayout>
@@ -41,7 +41,7 @@
                 >
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_deptBtn"
+                    android:id="@+id/admin_createSessionSubject_deptBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="170dp"
                     android:layout_height="50dp"
@@ -54,7 +54,7 @@
                     app:strokeColor="@color/blue_gray_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_semBtn"
+                    android:id="@+id/admin_createSessionSubject_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="170dp"
                     android:layout_height="50dp"
@@ -77,50 +77,51 @@
                 >
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_closeBtn"
+                    android:id="@+id/admin_createSessionSubject_backBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/open_sans"
-                    android:text="Close"
+                    android:text="Back"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_accent_custom"
-                    android:onClick="closeWindow"/>
+                    />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_addBtn"
+                    android:id="@+id/admin_createSessionSubject_addBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/open_sans"
-                    android:onClick="addItem"
                     android:text="Add"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    app:strokeColor="@color/blue_accent_custom" />
+                    app:strokeColor="@color/blue_accent_custom"
+                    android:onClick="addSubject"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_nextBtn"
+                    android:id="@+id/admin_createSessionSubject_submitBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:backgroundTint="@color/blue_accent_custom"
                     android:fontFamily="@font/open_sans"
-                    android:text="Next"
+                    android:text="Submit"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_accent_custom"
-                    android:onClick="openSubjectActivity"/>
+                    android:onClick="submitAllData"
+                    />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/admin_createSession_recyclerView"
+                android:id="@+id/admin_createSessionSubject_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"

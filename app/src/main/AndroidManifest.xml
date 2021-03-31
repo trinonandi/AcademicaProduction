@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Academica">
-        <activity android:name=".AdminCreateSessionActivity"></activity>
+        <activity android:name=".AdminCreateSessionSubjectActivity"></activity>
+        <activity android:name=".AdminCreateSessionStudentActivity" />
         <activity android:name=".AdminHomeActivity" />
         <activity android:name=".TeacherHomeActivity" />
         <activity android:name=".StudentProfileUpdateActivity" />

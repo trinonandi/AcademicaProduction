@@ -19,6 +19,8 @@
     <string name="dept">Department</string>
     <string name="auth_id">Auth ID</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="subject_code">Subject Code</string>
+    <string name="subject_name">Subject Name</string>
 
     <!-- the below three strings are auth ids of corresponding user type -->
     <string name="studentAuthID">STUDENT</string>
