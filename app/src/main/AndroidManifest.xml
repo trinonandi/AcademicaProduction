@@ -11,16 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Academica">
-        <activity android:name=".AdminCreateSessionSubjectActivity"></activity>
-        <activity android:name=".AdminCreateSessionStudentActivity" />
-        <activity android:name=".AdminHomeActivity" />
-        <activity android:name=".TeacherHomeActivity" />
-        <activity android:name=".StudentProfileUpdateActivity" />
-        <activity android:name=".StudentProfileActivity" />
+        <activity android:name=".Admin.AdminCreateSessionSubjectActivity"></activity>
+        <activity android:name=".Admin.AdminCreateSessionStudentActivity" />
+        <activity android:name=".Admin.AdminHomeActivity" />
+        <activity android:name=".Teacher.TeacherHomeActivity" />
+        <activity android:name=".Student.StudentProfileUpdateActivity" />
+        <activity android:name=".Student.StudentProfileActivity" />
         <activity android:name=".Login" />
-        <activity android:name=".StudentAttendanceActivity" />
-        <activity android:name=".StudentHomeActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".Student.StudentAttendanceActivity" />
+        <activity android:name=".Student.StudentHomeActivity" />
+        <activity android:name=".Registration.RegistrationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

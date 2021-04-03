@@ -3,21 +3,28 @@ package com.example.academica;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.academica.Admin.AdminHomeActivity;
+import com.example.academica.Registration.RegistrationActivity;
+import com.example.academica.Student.StudentHomeActivity;
+import com.example.academica.Student.StudentRegDataHelper;
+import com.example.academica.Teacher.TeacherHomeActivity;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +33,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
 import java.util.Objects;
 
 
@@ -36,6 +42,12 @@ public class Login extends AppCompatActivity {
     private AppCompatTextView forgotPwdTextView;
     private FirebaseAuth mAuth;
     private Dialog forgotPwdDialogue;   // forgot password dialogue box reference
+
+    private CardView linearProgressIndicator;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +66,10 @@ public class Login extends AppCompatActivity {
             openForgetPwdDialogue(); // private method defined below
         });
         /* forgot password dialogue box setup END */
+
+        linearProgressIndicator = findViewById(R.id.login_progressbar);
+
+
     }
 
     @Override
@@ -91,10 +107,16 @@ public class Login extends AppCompatActivity {
 
         mAuth.signInWithEmailAndPassword(email,pwd)
                 .addOnCompleteListener(task -> {
+
+
+//                    circularProgressIndicator = findViewById(R.id.login_progressbar_circle);
+
+//                    circularProgressIndicator.setVisibility(View.VISIBLE);
                     if(mAuth.getCurrentUser() == null){
                         Toast.makeText(getApplicationContext(), "Incorrect UserID or Password", Toast.LENGTH_SHORT).show();
                     }
                     else if(emailVerificationStatus()){
+
                         String key = StudentRegDataHelper.generateKeyFromEmail(email);
                         DatabaseReference accountData = FirebaseDatabase.getInstance().getReference("users").child(key).child("type");
                         accountData.addValueEventListener(new ValueEventListener() {
@@ -117,6 +139,8 @@ public class Login extends AppCompatActivity {
                                 finish();
                                 Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
+
+
                             }
 
                             @Override
@@ -129,8 +153,11 @@ public class Login extends AppCompatActivity {
                     } else{
                         Toast.makeText(getApplicationContext(),"User not found", Toast.LENGTH_SHORT).show();
                     }
+
+//                    circularProgressIndicator.setVisibility(View.GONE);
                 });
 
+        linearProgressIndicator.setVisibility(View.GONE);
         Objects.requireNonNull(emailEditText.getEditText()).setText("");
         Objects.requireNonNull(pwdEditText.getEditText()).setText("");
     }
@@ -138,6 +165,7 @@ public class Login extends AppCompatActivity {
     private boolean emailVerificationStatus(){
         boolean flag = false;
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        linearProgressIndicator.setVisibility(View.VISIBLE);
         if(firebaseUser == null){
             return false;
         }

@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -8,17 +8,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -99,7 +99,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
                 break;
             case logoutID:
                 mAuth.signOut();
-                startActivity(new Intent(StudentProfileActivity.this,Login.class));
+                startActivity(new Intent(StudentProfileActivity.this, Login.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }

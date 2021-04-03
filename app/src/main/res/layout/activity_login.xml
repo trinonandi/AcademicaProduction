@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/vector_background"
     android:padding="0dp"
+    android:rotationY="0"
     tools:context=".MainActivity">
 
+
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="350dp"
         android:layout_height="145dp"
         android:contentDescription="@string/logo"
@@ -20,7 +23,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.071" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="350dp"
         android:layout_height="450dp"
         android:background="@drawable/shadow_card"
@@ -34,66 +39,68 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_email_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:autofillHints="@string/email"
             android:backgroundTint="@color/blue_gray_custom"
             android:drawableStart="@drawable/ic_baseline_email_24"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/open_sans"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:textColor="@color/blue_gray_custom"
             android:textColorHint="@color/blue_gray_custom"
-            app:boxStrokeColor="@color/blue_gray_custom"
-            app:hintTextColor="@color/blue_gray_custom"
             android:textSize="20sp"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/clear_text"
+            app:hintTextColor="@color/blue_gray_custom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.25"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:startIconDrawable="@drawable/ic_baseline_email_24"
-            >
+            app:startIconDrawable="@drawable/ic_baseline_email_24">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/blue_gray_custom"/>
+                android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_pwd_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:autofillHints="@string/password"
             android:backgroundTint="@color/blue_gray_custom"
             android:drawableStart="@drawable/ic_baseline_vpn_key_24"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/open_sans"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textColorHint="@color/blue_gray_custom"
-            app:boxStrokeColor="@color/blue_gray_custom"
-            app:hintTextColor="@color/blue_gray_custom"
             android:textSize="20sp"
+            app:boxStrokeColor="@color/blue_gray_custom"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/blue_gray_custom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"
 
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
+            app:startIconDrawable="@drawable/ic_baseline_vpn_key_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:fontFamily="@font/open_sans"
-                android:textColor="@color/blue_gray_custom"
+
+
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +111,8 @@
             android:background="@color/white"
             android:clickable="true"
             android:focusable="true"
-            android:fontFamily="@font/open_sans"
+
+            android:fontFamily="@font/bubblegum_sans"
             android:text="@string/forgetPwd"
             android:textAllCaps="false"
             android:textColor="#009EFD"
@@ -118,9 +126,10 @@
             app:layout_constraintVertical_bias="0.61" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:fontFamily="@font/bubblegum_sans"
             android:text="@string/sign_in"
             android:textColor="@color/blue_gray_custom"
             android:textSize="38sp"
@@ -149,6 +158,44 @@
             app:layout_constraintVertical_bias="0.847"
             app:rippleColor="@color/blue_ripple_custom"
             app:tint="@color/white" />
+
+        <androidx.cardview.widget.CardView
+            app:cardElevation="7dp"
+            app:cardCornerRadius="30dp"
+            android:outlineSpotShadowColor="@color/blue_accent_custom"
+            android:visibility="gone"
+            android:id="@+id/login_progressbar"
+            android:layout_width="316dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_email_editText">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_margin="20dp"
+                android:layout_width="200dp"
+                android:layout_height="61dp"
+                android:layout_gravity="center_vertical"
+                android:indeterminate="true"
+                app:indicatorColor="@color/red"
+                android:indeterminateBehavior="repeat"
+
+                />
+
+            <TextView
+                android:layout_width="198dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/wait_info"
+                android:textSize="30dp" />
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton

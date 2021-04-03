@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -81,7 +83,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
     public void doLogout(){
         mAuth.signOut();
         finish();
-        startActivity(new Intent(getApplicationContext(),Login.class));
+        startActivity(new Intent(getApplicationContext(), Login.class));
     }
 
     public void showProfile(){

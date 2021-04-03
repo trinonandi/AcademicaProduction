@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Teacher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -12,14 +12,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
+import com.example.academica.Student.StudentAttendanceActivity;
+import com.example.academica.Student.StudentRegDataHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -90,7 +92,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
     public void doLogout(){
         mAuth.signOut();
         finish();
-        startActivity(new Intent(getApplicationContext(),Login.class));
+        startActivity(new Intent(getApplicationContext(), Login.class));
     }
 
     private void showAttendance(View view){

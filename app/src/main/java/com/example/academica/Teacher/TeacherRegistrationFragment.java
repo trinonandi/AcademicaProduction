@@ -1,5 +1,6 @@
-package com.example.academica;
+package com.example.academica.Teacher;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,8 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +44,7 @@ public class TeacherRegistrationFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
+    private MaterialTextView teacherInstructions;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -95,6 +101,26 @@ public class TeacherRegistrationFragment extends Fragment {
             Log.d(TAG, "onCreate: null returned");
         }
 
+        //reg instruction
+        teacherInstructions = view.findViewById(R.id.reg_instruction);
+        teacherInstructions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialAlertDialogBuilder instruction_dialog = new MaterialAlertDialogBuilder(getContext());
+                instruction_dialog.setTitle("Instruction");
+                instruction_dialog.setMessage(getString(R.string.instruction_dialog));
+                instruction_dialog.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                instruction_dialog.show();
+
+
+            }
+        });
 
         teacherRegBtn.setOnClickListener(v -> doRegistration());
 

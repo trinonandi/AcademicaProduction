@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Student;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -88,7 +90,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     public void doLogout(){
         mAuth.signOut();
         finish();
-        startActivity(new Intent(getApplicationContext(),Login.class));
+        startActivity(new Intent(getApplicationContext(), Login.class));
     }
 
     public void showProfile(){

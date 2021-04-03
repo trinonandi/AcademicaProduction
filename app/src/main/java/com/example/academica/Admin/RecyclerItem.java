@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Admin;
 
 public class RecyclerItem {
     private String key;
