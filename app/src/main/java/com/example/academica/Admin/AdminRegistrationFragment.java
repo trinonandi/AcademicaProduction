@@ -1,9 +1,10 @@
-package com.example.academica;
+package com.example.academica.Admin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.PopupMenu;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -11,11 +12,16 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,29 +32,27 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TeacherRegistrationFragment#newInstance} factory method to
+ * Use the {@link AdminRegistrationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TeacherRegistrationFragment extends Fragment {
+public class AdminRegistrationFragment extends Fragment {
 
-
-    private static final String TAG = "Teacher";
-    private TextInputLayout teacherName, teacherEmail, teacherPwd, teacherAuthID;
-    private ExtendedFloatingActionButton teacherRegBtn;
-    private Button teacherDeptBtn;
+    private static final String TAG = "Admin";
+    private TextInputLayout AdminName, AdminEmail, AdminPwd,AdminAuthId;
+    private ExtendedFloatingActionButton AdminRegsterBtn;
     private FirebaseAuth mAuth;
+
+    private MaterialTextView adminInstructions;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public TeacherRegistrationFragment() {
+    public AdminRegistrationFragment() {
         // Required empty public constructor
     }
 
@@ -58,11 +62,10 @@ public class TeacherRegistrationFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Teacher.
+     * @return A new instance of fragment Admin.
      */
-    // TODO: Rename and change types and number of parameters
-    public static TeacherRegistrationFragment newInstance(String param1, String param2) {
-        TeacherRegistrationFragment fragment = new TeacherRegistrationFragment();
+    public static AdminRegistrationFragment newInstance(String param1, String param2) {
+        AdminRegistrationFragment fragment = new AdminRegistrationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -82,69 +85,73 @@ public class TeacherRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_admin, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_teacher, container, false);
-        teacherName = view.findViewById(R.id.teacherReg_name_editText);
-        teacherEmail = view.findViewById(R.id.teacherReg_email_editText);
-        teacherPwd = view.findViewById(R.id.teacherReg_pwd_editText);
-        teacherRegBtn = view.findViewById(R.id.teacherReg_reg_btn);
-        teacherDeptBtn = view.findViewById(R.id.teacherReg_dep);
-        teacherAuthID= view.findViewById(R.id.teacherReg_authId_editText);
+        AdminName = view.findViewById(R.id.adminReg_name_editText);
+        AdminEmail = view.findViewById(R.id.adminReg_email_editText);
+        AdminPwd = view.findViewById(R.id.adminReg_pwd_editText);
+        AdminRegsterBtn = view.findViewById(R.id.adminReg_reg_btn);
+        AdminAuthId = view.findViewById(R.id.adminReg_authId_editText);
 
-        if (teacherEmail == null) {
+        //Admin reg instruction
+        adminInstructions = view.findViewById(R.id.reg_instruction);
+
+
+
+
+
+        adminInstructions.setOnClickListener(v -> {
+            MaterialAlertDialogBuilder instruction_dialog = new MaterialAlertDialogBuilder(getContext());
+            instruction_dialog.setTitle("Instruction");
+            instruction_dialog.setMessage(getString(R.string.instruction_dialog));
+
+            instruction_dialog.setPositiveButton("OkAY", (dialog, which) -> {
+
+            });
+            instruction_dialog.show();
+
+
+        });
+        if(AdminEmail == null){
             Log.d(TAG, "onCreate: null returned");
         }
 
+        AdminRegsterBtn.setOnClickListener(v -> doRegistration());
 
-        teacherRegBtn.setOnClickListener(v -> doRegistration());
-
-        teacherDeptBtn.setOnClickListener(v -> {
-            PopupMenu dept = new PopupMenu(Objects.requireNonNull(getContext()), teacherDeptBtn);
-            dept.getMenuInflater().inflate(R.menu.teacher_dept, dept.getMenu());
-            dept.setOnMenuItemClickListener(item -> {
-                teacherDeptBtn.setText(item.getTitle());
-                return true;
-            });
-            dept.show();
-        });
         //FirebaseApp.initializeApp(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
-
+        return view;
         // Inflate the layout for this fragment
 
-
-        return view;
     }
+    private void doRegistration(){
 
-    private void doRegistration() {
-        String name = Objects.requireNonNull(teacherName.getEditText()).getText().toString().trim();
-        String pwd = Objects.requireNonNull(teacherPwd.getEditText()).getText().toString().trim();
-        String email = Objects.requireNonNull(teacherEmail.getEditText()).getText().toString().trim();
-        String teacherDep = teacherDeptBtn.getText().toString().trim();
-        String currentAuthId = Objects.requireNonNull(teacherAuthID.getEditText()).getText().toString().trim();
+        String name = Objects.requireNonNull(AdminName.getEditText().getText()).toString();
+        String pwd = Objects.requireNonNull(AdminPwd.getEditText().getText()).toString();
+        String email = Objects.requireNonNull(AdminEmail.getEditText().getText()).toString();
+        String currentAuthId = Objects.requireNonNull(AdminAuthId.getEditText().getText()).toString();
 
-        if (!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty()  && !currentAuthId.isEmpty()) {
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {   // email pattern checking
+        Log.i(name, "name");
+        if(!name.isEmpty() && !pwd.isEmpty() && !email.isEmpty() && !currentAuthId.isEmpty()){
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                 Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (pwd.length() < 6) { // password must be >=6 char checking
+            if(pwd.length()<6){
                 Toast.makeText(getContext(), "Password length must be at least 6 digits", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            String actualAuthId = getResources().getString(R.string.teacherAuthID); // retrieves the actual authId from strings.xml
-            if (!currentAuthId.equals(actualAuthId)) {    // auth id validity checking
+            String actualAuthId = getResources().getString(R.string.adminAuthID);
+            if(!currentAuthId.equals(actualAuthId)){    // auth id validity checking
                 Toast.makeText(getContext(), "Invalid Auth ID", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-        } else {
+        } else{
             Toast.makeText(getContext(), "Empty fields", Toast.LENGTH_SHORT).show();
             return;
-
         }
+
         mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 emailVerification();
@@ -153,9 +160,9 @@ public class TeacherRegistrationFragment extends Fragment {
                 rootNode = FirebaseDatabase.getInstance(); // getting root instance of DB
                 reference = rootNode.getReference(); // getting root reference of the DB
 
-                TeacherRegDataHelper data = new TeacherRegDataHelper(name, email, teacherDep); // helper object to be passed in DB
+                AdminRegDataHelper data = new AdminRegDataHelper(name, email); // helper object to be passed in DB
 
-                String key = TeacherRegDataHelper.generateKeyFromEmail(email);
+                String key = AdminRegDataHelper.generateKeyFromEmail(email);
 
                 reference.child("users").child(key).setValue(data); // sending data to the proper child node under root->users->students
 
@@ -167,19 +174,22 @@ public class TeacherRegistrationFragment extends Fragment {
             }
         });
 
+
     }
 
-    private void emailVerification() {
-        final FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        if (firebaseUser != null) {
+    private void emailVerification(){
+        final FirebaseUser firebaseUser=mAuth.getCurrentUser();
+        if(firebaseUser!=null)
+        {
             firebaseUser.sendEmailVerification().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
+                if(task.isSuccessful()){
 
-                    Toast.makeText(getContext(), "Registration Successful,Verify Email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
                     mAuth.signOut();
                     startActivity(new Intent(getContext(), Login.class));
-                } else {
-                    Toast.makeText(getContext(), "Verification Email Cannot Be Sent", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
 
                 }
             });

@@ -25,6 +25,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
+            android:scrollbars="vertical"
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,19 +34,20 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
-                android:layout_width="wrap_content"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="70dp"
                 android:layout_gravity="center"
-                >
+                android:gravity="center"
+                android:layout_marginTop="70dp"
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_deptBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="170dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+
                     android:fontFamily="@font/open_sans"
                     android:text="@string/dept"
                     android:textColor="@color/blue_gray_custom"
@@ -56,9 +58,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="170dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="155dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
                     android:fontFamily="@font/open_sans"
                     android:text="@string/sem"
                     android:textColor="@color/blue_gray_custom"
@@ -69,33 +71,33 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="wrap_content"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
-                >
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_closeBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="110dp"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_margin="5dp"
                     android:fontFamily="@font/open_sans"
+                    android:onClick="closeWindow"
                     android:text="Close"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    app:strokeColor="@color/blue_accent_custom"
-                    android:onClick="closeWindow"/>
+                    app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_addBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="110dp"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_margin="5dp"
                     android:fontFamily="@font/open_sans"
                     android:onClick="addItem"
                     android:text="Add"
@@ -105,18 +107,19 @@
                     app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_nextBtn"
+                    android:id="@+id/admin_createSession_submitBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
                     android:backgroundTint="@color/blue_accent_custom"
                     android:fontFamily="@font/open_sans"
-                    android:text="Next"
+                    android:onClick="createStudentSession"
+                    android:text="Submit"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    app:strokeColor="@color/blue_accent_custom"
-                    android:onClick="openSubjectActivity"/>
+                    app:strokeColor="@color/blue_accent_custom" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -124,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:scrollbars="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout3"

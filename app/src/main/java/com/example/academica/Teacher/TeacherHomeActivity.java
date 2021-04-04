@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Teacher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -10,7 +10,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,6 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
+import com.example.academica.Student.StudentAttendanceActivity;
+import com.example.academica.Student.StudentRegDataHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,18 +32,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class StudentHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TeacherHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "StudentHomeActivity";
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase rootNode;
     private DatabaseReference referenceDB;
     private StudentRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
-    private CardView attendanceCardView;
-   // private TextView navUserName;
+    private CardView cardView1;
+    // private TextView navUserName;
 
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
 
@@ -48,14 +52,14 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_home);
+        setContentView(R.layout.activity_teacher_home);
 
-        progressBarLayout = findViewById(R.id.student_home_progressBar_layout);
+        progressBarLayout = findViewById(R.id.teacher_home_progressBar_layout);
 
         mAuth = FirebaseAuth.getInstance();
-        toolbar=findViewById(R.id.student_main_drawer);
-        drawerLayout = findViewById(R.id.student_drawer_layout);
-        navigationView  = findViewById(R.id.student_Nav_menu);
+        toolbar = findViewById(R.id.teacher_main_drawer);
+        drawerLayout = findViewById(R.id.teacher_drawer_layout);
+        navigationView  = findViewById(R.id.teacher_Nav_menu);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,
@@ -69,13 +73,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-        attendanceCardView = findViewById(R.id.student_home_cardView1);
-        attendanceCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAttendance(v);
-            }
-        });
+        cardView1 = findViewById(R.id.teacher_home_cardView1);
+        cardView1.setOnClickListener(this::showAttendance);
 
     }
 
@@ -88,13 +87,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     public void doLogout(){
         mAuth.signOut();
         finish();
-        startActivity(new Intent(getApplicationContext(),Login.class));
-    }
-
-    public void showProfile(){
-        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
-        intent.putExtra("UserData", currentUserData);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), Login.class));
     }
 
     private void showAttendance(View view){
@@ -107,7 +100,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case idProfilePage:
-                showProfile();
+                Toast.makeText(this,"profile page",Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case idLogOut:
@@ -125,7 +118,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         // getting user data from firebase
         String dbKey = StudentRegDataHelper.generateKeyFromEmail(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()));    // generates firebase user key
-        referenceDB = FirebaseDatabase.getInstance().getReference("users").child(dbKey);
+        rootNode = FirebaseDatabase.getInstance();
+        referenceDB = rootNode.getReference("users").child(dbKey);
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -142,7 +136,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(StudentHomeActivity.this, "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TeacherHomeActivity.this, "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -152,9 +146,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
         TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
-        navHeaderUserName.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderUserName.setText(currentUserData.getFullName());
-        navHeaderEmail.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderEmail.setText(currentUserData.getEmail());
 
     }

@@ -41,11 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         lottieAnimationView= findViewById(R.id.splash_intro);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(MainActivity.this,Login.class));
-            }
+        new Handler().postDelayed(() -> {
+            startActivity(new Intent(MainActivity.this,Login.class));
+            finish();
         },5000);
     }
 }

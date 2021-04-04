@@ -1,10 +1,9 @@
-package com.example.academica;
+package com.example.academica.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.academica.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -81,19 +80,11 @@ public class StudentProfileUpdateActivity extends AppCompatActivity {
 
         String key = StudentRegDataHelper.generateKeyFromEmail(currentUserData.getEmail());
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        databaseReference.child(key).setValue(currentUserData).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(StudentProfileUpdateActivity.this, "Profile updated successfully", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
-                intent.putExtra("UserData", currentUserData);
-                startActivity(intent);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(StudentProfileUpdateActivity.this, "Cannot update profile", Toast.LENGTH_SHORT).show();
-            }
-        });
+        databaseReference.child(key).setValue(currentUserData).addOnSuccessListener(aVoid -> {
+            Toast.makeText(StudentProfileUpdateActivity.this, "Profile updated successfully", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
+            intent.putExtra("UserData", currentUserData);
+            startActivity(intent);
+        }).addOnFailureListener(e -> Toast.makeText(StudentProfileUpdateActivity.this, "Cannot update profile", Toast.LENGTH_SHORT).show());
     }
 }

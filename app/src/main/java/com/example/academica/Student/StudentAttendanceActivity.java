@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -10,12 +10,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.android.material.navigation.NavigationView;
@@ -78,7 +79,7 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
                 break;
             case logoutID:
                 mAuth.signOut();
-                startActivity(new Intent(StudentAttendanceActivity.this,Login.class));
+                startActivity(new Intent(StudentAttendanceActivity.this, Login.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }

@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Student;
 
 import java.io.Serializable;
 

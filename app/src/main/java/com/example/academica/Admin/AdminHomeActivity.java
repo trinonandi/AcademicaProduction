@@ -1,7 +1,6 @@
-package com.example.academica;
+package com.example.academica.Admin;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,16 +9,19 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.AdminUpdateSessionStudentActivity;
+import com.example.academica.Login;
+import com.example.academica.R;
+import com.example.academica.Student.StudentHomeActivity;
+import com.example.academica.Student.StudentRegDataHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,34 +32,27 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class TeacherHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "StudentHomeActivity";
-
+public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase rootNode;
-    private DatabaseReference referenceDB;
-    private StudentRegDataHelper currentUserData;
-    private RelativeLayout progressBarLayout;
-    private CardView cardView1;
-    // private TextView navUserName;
-
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private FirebaseAuth mAuth;
+    private DatabaseReference referenceDB;
+    private RelativeLayout progressBarLayout;
+    private AdminRegDataHelper currentUserData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_home);
+        setContentView(R.layout.activity_admin_home);
 
-        progressBarLayout = findViewById(R.id.teacher_home_progressBar_layout);
 
+        progressBarLayout = findViewById(R.id.admin_home_progressBar_layout);
         mAuth = FirebaseAuth.getInstance();
-        toolbar = findViewById(R.id.teacher_main_drawer);
-        drawerLayout = findViewById(R.id.teacher_drawer_layout);
-        navigationView  = findViewById(R.id.teacher_Nav_menu);
+        toolbar=findViewById(R.id.student_main_drawer);
+        drawerLayout = findViewById(R.id.student_drawer_layout);
+        navigationView  = findViewById(R.id.student_Nav_menu);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,
@@ -71,48 +66,56 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-        cardView1 = findViewById(R.id.teacher_home_cardView1);
-        cardView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAttendance(v);
-            }
+        // adding onClickListeners to the CardViews
+        createStudentsCard = findViewById(R.id.admin_home_createStudents_cardView);
+        createSubjectsCard = findViewById(R.id.admin_home_createSubjects_cardView);
+        updateStudentsCard = findViewById(R.id.admin_home_updateStudents_cardView);
+        createStudentsCard.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
+        createSubjectsCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AdminCreateSessionSubjectActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
+        updateStudentsCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionStudentActivity.class);
+            startActivity(intent);
         });
 
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
-
-
-    public void doLogout(){
-        mAuth.signOut();
-        finish();
-        startActivity(new Intent(getApplicationContext(),Login.class));
-    }
-
-    private void showAttendance(View view){
-        Intent intent = new Intent(getApplicationContext(), StudentAttendanceActivity.class);
-        intent.putExtra("UserData", currentUserData);
-        startActivity(intent);
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case idProfilePage:
-                Toast.makeText(this,"profile page",Toast.LENGTH_LONG).show();
+                showProfile();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case idLogOut:
                 drawerLayout.closeDrawer(GravityCompat.START);
                 doLogout();
+                finish();
                 break;
 
         }
         return true;
+    }
+
+    public void doLogout(){
+        mAuth.signOut();
+        finish();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+    }
+
+    public void showProfile(){
+//        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
+//        intent.putExtra("UserData", currentUserData);
+//        startActivity(intent);
+        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
     }
 
     private void fetchUserData(){ // method to fetch data from firebase
@@ -121,12 +124,11 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
         // getting user data from firebase
         String dbKey = StudentRegDataHelper.generateKeyFromEmail(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()));    // generates firebase user key
-        rootNode = FirebaseDatabase.getInstance();
-        referenceDB = rootNode.getReference("users").child(dbKey);
+        referenceDB = FirebaseDatabase.getInstance().getReference("users").child(dbKey);
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                currentUserData = snapshot.getValue(StudentRegDataHelper.class);    // user data object instantiated
+                currentUserData = snapshot.getValue(AdminRegDataHelper.class);    // user data object instantiated
                 if(currentUserData == null){
                     progressBarLayout.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "No data found corresponding to this user", Toast.LENGTH_LONG).show();
@@ -139,18 +141,20 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(TeacherHomeActivity.this, "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
     private void setNavData(){  // method to set user data in the navigationView
         // getting the navigation element's references
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
         TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        navHeaderUserName.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderUserName.setText(currentUserData.getFullName());
+        navHeaderEmail.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderEmail.setText(currentUserData.getEmail());
 
     }
+
 }

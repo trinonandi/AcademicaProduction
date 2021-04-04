@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -8,17 +8,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -99,7 +99,8 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
                 break;
             case logoutID:
                 mAuth.signOut();
-                startActivity(new Intent(StudentProfileActivity.this,Login.class));
+                finish();
+                startActivity(new Intent(StudentProfileActivity.this, Login.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
         }
@@ -118,7 +119,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
 
     }
 
-    private void setDataInView(){
+    private void setDataInView(){   // method to set profile data
         nameTextView.setText(currentUserData.getFullName());
         emailTextView.setText(currentUserData.getEmail());
         semTextView.setText(currentUserData.getSem());
@@ -144,27 +145,16 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
         close.setOnClickListener(v -> {
             resetPwdDialog.dismiss();    // closes the dialogue box
         });
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String pwd = Objects.requireNonNull(newPasswordLayout.getEditText()).getText().toString();
-                assert user != null;
-                user.updatePassword(pwd).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(StudentProfileActivity.this, "Password successfully updated", Toast.LENGTH_SHORT).show();
-                        resetPwdDialog.dismiss();
-                        mAuth.signOut();
-                        finish();
-                        startActivity(new Intent(getApplicationContext(),Login.class));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(StudentProfileActivity.this, "Failed to reset password", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+        reset.setOnClickListener(v -> {
+            String pwd = Objects.requireNonNull(newPasswordLayout.getEditText()).getText().toString();
+            assert user != null;
+            user.updatePassword(pwd).addOnSuccessListener(aVoid -> {
+                Toast.makeText(StudentProfileActivity.this, "Password successfully updated", Toast.LENGTH_SHORT).show();
+                resetPwdDialog.dismiss();
+                mAuth.signOut();
+                finish();
+                startActivity(new Intent(getApplicationContext(),Login.class));
+            }).addOnFailureListener(e -> Toast.makeText(StudentProfileActivity.this, "Failed to reset password", Toast.LENGTH_SHORT).show());
         });
 
         resetPwdDialog.show();
