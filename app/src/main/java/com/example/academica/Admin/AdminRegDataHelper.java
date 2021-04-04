@@ -1,21 +1,21 @@
-package com.example.academica;
+package com.example.academica.Admin;
 
 import java.io.Serializable;
 
-public class TeacherRegDataHelper implements Serializable {
+public class AdminRegDataHelper implements Serializable {
     // a helper class to fetch student user data from firebase database
-    String fullName, email,  dept,type;
+    String fullName, email, type;
 
-    public TeacherRegDataHelper(){
+    public AdminRegDataHelper(){
         // this is mandatory for firebase passing
     }
 
-    public TeacherRegDataHelper(String fullName, String email,  String dept){
+    public AdminRegDataHelper(String fullName, String email){
         this.fullName = fullName;
         this.email = email;
 
-        this.dept = dept;
-        this.type="TEACHER";
+
+        this.type="ADMIN";
     }
 
     public static String generateKeyFromEmail(String email){
@@ -29,9 +29,7 @@ public class TeacherRegDataHelper implements Serializable {
 
 
 
-    public String getDept() {
-        return dept;
-    }
+
 
     public String getEmail() {
         return email;
@@ -55,8 +53,6 @@ public class TeacherRegDataHelper implements Serializable {
 
 
 
-    public void setDept(String dept) {
-        this.dept = dept;
-    }
+
     public void setType(String type){this.type = type;}
 }

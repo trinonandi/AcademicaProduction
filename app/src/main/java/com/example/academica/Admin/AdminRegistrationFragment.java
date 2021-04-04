@@ -1,10 +1,10 @@
-package com.example.academica;
+package com.example.academica.Admin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,14 +12,16 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +42,7 @@ public class AdminRegistrationFragment extends Fragment {
     private ExtendedFloatingActionButton AdminRegsterBtn;
     private FirebaseAuth mAuth;
 
+    private MaterialTextView adminInstructions;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
     // TODO: Rename parameter arguments, choose names that match
@@ -93,6 +96,31 @@ public class AdminRegistrationFragment extends Fragment {
         AdminRegsterBtn = view.findViewById(R.id.adminReg_reg_btn);
         AdminAuthId = view.findViewById(R.id.adminReg_authId_editText);
 
+        //Admin reg instruction
+        adminInstructions = view.findViewById(R.id.reg_instruction);
+
+
+
+
+
+        adminInstructions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialAlertDialogBuilder instruction_dialog = new MaterialAlertDialogBuilder(getContext());
+                instruction_dialog.setTitle("Instruction");
+                instruction_dialog.setMessage(getString(R.string.instruction_dialog));
+
+                instruction_dialog.setPositiveButton("OkAY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                instruction_dialog.show();
+
+
+            }
+        });
         if(AdminEmail == null){
             Log.d(TAG, "onCreate: null returned");
         }
@@ -174,7 +202,7 @@ public class AdminRegistrationFragment extends Fragment {
 
                         Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
                         mAuth.signOut();
-                        startActivity(new Intent(getContext(),Login.class));
+                        startActivity(new Intent(getContext(), Login.class));
                     }
                     else{
                         Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();

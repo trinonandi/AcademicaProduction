@@ -5,32 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".StudentProfileUpdateActivity"
-    android:padding="20dp">
+    android:padding="20dp"
+    tools:context=".Student.StudentProfileUpdateActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/student_profile_update_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColorHint="@color/blue_gray_custom"
+        app:boxStrokeColor="@color/blue_gray_custom"
+        app:hintTextColor="@color/blue_gray_custom"
+        app:layout_constraintBottom_toTopOf="@+id/student_profile_update_univRoll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:boxStrokeColor="@color/blue_gray_custom"
-        android:textColorHint="@color/blue_gray_custom"
-        app:hintTextColor="@color/blue_gray_custom"
+        android:hint="@string/name"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/clear_text"
+        android:fontFamily="@font/open_sans"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/blue_gray_custom"
-            android:fontFamily="@font/open_sans"
-            android:hint="@string/name"/>
+
+             />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -39,23 +41,26 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:hint="@string/university_roll"
-        app:boxStrokeColor="@color/blue_gray_custom"
         android:textColorHint="@color/blue_gray_custom"
-        app:hintTextColor="@color/blue_gray_custom">
+        app:boxStrokeColor="@color/blue_gray_custom"
+        app:hintTextColor="@color/blue_gray_custom"
+        app:layout_constraintBottom_toTopOf="@+id/student_profile_update_classRoll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/student_profile_update_name"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/blue_gray_custom"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/clear_text"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/blue_gray_custom"
-            android:fontFamily="@font/open_sans"/>
+             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,23 +69,26 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:hint="@string/classRoll"
-        app:boxStrokeColor="@color/blue_gray_custom"
         android:textColorHint="@color/blue_gray_custom"
-        app:hintTextColor="@color/blue_gray_custom">
+        app:boxStrokeColor="@color/blue_gray_custom"
+        app:hintTextColor="@color/blue_gray_custom"
+        app:layout_constraintBottom_toTopOf="@+id/student_profile_update_sem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/student_profile_update_univRoll"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/blue_gray_custom"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/clear_text"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/blue_gray_custom"
-            android:fontFamily="@font/open_sans"/>
+             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,92 +97,92 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:hint="@string/sem"
-        app:boxStrokeColor="@color/blue_gray_custom"
         android:textColorHint="@color/blue_gray_custom"
-        app:hintTextColor="@color/blue_gray_custom">
+        app:boxStrokeColor="@color/blue_gray_custom"
+        app:hintTextColor="@color/blue_gray_custom"
+        app:layout_constraintBottom_toTopOf="@+id/student_profile_update_dept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/student_profile_update_classRoll"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/blue_gray_custom"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/clear_text"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/blue_gray_custom"
-            android:fontFamily="@font/open_sans"/>
+           />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/student_profile_update_dept"
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7"
+        android:layout_width="267dp"
+        android:layout_height="62dp"
+        android:fontFamily="@font/open_sans"
         android:text="@string/dept"
-        android:textSize="16sp"
+        android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/blue_gray_custom"
-        app:strokeColor="@color/blue_gray_custom"
-        android:textAlignment="textStart"
-        android:fontFamily="@font/open_sans"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/student_profile_update_sem"
         app:rippleColor="@color/blue_ripple_custom"
-        />
+        app:strokeColor="@color/blue_gray_custom" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout10"
+        android:layout_width="336dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
-        android:gravity="center">
+        app:layout_constraintTop_toBottomOf="@+id/student_profile_update_dept">
 
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="140dp"
             android:layout_height="60dp"
+            android:layout_marginEnd="30dp"
             android:contentDescription="@string/edit_profile"
+            android:fontFamily="@font/open_sans"
+            android:onClick="cancel"
             android:text="Cancel"
             android:textAlignment="center"
-            android:textColor="@color/blue_accent_custom"
-            android:fontFamily="@font/open_sans"
-            app:strokeColor="@color/blue_accent_custom"
             android:textAllCaps="false"
-            android:layout_marginEnd="30dp"
-            app:rippleColor="@color/blue_ripple_custom"
-            android:onClick="cancel"
+            android:textColor="@color/blue_accent_custom"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            app:rippleColor="@color/blue_ripple_custom"
+            app:strokeColor="@color/blue_accent_custom" />
 
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="140dp"
             android:layout_height="60dp"
+            android:backgroundTint="@color/blue_accent_custom"
             android:contentDescription="@string/edit_profile"
+            android:fontFamily="@font/open_sans"
+            android:onClick="updateDate"
             android:text="Update"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:fontFamily="@font/open_sans"
-            app:strokeColor="@color/blue_accent_custom"
             android:textAllCaps="false"
-            android:backgroundTint="@color/blue_accent_custom"
-            app:rippleColor="@color/blue_ripple_custom"
-            android:onClick="updateDate"
-            android:textStyle="bold"
+            android:textColor="@color/white"
             android:textSize="16sp"
-            />
+            android:textStyle="bold"
+            app:rippleColor="@color/blue_ripple_custom"
+            app:strokeColor="@color/blue_accent_custom" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

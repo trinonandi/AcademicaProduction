@@ -14,5 +14,12 @@
     <color name="blue_accent_custom">#009EFD</color>
     <color name="blue_ripple_custom">#0073B8</color>
     <color name="red">#DC143C</color>
+    <color name="clear_text">#F30909</color>
+
+    <color name="tricolor">
+        <item>#FF9800</item>
+        <item>@color/white</item>
+        <item>@color/teal_700</item>
+    </color>
 
 </resources>

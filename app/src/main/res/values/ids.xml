@@ -9,4 +9,6 @@
     <item name="studentReg_reg_btn" type="id" />
     <item name="studentReg_authId_editText" type="id" />
     <item name="teacherReg_authId_editText" type="id" />
+    <item name="constraintLayout2" type="id" />
+    <item name="reg_instruction" type="id"/>
 </resources>

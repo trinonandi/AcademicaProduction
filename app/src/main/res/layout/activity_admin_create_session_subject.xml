@@ -24,29 +24,39 @@
                 />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
-            android:id="@+id/constraintLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:layout_height="716dp"
+            android:layout_marginTop="75dp"
+            app:layout_anchor="@+id/constraintLayout2"
+            app:layout_anchorGravity="center">
 
             <LinearLayout
+
                 android:id="@+id/linearLayout4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="70dp"
+                android:layout_width="355dp"
+                android:layout_height="77dp"
                 android:layout_gravity="center"
-                >
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.39"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSessionSubject_deptBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="170dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/open_sans"
+                    android:padding="10dp"
                     android:text="@string/dept"
                     android:textColor="@color/blue_gray_custom"
                     android:textStyle="bold"
@@ -56,10 +66,13 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSessionSubject_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="170dp"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+
                     android:fontFamily="@font/open_sans"
+                    android:padding="10dp"
+
                     android:text="@string/sem"
                     android:textColor="@color/blue_gray_custom"
                     android:textStyle="bold"
@@ -69,12 +82,16 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_width="361dp"
+                android:layout_height="64dp"
                 android:layout_gravity="center"
-                >
+                android:layout_marginBottom="70dp"
+                android:orientation="horizontal"
+                android:padding="7dp"
+                app:layout_constraintBottom_toTopOf="@+id/admin_createSessionSubject_recyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSessionSubject_backBtn"
@@ -87,8 +104,7 @@
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    app:strokeColor="@color/blue_accent_custom"
-                    />
+                    app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSessionSubject_addBtn"
@@ -97,42 +113,41 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/open_sans"
+                    android:onClick="addSubject"
                     android:text="Add"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    app:strokeColor="@color/blue_accent_custom"
-                    android:onClick="addSubject"/>
+                    app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSessionSubject_submitBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="@color/blue_accent_custom"
                     android:fontFamily="@font/open_sans"
+                    android:onClick="submitAllData"
                     android:text="Submit"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:rippleColor="@color/blue_ripple_custom"
-                    app:strokeColor="@color/blue_accent_custom"
-                    android:onClick="submitAllData"
-                    />
+                    app:strokeColor="@color/blue_accent_custom" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/admin_createSessionSubject_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="370dp"
+                android:layout_height="438dp"
+                android:layout_marginTop="201dp"
                 android:background="@color/white"
-                android:layout_marginTop="20dp"
                 android:padding="5dp"
                 android:scrollbars="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-                tools:layout_editor_absoluteX="0dp" />
-
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
             android:id="@+id/student_home_progressBar_layout"
