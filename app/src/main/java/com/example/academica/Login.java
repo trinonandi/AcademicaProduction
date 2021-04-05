@@ -6,8 +6,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,16 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
+
 
 import com.example.academica.Admin.AdminHomeActivity;
 import com.example.academica.Registration.RegistrationActivity;
 import com.example.academica.Student.StudentHomeActivity;
 import com.example.academica.Student.StudentRegDataHelper;
 import com.example.academica.Teacher.TeacherHomeActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

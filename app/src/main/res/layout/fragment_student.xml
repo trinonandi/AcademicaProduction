@@ -33,7 +33,7 @@
             android:textColorHint="@color/blue_gray_custom"
             app:boxStrokeColor="@color/blue_gray_custom"
             app:endIconMode="clear_text"
-            app:endIconTint="@color/clear_text"
+            app:endIconTint="@color/blue_gray_custom"
             app:hintTextColor="@color/blue_gray_custom"
             app:layout_constraintBottom_toTopOf="@+id/studentReg_pwd_editText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +43,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/blue_gray_custom"
 
                 />
 
@@ -62,7 +63,7 @@
             android:textColorHint="@color/blue_gray_custom"
             app:boxStrokeColor="@color/blue_gray_custom"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/blue_accent_custom"
+            app:endIconTint="@color/blue_gray_custom"
             app:hintTextColor="@color/blue_gray_custom"
             app:layout_constraintBottom_toTopOf="@+id/studentReg_email_editText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-
+                android:textColor="@color/blue_gray_custom"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +92,7 @@
             android:textColorHint="@color/blue_gray_custom"
             app:boxStrokeColor="@color/blue_gray_custom"
             app:endIconMode="clear_text"
-            app:endIconTint="@color/clear_text"
+            app:endIconTint="@color/blue_gray_custom"
             app:hintTextColor="@color/blue_gray_custom"
             app:layout_constraintBottom_toTopOf="@+id/studentReg_univRoll_editText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +101,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/blue_gray_custom"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +128,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/blue_gray_custom"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -151,12 +154,13 @@
                 android:textColorHint="@color/blue_gray_custom"
                 app:boxStrokeColor="@color/blue_gray_custom"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/clear_text"
+                app:endIconTint="@color/blue_gray_custom"
                 app:hintTextColor="@color/blue_gray_custom">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:textColor="@color/blue_gray_custom"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,14 +174,15 @@
                 android:textColorHint="@color/blue_gray_custom"
                 app:boxStrokeColor="@color/blue_gray_custom"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/clear_text"
+                app:endIconTint="@color/blue_gray_custom"
                 app:hintTextColor="@color/blue_gray_custom"
 
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:textColor="@color/blue_gray_custom"/>
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -201,17 +206,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/auth_id"
+                android:textColorHint="@color/blue_gray_custom"
                 app:boxStrokeColor="@color/blue_gray_custom"
                 app:endIconMode="password_toggle"
-
-
-                app:endIconTint="@color/clear_text"
+                app:endIconTint="@color/blue_gray_custom"
                 app:hintTextColor="@color/blue_gray_custom">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:textColor="@color/blue_gray_custom"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton

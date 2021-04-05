@@ -99,7 +99,7 @@
             android:layout_height="50dp"
             android:layout_margin="5dp"
             android:fontFamily="@font/open_sans"
-            android:onClick="closeWindow"
+            android:onClick="closeUpdateStudentActivity"
             android:text="Close"
             android:textColor="@color/blue_accent_custom"
             android:textStyle="bold"

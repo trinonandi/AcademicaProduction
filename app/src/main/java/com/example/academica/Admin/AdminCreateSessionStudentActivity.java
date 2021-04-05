@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -265,8 +266,19 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
     }
 
     public void closeWindow(View view) {
-        onBackPressed();
-        finish();
+        Log.d(TAG, "closeWindow: EXECUTED" );
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Are you sure to close? Any unsaved changes will be discarder. Press YES to close No to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
     }
 
     public void createStudentSession(View view) {    // runs on NEXT button press

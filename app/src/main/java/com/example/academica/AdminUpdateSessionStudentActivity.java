@@ -1,11 +1,15 @@
 package com.example.academica;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +18,11 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -24,13 +30,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.academica.Admin.AdminHomeActivity;
+import com.example.academica.Admin.AdminRegDataHelper;
 import com.example.academica.Admin.RecyclerAdapter;
 import com.example.academica.Admin.RecyclerItem;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,8 +53,14 @@ import java.util.TreeMap;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
-public class AdminUpdateSessionStudentActivity extends AppCompatActivity {
+public class AdminUpdateSessionStudentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "UPDATE";
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private FirebaseAuth mAuth;
+    private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
+    private AdminRegDataHelper currentUserData;
     private String sem, dept;
     private DatabaseReference databaseReference;
     private MaterialButton deptButton, semButton, closeBtn, searchBtn;
@@ -60,6 +75,24 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_update_session_student);
+
+
+        currentUserData = (AdminRegDataHelper)getIntent().getSerializableExtra("userData");
+        mAuth = FirebaseAuth.getInstance();
+        toolbar=findViewById(R.id.student_main_drawer);
+        drawerLayout = findViewById(R.id.student_drawer_layout);
+        navigationView  = findViewById(R.id.student_Nav_menu);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                drawerLayout,
+                toolbar,
+                R.string.draweropen,
+                R.string.drawerclose);
+
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        setNavData();
 
         progressBarLayout = findViewById(R.id.admin_updateSession_progressBar_layout);
         deptButton = findViewById(R.id.admin_updateSession_deptBtn);
@@ -180,6 +213,47 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity {
         }
     };
 
+    private void setNavData(){  // method to set user data in the navigationView
+        // getting the navigation element's references
+        View navHeaderView = navigationView.getHeaderView(0);
+        TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
+        TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        navHeaderUserName.setTextColor(Color.parseColor("#FFFFFF"));
+        navHeaderUserName.setText(currentUserData.getFullName());
+        navHeaderEmail.setTextColor(Color.parseColor("#FFFFFF"));
+        navHeaderEmail.setText(currentUserData.getEmail());
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case idProfilePage:
+                showProfile();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case idLogOut:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                doLogout();
+                break;
+
+        }
+        return true;
+    }
+
+    public void doLogout(){
+        mAuth.signOut();
+        finish();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+    }
+
+    public void showProfile(){
+//        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
+//        intent.putExtra("UserData", currentUserData);
+//        startActivity(intent);
+        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+    }
+
     public void searchData(View view) {
         // method to search student data from dept and sem. Executed on SEARCH button click
         progressBarLayout.setVisibility(View.VISIBLE);
@@ -276,10 +350,6 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity {
 
     }
 
-    public void closeWindow(View view) {
-        onBackPressed();
-        finish();
-    }
 
     public void updateStudentData(View view) {      // INCOMPLETE
         addItemDialog.setContentView(R.layout.instructions_dialog);
@@ -308,5 +378,21 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity {
         });
         addItemDialog.show();
 
+    }
+
+    public void closeUpdateStudentActivity(View view) {
+        Log.d(TAG, "closeWindow: EXECUTED" );
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Are you sure to close? Any unsaved changes will be discarder. Press YES to close No to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
     }
 }

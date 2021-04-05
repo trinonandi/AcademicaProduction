@@ -115,7 +115,7 @@
 
             app:endIconMode="password_toggle"
 
-            app:endIconTint="@color/clear_text"
+            app:endIconTint="@color/blue_gray_custom"
 
             app:layout_constraintBottom_toTopOf="@+id/adminReg_reg_btn"
             app:layout_constraintEnd_toEndOf="parent"

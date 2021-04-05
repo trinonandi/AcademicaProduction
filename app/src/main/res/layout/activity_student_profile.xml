@@ -76,7 +76,8 @@
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="12dp"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_gray_custom"/>
             </LinearLayout>
 
             <LinearLayout
@@ -109,7 +110,8 @@
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="12dp"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_gray_custom"/>
             </LinearLayout>
 
             <LinearLayout
@@ -142,7 +144,8 @@
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="12dp"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_gray_custom"/>
             </LinearLayout>
 
             <LinearLayout
@@ -178,7 +181,8 @@
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="12dp"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_gray_custom"/>
             </LinearLayout>
 
             <LinearLayout
@@ -213,7 +217,8 @@
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="12dp"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_gray_custom"/>
 
             </LinearLayout>
 
@@ -248,7 +253,8 @@
                     android:fontFamily="@font/open_sans"
                     android:paddingTop="12dp"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_gray_custom"/>
             </LinearLayout>
 
 
