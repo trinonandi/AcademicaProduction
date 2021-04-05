@@ -212,6 +212,22 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
+    }
+
     private void setNavData(){  // method to set user data in the navigationView
         // getting the navigation element's references
         View navHeaderView = navigationView.getHeaderView(0);

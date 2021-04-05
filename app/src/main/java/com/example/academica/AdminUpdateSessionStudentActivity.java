@@ -119,7 +119,6 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
 
             sem.show();
         });
-        closeBtn.setOnClickListener(v -> onBackPressed());
         dept = deptButton.getText().toString();
         sem = semButton.getText().toString();
 
@@ -138,6 +137,22 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
         // implement the touch helper for swipe actions
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void onBackPressed() {
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
     }
 
     // left and right swipe on recycler items
@@ -351,21 +366,21 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
     }
 
 
-    public void updateStudentData(View view) {      // INCOMPLETE
+    public void updateStudentData(View view) {
+        if(dept.toLowerCase().equals("dept") || sem.toLowerCase().equals("sem")){
+            Toast.makeText(this, "Choose department and semester", Toast.LENGTH_SHORT).show();
+            progressBarLayout.setVisibility(View.GONE);
+            return;
+        }
         addItemDialog.setContentView(R.layout.instructions_dialog);
         TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
         Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
                 yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
 
-        messageView.setText("Confirm update of student data. Press YES to update database No to go back");
+        messageView.setText("Confirm update of student data. Press YES to update database NO to go back");
         noBtn.setOnClickListener(v -> addItemDialog.dismiss());
         yesBtn.setOnClickListener(v ->{
             progressBarLayout.setVisibility(View.VISIBLE);
-            if(dept.toLowerCase().equals("dept") || sem.toLowerCase().equals("sem")){
-                Toast.makeText(this, "Choose department and semester", Toast.LENGTH_SHORT).show();
-                progressBarLayout.setVisibility(View.GONE);
-                return;
-            }
             TreeMap<String, String> sortedDataMap = new TreeMap<>();
             for(RecyclerItem item : recyclerItemsArrayList){
                 sortedDataMap.put(item.getKey(), item.getName());
@@ -377,22 +392,10 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
             }).addOnFailureListener(e -> Toast.makeText(AdminUpdateSessionStudentActivity.this, "Failed to update data", Toast.LENGTH_SHORT).show());
         });
         addItemDialog.show();
-
+        progressBarLayout.setVisibility(View.GONE);
     }
 
     public void closeUpdateStudentActivity(View view) {
-        Log.d(TAG, "closeWindow: EXECUTED" );
-        addItemDialog.setContentView(R.layout.instructions_dialog);
-        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
-        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
-                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
-
-        messageView.setText("Are you sure to close? Any unsaved changes will be discarder. Press YES to close No to go back");
-        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
-        yesBtn.setOnClickListener(v ->{
-            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-            finish();
-        });
-        addItemDialog.show();
+        onBackPressed();
     }
 }

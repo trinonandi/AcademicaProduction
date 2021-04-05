@@ -208,6 +208,21 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
     }
 
+    @Override
+    public void onBackPressed() {
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -266,19 +281,7 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
     }
 
     public void closeWindow(View view) {
-        Log.d(TAG, "closeWindow: EXECUTED" );
-        addItemDialog.setContentView(R.layout.instructions_dialog);
-        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
-        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
-                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
-
-        messageView.setText("Are you sure to close? Any unsaved changes will be discarder. Press YES to close No to go back");
-        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
-        yesBtn.setOnClickListener(v ->{
-            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-            finish();
-        });
-        addItemDialog.show();
+        onBackPressed();
     }
 
     public void createStudentSession(View view) {    // runs on NEXT button press

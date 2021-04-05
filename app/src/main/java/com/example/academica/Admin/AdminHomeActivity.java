@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.academica.AdminUpdateSessionStudentActivity;
+import com.example.academica.AdminUpdateSessionSubjectActivity;
 import com.example.academica.Login;
 import com.example.academica.R;
 import com.example.academica.Student.StudentHomeActivity;
@@ -33,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard;
+    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard, updateSubjectsCard;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -70,6 +71,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         createStudentsCard = findViewById(R.id.admin_home_createStudents_cardView);
         createSubjectsCard = findViewById(R.id.admin_home_createSubjects_cardView);
         updateStudentsCard = findViewById(R.id.admin_home_updateStudents_cardView);
+        updateSubjectsCard = findViewById(R.id.admin_home_updateSubjects_cardView);
         createStudentsCard.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
             intent.putExtra("userData", currentUserData);
@@ -82,6 +84,11 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         });
         updateStudentsCard.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionStudentActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
+        updateSubjectsCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionSubjectActivity.class);
             intent.putExtra("userData", currentUserData);
             startActivity(intent);
         });
