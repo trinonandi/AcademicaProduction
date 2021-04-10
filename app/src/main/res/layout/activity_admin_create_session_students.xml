@@ -19,35 +19,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/blue_accent_custom"
-                app:title="Create Subjects"
+                app:title="Create Students"
                 app:titleTextColor="@color/white"
                 />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+        <LinearLayout
+            android:scrollbars="vertical"
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="716dp"
-            android:layout_marginTop="75dp"
-            app:layout_anchor="@+id/constraintLayout2"
-            app:layout_anchorGravity="center">
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="10dp"
 
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                >
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSessionSubject_deptBtn"
+                    android:id="@+id/admin_createSession_deptBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="155dp"
                     android:layout_height="match_parent"
@@ -58,19 +54,19 @@
                     android:textColor="@color/blue_gray_custom"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/admin_createSessionSubject_semBtn"
+                    app:layout_constraintEnd_toStartOf="@+id/admin_createSession_semBtn"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/admin_createSession_semBtn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_gray_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSessionSubject_semBtn"
+                    android:id="@+id/admin_createSession_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="172dp"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
                     android:fontFamily="@font/open_sans"
                     android:text="@string/sem"
                     android:textColor="@color/blue_gray_custom"
@@ -79,7 +75,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toEndOf="@+id/admin_createSessionSubject_deptBtn"
+                    app:layout_constraintStart_toEndOf="@+id/admin_createSession_deptBtn"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_gray_custom" />
@@ -91,14 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/admin_createSessionSubject_recyclerView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_closeBtn"
@@ -112,9 +102,7 @@
                     android:text="Close"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/admin_createSession_addBtn"
-                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
@@ -125,24 +113,24 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="8dp"
                     android:fontFamily="@font/open_sans"
                     android:onClick="addItem"
                     android:text="Add"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/admin_createSessionSubject_closeBtn"
+                    app:layout_constraintEnd_toStartOf="@+id/admin_createSession_submitBtn"
                     app:layout_constraintStart_toEndOf="@+id/admin_createSession_closeBtn"
                     app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSessionSubject_closeBtn"
+                    android:id="@+id/admin_createSession_submitBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="107dp"
                     android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:backgroundTint="@color/blue_accent_custom"
                     android:fontFamily="@font/open_sans"
@@ -159,22 +147,18 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/admin_createSessionSubject_recyclerView"
-                android:layout_width="383dp"
-                android:layout_height="426dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="37dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="84dp"
+                android:id="@+id/admin_createSession_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@color/white"
+                android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:scrollbars="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                tools:layout_editor_absoluteX="0dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/student_home_progressBar_layout"

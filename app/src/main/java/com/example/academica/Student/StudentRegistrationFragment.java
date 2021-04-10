@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.academica.Login;
 import com.example.academica.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
@@ -44,7 +45,7 @@ public class StudentRegistrationFragment extends Fragment {
     private static final String TAG = "Student";
     private TextInputLayout studentName, studentEmail, studentPwd, studentUnivRoll, studentClassRoll, studentSem, studentAuthId;
     private MaterialTextView studentInstructions;
-    private AppCompatButton studentRegisterBtn;
+    private FloatingActionButton studentRegisterBtn;
 
     private Button studentdept;
 
@@ -52,14 +53,10 @@ public class StudentRegistrationFragment extends Fragment {
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
 
-
-
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -75,7 +72,6 @@ public class StudentRegistrationFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment Student.
      */
-    // TODO: Rename and change types and number of parameters
     public static StudentRegistrationFragment newInstance(String param1, String param2) {
         StudentRegistrationFragment fragment = new StudentRegistrationFragment();
         Bundle args = new Bundle();
@@ -120,23 +116,16 @@ public class StudentRegistrationFragment extends Fragment {
 
 
 
-        studentInstructions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MaterialAlertDialogBuilder instruction_dialog = new MaterialAlertDialogBuilder(getContext());
-                instruction_dialog.setTitle("Instruction");
-                instruction_dialog.setMessage(getString(R.string.instruction_dialog));
+        studentInstructions.setOnClickListener(v -> {
+            MaterialAlertDialogBuilder instruction_dialog = new MaterialAlertDialogBuilder(getContext());
+            instruction_dialog.setTitle("Instruction");
+            instruction_dialog.setMessage(getString(R.string.instruction_dialog));
+            instruction_dialog.setPositiveButton("OKAY", (dialog, which) -> {
 
-                instruction_dialog.setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                instruction_dialog.show();
+            });
+            instruction_dialog.show();
 
 
-            }
         });
 
 

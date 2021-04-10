@@ -3,6 +3,7 @@ package com.example.academica.Admin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -17,51 +18,61 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Admin.AdminHomeActivity;
+import com.example.academica.Admin.AdminRegDataHelper;
+import com.example.academica.Admin.RecyclerAdapter;
+import com.example.academica.Admin.RecyclerItem;
 import com.example.academica.Login;
 import com.example.academica.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.TreeMap;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
-import static android.util.Log.i;
+public class AdminUpdateSessionSubjectActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-public class AdminCreateSessionStudentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final String TAG = "ADMIN CREATE SESSION";
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
-    private Button deptButton, semButton;
     private AdminRegDataHelper currentUserData;
+    private String sem, dept;
+    private DatabaseReference databaseReference;
+    private MaterialButton deptButton, semButton, closeBtn, searchBtn;
+    private RecyclerView recyclerView;
     private ArrayList<RecyclerItem> recyclerItemsArrayList;
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
-    private RecyclerView recyclerView;
+    private RelativeLayout progressBarLayout;
     private Dialog addItemDialog;
+    private boolean addNewSubjectFlag = false;  // a flag used to change the fetched item's colours
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_create_session_students);
+        setContentView(R.layout.activity_admin_update_session_subject);
 
         currentUserData = (AdminRegDataHelper)getIntent().getSerializableExtra("userData");
         mAuth = FirebaseAuth.getInstance();
@@ -80,8 +91,11 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
         navigationView.setNavigationItemSelectedListener(this);
         setNavData();
 
-        // setting dept menu on the department button
-        deptButton = findViewById(R.id.admin_createSession_deptBtn);
+        progressBarLayout = findViewById(R.id.admin_updateSession_subjects_progressBar_layout);
+        deptButton = findViewById(R.id.admin_updateSession_subjects_deptBtn);
+        semButton = findViewById(R.id.admin_updateSession_subjects_semBtn);
+        closeBtn = findViewById(R.id.admin_updateSession_subjects_closeBtn);
+        searchBtn = findViewById(R.id.admin_updateSession_subjects_searchBtn);
         deptButton.setOnClickListener(v -> {
             PopupMenu dept = new PopupMenu(this,deptButton, Gravity.CENTER);
             dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
@@ -92,9 +106,6 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
             dept.show();
         });
-
-        // setting sem menu on the semester button
-        semButton = findViewById(R.id.admin_createSession_semBtn);
         semButton.setOnClickListener(v -> {
             PopupMenu sem = new PopupMenu(this,deptButton, Gravity.CENTER);
             sem.getMenuInflater().inflate(R.menu.sem_menu,sem.getMenu());
@@ -105,22 +116,41 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
             sem.show();
         });
+        closeBtn.setOnClickListener(v -> onBackPressed());
+        dept = deptButton.getText().toString();
+        sem = semButton.getText().toString();
 
         // initiating dialog box for data input
         addItemDialog = new Dialog(this);
         addItemDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        // Recycler view implementation code
+        // Recycler View
         recyclerItemsArrayList = new ArrayList<>();
-        recyclerView = findViewById(R.id.admin_createSession_recyclerView);
+        recyclerView = findViewById(R.id.admin_updateSession_subjects_recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerLayoutManager = new LinearLayoutManager(this);
+        recyclerLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerAdapter = new RecyclerAdapter(recyclerItemsArrayList);
         recyclerView.setLayoutManager(recyclerLayoutManager);
         recyclerView.setAdapter(recyclerAdapter);
         // implement the touch helper for swipe actions
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public void onBackPressed() {
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
     }
 
     // left and right swipe on recycler items
@@ -209,22 +239,6 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
     }
 
     @Override
-    public void onBackPressed() {
-        addItemDialog.setContentView(R.layout.instructions_dialog);
-        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
-        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
-                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
-
-        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
-        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
-        yesBtn.setOnClickListener(v ->{
-            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-            finish();
-        });
-        addItemDialog.show();
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case idProfilePage:
@@ -253,78 +267,133 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
         Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
     }
 
-    public void addItem(View view){
+    public void searchData(View view) {
+        // method to search student data from dept and sem. Executed on SEARCH button click
+        progressBarLayout.setVisibility(View.VISIBLE);
+        dept = deptButton.getText().toString();
+        sem = semButton.getText().toString();
+        String semNumber = ""+sem.charAt(0);
+        if(dept.toLowerCase().equals("dept") || sem.toLowerCase().equals("sem")){
+            Toast.makeText(this, "Choose department and semester", Toast.LENGTH_SHORT).show();
+            progressBarLayout.setVisibility(View.GONE);
+            return;
+        }
+        databaseReference = FirebaseDatabase.getInstance().getReference("sessions").child(dept).child("subjects").child(semNumber);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue() == null){
+                    // data is not present in the database
+                    Toast.makeText(getApplicationContext(), "Data not found. Create the subjects first", Toast.LENGTH_SHORT).show();
+                    progressBarLayout.setVisibility(View.GONE);
+                    return;
+                }
+                Iterator<DataSnapshot> iterator = snapshot.getChildren().iterator();    // getting an iterable getValues() object
+                recyclerItemsArrayList = new ArrayList<>();
+                while(iterator.hasNext()){
+                    DataSnapshot item = iterator.next();
+                    String key = item.getKey();
+                    String val = (String) item.getValue();
+                    RecyclerItem obj = new RecyclerItem(key, val);
+                    recyclerItemsArrayList.add(obj);
+                }
+                if(recyclerItemsArrayList.size() == 0){
+                    // database created but no student added
+                    Toast.makeText(getApplicationContext(), "Data found with zero entries", Toast.LENGTH_LONG).show();
+                }
+                recyclerAdapter = new RecyclerAdapter(recyclerItemsArrayList);
+                recyclerView.setAdapter(recyclerAdapter);
+
+                // setting empty OnClickListeners so that the data cannot be changed further
+                deptButton.setOnClickListener(v -> {});
+                semButton.setOnClickListener(v -> {});
+                searchBtn.setOnClickListener(v -> {});
+
+                progressBarLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error in data fetching", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void addSubject(View view){
         // open the data item adding dialog box and show them on the recyclerView. Runs on ADD button press
+        if(dept.toLowerCase().equals("dept") || sem.toLowerCase().equals("sem")){
+            Toast.makeText(this, "Search a session first", Toast.LENGTH_SHORT).show();
+            return;
+        }
         addItemDialog.setContentView(R.layout.recycler_add_item_dialog);
-        TextInputLayout rollLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_roll),
+        TextInputLayout codeLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_roll),
                 nameLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_name);
         Button closeButton = addItemDialog.findViewById(R.id.admin_createSession_dialog_closeBtn),
                 addButton = addItemDialog.findViewById(R.id.admin_createSession_dialog_addBtn);
 
+        codeLayout.setHint(getString(R.string.subject_code));
+        nameLayout.setHint(getString(R.string.subject_name));
+
         closeButton.setOnClickListener(v -> addItemDialog.dismiss());
 
         addButton.setOnClickListener(v -> {
-            String roll = Objects.requireNonNull(rollLayout.getEditText()).getText().toString().trim();
+            String code = Objects.requireNonNull(codeLayout.getEditText()).getText().toString().trim();
             String name = Objects.requireNonNull(nameLayout.getEditText()).getText().toString().trim();
-            if(roll.length() > 0 && name.length() > 0){
-                RecyclerItem item = new RecyclerItem(roll,name);
+            if(code.length() > 0 && name.length() > 0){
+                RecyclerItem item = new RecyclerItem(code,name);
                 recyclerItemsArrayList.add(item);
                 recyclerAdapter.notifyItemInserted(recyclerItemsArrayList.indexOf(item));
+
+                if(!addNewSubjectFlag){
+                    // setting the colours of the existing students to green to segregate from the new students
+                    for(int i = recyclerView.getChildCount() - 1; i >= 0 ; i--){
+                        View currentView = recyclerView.getChildAt(i);
+                        currentView.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.recycler_item_background_green));
+                    }
+                    addNewSubjectFlag = true;
+                }
+
                 addItemDialog.dismiss();
             }
             else{
                 Toast.makeText(this, "Empty Fields", Toast.LENGTH_SHORT).show();
             }
-        });
 
+        });
         addItemDialog.show();
     }
 
-    public void closeWindow(View view) {
-        onBackPressed();
-    }
-
-    public void createStudentSession(View view) {
-
-
-
-        // runs on NEXT button press
-
-
-
+    public void updateSubjectData(View view) {
+        if(dept.toLowerCase().equals("dept") || sem.toLowerCase().equals("sem")){
+            Toast.makeText(this, "Choose department and semester", Toast.LENGTH_SHORT).show();
+            progressBarLayout.setVisibility(View.GONE);
+            return;
+        }
         addItemDialog.setContentView(R.layout.instructions_dialog);
         TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
         Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
                 yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
 
-        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        messageView.setText("Confirm update of subject data. Press YES to update database NO to go back");
         noBtn.setOnClickListener(v -> addItemDialog.dismiss());
         yesBtn.setOnClickListener(v ->{
-            if (deptButton.getText().toString().toLowerCase().equals("department") || semButton.getText().toString().toLowerCase().equals("semester")){
-                Toast.makeText(this, "Select department and semester", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            // converting from object to a hash map for database update
-            Map<String, String> sortedStudentDataMap = new TreeMap<>();
+            progressBarLayout.setVisibility(View.VISIBLE);
+
+            TreeMap<String, String> sortedDataMap = new TreeMap<>();
             for(RecyclerItem item : recyclerItemsArrayList){
-                sortedStudentDataMap.put(item.getKey(), item.getName());
+                sortedDataMap.put(item.getKey(), item.getName());
             }
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            String sem = semButton.getText().toString(), dept = deptButton.getText().toString();
-            String semNumber = ""+sem.charAt(0);
-            // storing the students data
-            reference.child("sessions").child(dept).child("students").child(semNumber).setValue(sortedStudentDataMap)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(AdminCreateSessionStudentActivity.this, "Student data successfully saved", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-                        finish();
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(AdminCreateSessionStudentActivity.this, "Failed to save data", Toast.LENGTH_SHORT).show());
-            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-            finish();
+            databaseReference.setValue(sortedDataMap).addOnSuccessListener(aVoid -> {
+                Toast.makeText(getApplicationContext(), "Data updated successfully", Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Failed to update data", Toast.LENGTH_SHORT).show());
         });
         addItemDialog.show();
 
+        progressBarLayout.setVisibility(View.GONE);
 
     }
+
 }

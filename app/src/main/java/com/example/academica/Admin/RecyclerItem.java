@@ -4,9 +4,11 @@ public class RecyclerItem {
     private String key;
     private String name;
 
+    public RecyclerItem(){}
+
     public RecyclerItem(String key, String name){
-        this.name = name;
         this.key = key;
+        this.name = name;
     }
 
     public String getKey() {

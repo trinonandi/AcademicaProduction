@@ -24,13 +24,14 @@
         app:layout_constraintTop_toTopOf="parent"
         android:hint="@string/name"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/clear_text"
+        app:endIconTint="@color/blue_gray_custom"
         android:fontFamily="@font/open_sans"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/blue_gray_custom"
 
              />
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,12 +55,13 @@
         android:fontFamily="@font/open_sans"
         android:textColor="@color/blue_gray_custom"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/clear_text"
+        app:endIconTint="@color/blue_gray_custom"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/blue_gray_custom"
              />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -82,12 +84,13 @@
         android:fontFamily="@font/open_sans"
         android:textColor="@color/blue_gray_custom"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/clear_text"
+        app:endIconTint="@color/blue_gray_custom"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/blue_gray_custom"
              />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,20 +105,21 @@
         android:hint="@string/sem"
         android:textColorHint="@color/blue_gray_custom"
         app:boxStrokeColor="@color/blue_gray_custom"
+        android:textColor="@color/blue_gray_custom"
         app:hintTextColor="@color/blue_gray_custom"
         app:layout_constraintBottom_toTopOf="@+id/student_profile_update_dept"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/student_profile_update_classRoll"
         android:fontFamily="@font/open_sans"
-        android:textColor="@color/blue_gray_custom"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/clear_text"
+        app:endIconTint="@color/blue_gray_custom"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/blue_gray_custom"
            />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -123,8 +127,10 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/student_profile_update_dept"
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="267dp"
-        android:layout_height="62dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="65dp"
         android:fontFamily="@font/open_sans"
         android:text="@string/dept"
         android:textAlignment="textStart"
@@ -140,8 +146,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout10"
-        android:layout_width="336dp"
-        android:layout_height="66dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
@@ -154,7 +160,7 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="140dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="20dp"
             android:contentDescription="@string/edit_profile"
             android:fontFamily="@font/open_sans"
             android:onClick="cancel"

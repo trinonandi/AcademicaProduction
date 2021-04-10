@@ -21,7 +21,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="subject_code">Subject Code</string>
     <string name="subject_name">Subject Name</string>
-    <string name="reg_instruction">i</string>
+    <string name="reg_instruction">Instructions</string>
 
     <!-- the below three strings are auth ids of corresponding user type -->
     <string name="studentAuthID">STUDENT</string>
@@ -31,7 +31,7 @@
     <!-- the below three strings are form fill up instructions of corresponding user type -->
     <string name="reset_password">Reset Password</string>
     <string name="instruction_dialog">"1. sssg\n2. fbfgf\n3. dffdhd\n"</string>
-    <string name="wait_info">Please Wait...</string>
+    <string name="wait_info">Please Wait…</string>
 
 
 </resources>

@@ -7,9 +7,4 @@
     </style>
 
 
-    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
-        <item name="android:textColor">@color/blue_accent_custom</item>
-    </style>
-
-
 </resources>

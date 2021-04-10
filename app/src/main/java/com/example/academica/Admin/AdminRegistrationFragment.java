@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,18 +40,16 @@ public class AdminRegistrationFragment extends Fragment {
 
     private static final String TAG = "Admin";
     private TextInputLayout AdminName, AdminEmail, AdminPwd,AdminAuthId;
-    private ExtendedFloatingActionButton AdminRegsterBtn;
+    private FloatingActionButton AdminRegsterBtn;
     private FirebaseAuth mAuth;
 
     private MaterialTextView adminInstructions;
     private FirebaseDatabase rootNode;
     private DatabaseReference reference;
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -66,7 +65,6 @@ public class AdminRegistrationFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment Admin.
      */
-    // TODO: Rename and change types and number of parameters
     public static AdminRegistrationFragment newInstance(String param1, String param2) {
         AdminRegistrationFragment fragment = new AdminRegistrationFragment();
         Bundle args = new Bundle();
@@ -103,34 +101,23 @@ public class AdminRegistrationFragment extends Fragment {
 
 
 
-        adminInstructions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MaterialAlertDialogBuilder instruction_dialog = new MaterialAlertDialogBuilder(getContext());
-                instruction_dialog.setTitle("Instruction");
-                instruction_dialog.setMessage(getString(R.string.instruction_dialog));
+        adminInstructions.setOnClickListener(v -> {
+            MaterialAlertDialogBuilder instruction_dialog = new MaterialAlertDialogBuilder(getContext());
+            instruction_dialog.setTitle("Instruction");
+            instruction_dialog.setMessage(getString(R.string.instruction_dialog));
 
-                instruction_dialog.setPositiveButton("OkAY", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            instruction_dialog.setPositiveButton("OkAY", (dialog, which) -> {
 
-                    }
-                });
-                instruction_dialog.show();
+            });
+            instruction_dialog.show();
 
 
-            }
         });
         if(AdminEmail == null){
             Log.d(TAG, "onCreate: null returned");
         }
 
-        AdminRegsterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doRegistration();
-            }
-        });
+        AdminRegsterBtn.setOnClickListener(v -> doRegistration());
 
         //FirebaseApp.initializeApp(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
@@ -195,19 +182,16 @@ public class AdminRegistrationFragment extends Fragment {
         final FirebaseUser firebaseUser=mAuth.getCurrentUser();
         if(firebaseUser!=null)
         {
-            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
+            firebaseUser.sendEmailVerification().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
 
-                        Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
-                        mAuth.signOut();
-                        startActivity(new Intent(getContext(), Login.class));
-                    }
-                    else{
-                        Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Registration Successful,Verify Email",Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
+                    startActivity(new Intent(getContext(), Login.class));
+                }
+                else{
+                    Toast.makeText(getContext(),"Verification Email Cannot Be Sent",Toast.LENGTH_LONG).show();
 
-                    }
                 }
             });
         }

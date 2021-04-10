@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.AdminProfileUpdateActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/admin_profile_update_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/open_sans"
+        android:hint="@string/name"
+        android:textColorHint="@color/blue_gray_custom"
+        app:boxStrokeColor="@color/blue_gray_custom"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/blue_gray_custom"
+        app:hintTextColor="@color/blue_gray_custom"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/blue_gray_custom"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_update_name">
+
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/edit_profile"
+            android:fontFamily="@font/open_sans"
+            android:onClick="cancel"
+            android:text="Cancel"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/blue_accent_custom"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:rippleColor="@color/blue_ripple_custom"
+            app:strokeColor="@color/blue_accent_custom" />
+
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/blue_accent_custom"
+            android:contentDescription="@string/edit_profile"
+            android:fontFamily="@font/open_sans"
+            android:onClick="updateDate"
+            android:text="Update"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:rippleColor="@color/blue_ripple_custom"
+            app:strokeColor="@color/blue_accent_custom" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

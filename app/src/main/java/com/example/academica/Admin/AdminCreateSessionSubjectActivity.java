@@ -3,6 +3,7 @@ package com.example.academica.Admin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -14,10 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.academica.Login;
@@ -32,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.TreeMap;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -41,14 +44,12 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
     private static final String TAG = "ADMIN";
 
     private Button backButton, semButton, deptButton;
-    private HashMap<String, String> studentDataMap;
-    private String dept, sem;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
-
+    private AdminRegDataHelper currentUserData;
     private Dialog addItemDialog;
     private ArrayList<RecyclerItem> recyclerItemsArrayList;
     private RecyclerView.Adapter recyclerAdapter;
@@ -60,6 +61,7 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_create_session_subject);
 
+        currentUserData = (AdminRegDataHelper)getIntent().getSerializableExtra("userData");
         mAuth = FirebaseAuth.getInstance();
         toolbar=findViewById(R.id.student_main_drawer);
         drawerLayout = findViewById(R.id.student_drawer_layout);
@@ -74,18 +76,32 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
+        setNavData();
 
         // getting parcelable data
-        AdminParcelableStudentData data = getIntent().getParcelableExtra("data");
-        dept = data.getDept();
-        sem  = data.getSem();
-        studentDataMap = data.getStudentDataMap();
-        backButton = findViewById(R.id.admin_createSessionSubject_backBtn);
+        backButton = findViewById(R.id.admin_createSessionSubject_closeBtn);
         semButton = findViewById(R.id.admin_createSessionSubject_semBtn);
         deptButton = findViewById(R.id.admin_createSessionSubject_deptBtn);
-        deptButton.setText(dept);
-        semButton.setText(sem);
+        deptButton.setOnClickListener(v -> {
+            PopupMenu dept = new PopupMenu(this,deptButton, Gravity.CENTER);
+            dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
+            dept.setOnMenuItemClickListener(item -> {
+                deptButton.setText(item.getTitle());
+                return true;
+            });
+
+            dept.show();
+        });
+        semButton.setOnClickListener(v -> {
+            PopupMenu sem = new PopupMenu(this,deptButton, Gravity.CENTER);
+            sem.getMenuInflater().inflate(R.menu.sem_menu,sem.getMenu());
+            sem.setOnMenuItemClickListener(item -> {
+                semButton.setText(item.getTitle());
+                return true;
+            });
+
+            sem.show();
+        });
         backButton.setOnClickListener(v -> onBackPressed());
 
         // initiating dialog box for data input
@@ -196,6 +212,34 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
+    }
+
+    private void setNavData(){  // method to set user data in the navigationView
+        // getting the navigation element's references
+        View navHeaderView = navigationView.getHeaderView(0);
+        TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
+        TextView navHeaderEmail = navHeaderView.findViewById(R.id.nav_header_email);
+        navHeaderUserName.setTextColor(Color.parseColor("#FFFFFF"));
+        navHeaderUserName.setText(currentUserData.getFullName());
+        navHeaderEmail.setTextColor(Color.parseColor("#FFFFFF"));
+        navHeaderEmail.setText(currentUserData.getEmail());
+
+    }
+
     public void doLogout(){
         mAuth.signOut();
         finish();
@@ -239,25 +283,29 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         addItemDialog.show();
     }
 
+
+
     public void submitAllData(View view) {
+
+
         HashMap<String, String> subjectDataMap = new HashMap<>();
         for(RecyclerItem item : recyclerItemsArrayList){
             subjectDataMap.put(item.getKey(), item.getName());
         }
 
-        // sorting the students according to key ( roll number )
-        TreeMap<String, String> sortedStudentDataMap = new TreeMap<>(studentDataMap);
-
+        String sem = semButton.getText().toString(), dept = deptButton.getText().toString();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         String semNumber = ""+sem.charAt(0);
 
-        // storing the students data
-        reference.child("sessions").child(dept).child("students").child(semNumber).setValue(sortedStudentDataMap);
         // storing subject data
-        reference.child("sessions").child(dept).child("subjects").child(semNumber).setValue(subjectDataMap);
+        reference.child("sessions").child(dept).child("subjects").child(semNumber).setValue(subjectDataMap)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Subject data successfully Saved", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+                    finish();
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Failed to save data", Toast.LENGTH_SHORT).show());
 
-        Toast.makeText(this, "Session Successfully Saved", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-        finish();
+
     }
 }

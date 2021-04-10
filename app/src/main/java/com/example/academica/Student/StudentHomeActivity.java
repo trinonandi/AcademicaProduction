@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.academica.Admin.AdminRegDataHelper;
 import com.example.academica.Login;
 import com.example.academica.R;
 import com.google.android.material.navigation.NavigationView;
@@ -72,12 +74,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         fetchUserData();
 
         attendanceCardView = findViewById(R.id.student_home_cardView1);
-        attendanceCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAttendance(v);
-            }
-        });
+        attendanceCardView.setOnClickListener(this::showAttendance);
 
     }
 
@@ -91,6 +88,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         mAuth.signOut();
         finish();
         startActivity(new Intent(getApplicationContext(), Login.class));
+
     }
 
     public void showProfile(){
@@ -126,7 +124,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         progressBarLayout.setVisibility(View.VISIBLE);
 
         // getting user data from firebase
-        String dbKey = StudentRegDataHelper.generateKeyFromEmail(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()));    // generates firebase user key
+        String dbKey = AdminRegDataHelper.generateKeyFromEmail(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()));    // generates firebase user key
         referenceDB = FirebaseDatabase.getInstance().getReference("users").child(dbKey);
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
