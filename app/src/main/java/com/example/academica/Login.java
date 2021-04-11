@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
 
 
     private SessionManagement sessionManagement;
-    private String session;
+
 
 
     @Override
@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         emailEditText = findViewById(R.id.main_email_editText);
@@ -74,6 +75,7 @@ public class Login extends AppCompatActivity {
         linearProgressIndicator = findViewById(R.id.login_progressbar);
 
 
+        sessionManagement = new SessionManagement(getApplicationContext());
 
 
 
@@ -138,16 +140,19 @@ public class Login extends AppCompatActivity {
 
                                         intent = new Intent(getApplicationContext(), StudentHomeActivity.class);
 
+                                        sessionManagement.setLogin("STUDENT");
                                         break;
                                     case "TEACHER":
 
                                         intent = new Intent(getApplicationContext(), TeacherHomeActivity.class);
 
+                                        sessionManagement.setLogin("TEACHER");
                                         break;
                                     case "ADMIN":
 
                                         intent = new Intent(getApplicationContext(), AdminHomeActivity.class);
 
+                                        sessionManagement.setLogin("ADMIN");
                                         break;
                                 }
                                 finish();

@@ -26,15 +26,15 @@ public class SessionManagement {
         public void setLogin(String LOGIN) {
 
             this.session = session;
-            editor.putString(LOGIN,LOGIN);
+            editor.putString("user_type",LOGIN);
             editor.commit();
             editor.apply();
 
 
         }
 
-        public String getLogin(){
-            return sharedPreferences.getString(LOGIN,"");
+        public  String getLogin(){
+            return sharedPreferences.getString("user_type","login");
 
         }
     }

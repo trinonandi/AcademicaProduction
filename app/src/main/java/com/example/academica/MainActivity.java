@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String splash_run_time = "first_time";
 
-    private SharedPreferences sharedPreferences ;
-    private SharedPreferences.Editor editor ;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     private SessionManagement sessionManagement;
     private String session;
@@ -64,31 +64,59 @@ public class MainActivity extends AppCompatActivity {
 
         //fetching and checking the string
         check = sharedPreferences.getString(splash_run_time, "");
+        // passing the application context and seting the session string name
+        sessionManagement = new SessionManagement(getApplicationContext());
+        session = sessionManagement.getLogin();
+
+        Thread thread = new Thread(runnable);
+
 
         if (check == "first_time") {
-            editor.putString("not_first_time",splash_run_time);
+
+            editor.putString("not_first_time", splash_run_time);
             editor.commit();
             editor.apply();
             lottieAnimationView = findViewById(R.id.splash_intro);
             new Handler().postDelayed(() -> {
 
+
                 //checking the string value
 
                 startActivity(new Intent(MainActivity.this, Login.class));
                 finish();
-            }, 5000);
+            }, 2500);
+        } else {
+            thread.start();
 
-
-
-
-        }
-        else{
-            startActivity(new Intent(MainActivity.this, Login.class));
-            finish();
         }
 
 
     }
+
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            switch (session) {
+                case "STUDENT":
+                    startActivity(new Intent(MainActivity.this, StudentHomeActivity.class));
+                    finish();
+                    break;
+                case "ADMIN":
+                    startActivity(new Intent(MainActivity.this, AdminHomeActivity.class));
+                    finish();
+                    break;
+                case "TEACHER":
+                    startActivity(new Intent(MainActivity.this, TeacherHomeActivity.class));
+                    finish();
+                    break;
+                default:
+                    startActivity(new Intent(MainActivity.this, Login.class));
+                    finish();
+                    break;
+            }
+        }
+    };
 
 
 }

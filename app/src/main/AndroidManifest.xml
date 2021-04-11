@@ -14,13 +14,7 @@
         <activity android:name=".Admin.AdminProfileUpdateActivity"></activity>
         <activity android:name=".Teacher.TeacherProfileUpdateActivity" />
         <activity android:name=".Admin.AdminProfileActivity" />
-        <activity android:name=".TeacherProfileActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Teacher.TeacherProfileActivity" />
         <activity android:name=".Admin.AdminUpdateSessionSubjectActivity" />
         <activity android:name=".Admin.AdminUpdateSessionStudentActivity" />
         <activity android:name=".Admin.AdminCreateSessionSubjectActivity" />
