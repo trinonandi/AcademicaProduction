@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
         //fetching and checking the string
         check = sharedPreferences.getString(splash_run_time, "");
-        // passing the application context and seting the session string name
+        // passing the application context and setting the session string name
         sessionManagement = new SessionManagement(getApplicationContext());
         session = sessionManagement.getLogin();
 
-        Thread thread = new Thread(runnable);
+
 
 
         if (check == "first_time") {
@@ -86,17 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }, 2500);
         } else {
-            thread.start();
 
-        }
-
-
-    }
-
-
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
             switch (session) {
                 case "STUDENT":
                     startActivity(new Intent(MainActivity.this, StudentHomeActivity.class));
@@ -115,8 +105,13 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                     break;
             }
+
         }
-    };
+
+
+    }
+
+
 
 
 }
