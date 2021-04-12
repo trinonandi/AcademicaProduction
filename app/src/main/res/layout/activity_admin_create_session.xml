@@ -32,126 +32,103 @@
             android:padding="10dp"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/linearLayout4"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="70dp"
-                android:layout_marginBottom="10dp"
-
-                >
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_student_deptBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="155dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_marginStart="8dp"
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:text="@string/dept"
                     android:textColor="@color/blue_gray_custom"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/admin_createSession_student_semBtn"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_gray_custom" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_student_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="172dp"
+                    android:layout_width="152dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/open_sans"
                     android:text="@string/sem"
                     android:textColor="@color/blue_gray_custom"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toEndOf="@+id/admin_createSession_student_deptBtn"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_gray_custom" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="360dp"
+                android:layout_width="368dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_margin="20dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_student_closeBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="101dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/open_sans"
                     android:onClick="closeWindow"
                     android:text="Close"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/admin_createSession_student_addBtn"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSession_student_addBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="100dp"
+                    android:layout_width="110dp"
                     android:layout_height="50dp"
+                    android:layout_margin="10dp"
                     android:fontFamily="@font/open_sans"
                     android:onClick="addItem"
                     android:text="Add"
                     android:textColor="@color/blue_accent_custom"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/admin_createSession_student_submitBtn"
-                    app:layout_constraintStart_toEndOf="@+id/admin_createSession_student_closeBtn"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_student_submitBtn"
+                    android:id="@+id/admin_createSession_nextBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="107dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
                     android:backgroundTint="@color/blue_accent_custom"
                     android:fontFamily="@font/open_sans"
-                    android:onClick="createStudentSession"
-                    android:text="Submit"
+                    android:onClick="openSubjectActivity"
+                    android:text="Next"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/admin_createSession_student_addBtn"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:rippleColor="@color/blue_ripple_custom"
                     app:strokeColor="@color/blue_accent_custom" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/admin_createSession_student_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:padding="5dp"
                 android:scrollbars="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout3"

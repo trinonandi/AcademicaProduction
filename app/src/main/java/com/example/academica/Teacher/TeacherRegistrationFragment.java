@@ -19,6 +19,7 @@ import com.example.academica.Login;
 import com.example.academica.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +40,7 @@ public class TeacherRegistrationFragment extends Fragment {
 
     private static final String TAG = "Teacher";
     private TextInputLayout teacherName, teacherEmail, teacherPwd, teacherAuthID;
-    private ExtendedFloatingActionButton teacherRegBtn;
+    private FloatingActionButton teacherRegBtn;
     private Button teacherDeptBtn;
     private FirebaseAuth mAuth;
     private FirebaseDatabase rootNode;

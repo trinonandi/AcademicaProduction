@@ -247,10 +247,9 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
     }
 
     public void showProfile(){
-//        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
-//        intent.putExtra("UserData", currentUserData);
-//        startActivity(intent);
-        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
     }
 
     public void addSubject(View view) {
@@ -283,7 +282,11 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         addItemDialog.show();
     }
 
+
+
     public void submitAllData(View view) {
+
+
         HashMap<String, String> subjectDataMap = new HashMap<>();
         for(RecyclerItem item : recyclerItemsArrayList){
             subjectDataMap.put(item.getKey(), item.getName());

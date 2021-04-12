@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.academica.Login;
 import com.example.academica.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
@@ -44,7 +45,7 @@ public class StudentRegistrationFragment extends Fragment {
     private static final String TAG = "Student";
     private TextInputLayout studentName, studentEmail, studentPwd, studentUnivRoll, studentClassRoll, studentSem, studentAuthId;
     private MaterialTextView studentInstructions;
-    private AppCompatButton studentRegisterBtn;
+    private FloatingActionButton studentRegisterBtn;
 
     private Button studentdept;
 

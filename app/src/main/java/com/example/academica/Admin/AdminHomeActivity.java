@@ -17,11 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.academica.AdminUpdateSessionStudentActivity;
-import com.example.academica.AdminUpdateSessionSubjectActivity;
+import com.example.academica.AdminAttendanceActivity;
 import com.example.academica.Login;
 import com.example.academica.R;
-import com.example.academica.Student.StudentHomeActivity;
+import com.example.academica.SessionManagement;
 import com.example.academica.Student.StudentRegDataHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard, updateSubjectsCard;
+    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard, updateSubjectsCard, attendanceCard;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -43,6 +42,9 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
     private DatabaseReference referenceDB;
     private RelativeLayout progressBarLayout;
     private AdminRegDataHelper currentUserData;
+
+    SessionManagement sessionManagement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +53,9 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
 
         progressBarLayout = findViewById(R.id.admin_home_progressBar_layout);
         mAuth = FirebaseAuth.getInstance();
-        toolbar=findViewById(R.id.student_main_drawer);
-        drawerLayout = findViewById(R.id.student_drawer_layout);
-        navigationView  = findViewById(R.id.student_Nav_menu);
+        toolbar = findViewById(R.id.admin_main_drawer);
+        drawerLayout = findViewById(R.id.admin_drawer_layout);
+        navigationView = findViewById(R.id.admin_allNav_menu);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,
@@ -68,10 +70,11 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         fetchUserData();
 
         // adding onClickListeners to the CardViews
-        createStudentsCard = findViewById(R.id.admin_home_createStudents_cardView);
+        createStudentsCard = findViewById(R.id.admin_home_createadmins_cardView);
         createSubjectsCard = findViewById(R.id.admin_home_createSubjects_cardView);
-        updateStudentsCard = findViewById(R.id.admin_home_updateStudents_cardView);
+        updateStudentsCard = findViewById(R.id.admin_home_updateadmins_cardView);
         updateSubjectsCard = findViewById(R.id.admin_home_updateSubjects_cardView);
+        attendanceCard = findViewById(R.id.admin_home_attendance);
         createStudentsCard.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
             intent.putExtra("userData", currentUserData);
@@ -92,16 +95,26 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
             intent.putExtra("userData", currentUserData);
             startActivity(intent);
         });
+        attendanceCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AdminAttendanceActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
 
+
+        sessionManagement = new SessionManagement(getApplicationContext());
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case idProfilePage:
-                showProfile();
+                Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
+                intent.putExtra("UserData", currentUserData);
+                startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
+                Toast.makeText(this,"Profile",Toast.LENGTH_LONG).show();
                 break;
             case idLogOut:
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -113,20 +126,21 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    public void doLogout(){
+    public void doLogout() {
         mAuth.signOut();
         finish();
         startActivity(new Intent(getApplicationContext(), Login.class));
+        sessionManagement.setLogin("login");
     }
 
-    public void showProfile(){
-//        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
+//    public void showProfile(){
+//        Intent intent = new Intent(getApplicationContext(),AdminProfileActivity.class);
 //        intent.putExtra("UserData", currentUserData);
 //        startActivity(intent);
-        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-    }
+//        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+//    }
 
-    private void fetchUserData(){ // method to fetch data from firebase
+    private void fetchUserData() { // method to fetch data from firebase
 
         progressBarLayout.setVisibility(View.VISIBLE);
 
@@ -137,7 +151,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentUserData = snapshot.getValue(AdminRegDataHelper.class);    // user data object instantiated
-                if(currentUserData == null){
+                if (currentUserData == null) {
                     progressBarLayout.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "No data found corresponding to this user", Toast.LENGTH_LONG).show();
                     return;
@@ -149,11 +163,12 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void setNavData(){  // method to set user data in the navigationView
+
+    private void setNavData() {  // method to set user data in the navigationView
         // getting the navigation element's references
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);

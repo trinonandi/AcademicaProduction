@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.example.academica.Admin.AdminRegDataHelper;
 import com.example.academica.Login;
 import com.example.academica.R;
+import com.example.academica.SessionManagement;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
     private StudentRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
     private CardView attendanceCardView;
+
+    SessionManagement sessionManagement;
    // private TextView navUserName;
 
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
@@ -75,6 +79,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         attendanceCardView = findViewById(R.id.student_home_cardView1);
         attendanceCardView.setOnClickListener(this::showAttendance);
 
+        sessionManagement = new SessionManagement(getApplicationContext());
+
     }
 
     @Override
@@ -87,6 +93,8 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
         mAuth.signOut();
         finish();
         startActivity(new Intent(getApplicationContext(), Login.class));
+        sessionManagement.setLogin("login");
+
     }
 
     public void showProfile(){

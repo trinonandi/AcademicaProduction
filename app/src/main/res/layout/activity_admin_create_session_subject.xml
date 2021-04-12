@@ -32,28 +32,26 @@
             app:layout_anchorGravity="center">
 
             <LinearLayout
-
                 android:id="@+id/linearLayout4"
-                android:layout_width="355dp"
-                android:layout_height="77dp"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.39"
+                app:layout_constraintHorizontal_bias="0.49"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSessionSubject_deptBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="170dp"
+                    android:layout_width="155dp"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/open_sans"
                     android:padding="10dp"
                     android:text="@string/dept"
@@ -65,9 +63,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/admin_createSessionSubject_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="155dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
 
                     android:fontFamily="@font/open_sans"
                     android:padding="10dp"
@@ -81,7 +79,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="368dp"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="70dp"
@@ -89,7 +87,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/admin_createSessionSubject_recyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.49"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
@@ -98,7 +96,7 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
                     android:fontFamily="@font/open_sans"
                     android:text="Close"
                     android:textColor="@color/blue_accent_custom"
@@ -111,7 +109,7 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
                     android:fontFamily="@font/open_sans"
                     android:onClick="addSubject"
                     android:text="Add"
@@ -137,16 +135,19 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/admin_createSessionSubject_recyclerView"
-                android:layout_width="370dp"
-                android:layout_height="438dp"
-                android:layout_marginTop="201dp"
+                android:layout_width="383dp"
+                android:layout_height="426dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="84dp"
                 android:background="@color/white"
                 android:padding="5dp"
                 android:scrollbars="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout

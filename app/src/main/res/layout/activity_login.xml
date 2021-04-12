@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,39 +9,72 @@
     android:rotationY="0"
     tools:context=".MainActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/login_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:visibility="gone"
+        >
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="500dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="50dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            app:indicatorColor="@color/red"
+
+
+            />
+
+
+
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="350dp"
         android:layout_height="145dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="32dp"
         android:contentDescription="@string/logo"
         android:src="@drawable/logo_vector_academica"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="350dp"
         android:layout_height="450dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/shadow_card"
         android:padding="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_reg_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569">
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_email_editText"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:autofillHints="@string/email"
             android:backgroundTint="@color/blue_gray_custom"
             android:drawableStart="@drawable/ic_baseline_email_24"
@@ -57,19 +89,18 @@
             app:endIconMode="clear_text"
             app:endIconTint="@color/blue_gray_custom"
             app:hintTextColor="@color/blue_gray_custom"
-            app:startIconTint="@color/blue_gray_custom"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/main_pwd_editText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25"
-            app:startIconDrawable="@drawable/ic_baseline_email_24">
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
+            app:startIconTint="@color/blue_gray_custom">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/blue_gray_custom"/>
+                android:textColor="@color/blue_gray_custom" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -90,14 +121,13 @@
             app:endIconMode="password_toggle"
             app:endIconTint="@color/blue_gray_custom"
             app:hintTextColor="@color/blue_gray_custom"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/main_forgotPwd_textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:startIconTint="@color/blue_gray_custom"
-            app:startIconDrawable="@drawable/ic_baseline_vpn_key_24">
+            app:layout_constraintTop_toBottomOf="@+id/main_email_editText"
+            app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"
+            app:startIconTint="@color/blue_gray_custom">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -133,23 +163,23 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/bubblegum_sans"
+            android:text="@string/sign_in"
             android:textColor="@color/blue_gray_custom"
             android:textSize="38sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintEnd_toStartOf="@+id/main_signin_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81" />
+            app:layout_constraintTop_toBottomOf="@+id/main_forgotPwd_textView" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_signin_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/sign_in"
+            android:onClick="doSignIn"
             android:src="@drawable/ic_baseline_arrow_forward_24"
             app:backgroundTint="#009EFD"
             app:fabCustomSize="80dp"
@@ -157,54 +187,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.775"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.847"
+            app:layout_constraintTop_toBottomOf="@+id/main_pwd_editText"
             app:rippleColor="@color/blue_ripple_custom"
-            app:tint="@color/white"
-            android:onClick="doSignIn"/>
+            app:tint="@color/white" />
 
-        <androidx.cardview.widget.CardView
-            app:cardElevation="7dp"
-            app:cardCornerRadius="30dp"
-            android:visibility="gone"
-            android:id="@+id/login_progressbar"
-            android:layout_width="316dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_email_editText">
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:layout_margin="20dp"
-                android:layout_width="200dp"
-                android:layout_height="61dp"
-                android:layout_gravity="center_vertical"
-                android:indeterminate="true"
-                app:indicatorColor="@color/red"
-                android:indeterminateBehavior="repeat"
-
-                />
-
-            <TextView
-                android:layout_width="198dp"
-                android:layout_height="69dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="50dp"
-                android:text="@string/wait_info"
-                android:textSize="30sp" />
-
-        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_reg_btn"
         android:layout_width="120dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="105dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/bubblegum_sans"
         android:gravity="center"
@@ -217,7 +211,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

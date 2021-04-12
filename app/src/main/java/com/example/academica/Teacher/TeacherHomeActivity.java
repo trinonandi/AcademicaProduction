@@ -1,14 +1,5 @@
 package com.example.academica.Teacher;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,9 +9,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.academica.Login;
 import com.example.academica.R;
-import com.example.academica.Student.StudentAttendanceActivity;
+import com.example.academica.SessionManagement;
 import com.example.academica.Student.StudentRegDataHelper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +41,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
     private FirebaseAuth mAuth;
     private FirebaseDatabase rootNode;
     private DatabaseReference referenceDB;
-    private StudentRegDataHelper currentUserData;
+    private TeacherRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
     private CardView cardView1;
     // private TextView navUserName;
@@ -73,8 +73,8 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-        cardView1 = findViewById(R.id.teacher_home_cardView1);
-        cardView1.setOnClickListener(this::showAttendance);
+//        cardView1 = findViewById(R.id.teacher_home_cardView1);
+//        cardView1.setOnClickListener(this::showAttendance);
 
     }
 
@@ -88,19 +88,24 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
         mAuth.signOut();
         finish();
         startActivity(new Intent(getApplicationContext(), Login.class));
+        SessionManagement sessionManagement = new SessionManagement(getApplicationContext());
+        sessionManagement.setLogin("login");
     }
 
-    private void showAttendance(View view){
-        Intent intent = new Intent(getApplicationContext(), StudentAttendanceActivity.class);
-        intent.putExtra("UserData", currentUserData);
-        startActivity(intent);
-    }
+//    private void showAttendance(View view){
+//        Intent intent = new Intent(getApplicationContext(), StudentAttendanceActivity.class);
+//        intent.putExtra("UserData", currentUserData);
+//        startActivity(intent);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case idProfilePage:
-                Toast.makeText(this,"profile page",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), TeacherProfileActivity.class);
+                intent.putExtra("UserData",currentUserData);
+
+                startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case idLogOut:
@@ -123,7 +128,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                currentUserData = snapshot.getValue(StudentRegDataHelper.class);    // user data object instantiated
+                currentUserData = snapshot.getValue(TeacherRegDataHelper.class);    // user data object instantiated
                 if(currentUserData == null){
                     progressBarLayout.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "No data found corresponding to this user", Toast.LENGTH_LONG).show();

@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +40,7 @@ public class AdminRegistrationFragment extends Fragment {
 
     private static final String TAG = "Admin";
     private TextInputLayout AdminName, AdminEmail, AdminPwd,AdminAuthId;
-    private ExtendedFloatingActionButton AdminRegsterBtn;
+    private FloatingActionButton AdminRegsterBtn;
     private FirebaseAuth mAuth;
 
     private MaterialTextView adminInstructions;

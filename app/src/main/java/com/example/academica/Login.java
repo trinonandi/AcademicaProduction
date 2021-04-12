@@ -2,6 +2,7 @@ package com.example.academica;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -34,6 +35,8 @@ import java.util.Objects;
 
 
 public class Login extends AppCompatActivity {
+
+
     private static final String TAG = "Login Page";
     private TextInputLayout emailEditText, pwdEditText;
     private AppCompatTextView forgotPwdTextView;
@@ -43,9 +46,16 @@ public class Login extends AppCompatActivity {
     private CardView linearProgressIndicator;
 
 
+    private SessionManagement sessionManagement;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         emailEditText = findViewById(R.id.main_email_editText);
@@ -64,54 +74,58 @@ public class Login extends AppCompatActivity {
 
         linearProgressIndicator = findViewById(R.id.login_progressbar);
 
+
+        sessionManagement = new SessionManagement(getApplicationContext());
+
+
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        if (mAuth.getCurrentUser() != null) {
-//            finish();
-//            startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
-//        }
-    }
+
+
+
 
     public void startRegActivity(View view) {
         startActivity(new Intent(Login.this, RegistrationActivity.class));
     }
 
 
-    public void doSignIn(View view){
+    public void doSignIn(View view) {
 
         String email = Objects.requireNonNull(emailEditText.getEditText()).getText().toString().trim();
         String pwd = Objects.requireNonNull(pwdEditText.getEditText()).getText().toString().trim();
 
-        if(!email.isEmpty() && !pwd.isEmpty()){
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!email.isEmpty() && !pwd.isEmpty()) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(getApplicationContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
                 linearProgressIndicator.setVisibility(View.GONE);
                 return;
             }
-            if(pwd.length()<6){
+            if (pwd.length() < 6) {
                 Toast.makeText(getApplicationContext(), "Password must be six digits", Toast.LENGTH_SHORT).show();
                 linearProgressIndicator.setVisibility(View.GONE);
                 return;
             }
-        } else{
+        } else {
             Toast.makeText(getApplicationContext(), "Empty fields", Toast.LENGTH_SHORT).show();
             linearProgressIndicator.setVisibility(View.GONE);
             return;
         }
 
 
-        mAuth.signInWithEmailAndPassword(email,pwd)
+        mAuth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(task -> {
 
+
                     linearProgressIndicator.setVisibility(View.VISIBLE);
-                    if(mAuth.getCurrentUser() == null){
+                    linearProgressIndicator.setBackgroundResource(android.R.color.transparent);
+
+
+
+                    if (mAuth.getCurrentUser() == null) {
                         linearProgressIndicator.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(), "Incorrect UserID or Password", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(emailVerificationStatus()){
+                    } else if (emailVerificationStatus()) {
 
                         String key = StudentRegDataHelper.generateKeyFromEmail(email);
                         DatabaseReference accountData = FirebaseDatabase.getInstance().getReference("users").child(key).child("type");
@@ -123,13 +137,22 @@ public class Login extends AppCompatActivity {
                                 assert accountType != null;
                                 switch (accountType) {
                                     case "STUDENT":
+
                                         intent = new Intent(getApplicationContext(), StudentHomeActivity.class);
+
+                                        sessionManagement.setLogin("STUDENT");
                                         break;
                                     case "TEACHER":
+
                                         intent = new Intent(getApplicationContext(), TeacherHomeActivity.class);
+
+                                        sessionManagement.setLogin("TEACHER");
                                         break;
                                     case "ADMIN":
+
                                         intent = new Intent(getApplicationContext(), AdminHomeActivity.class);
+
+                                        sessionManagement.setLogin("ADMIN");
                                         break;
                                 }
                                 finish();
@@ -141,14 +164,14 @@ public class Login extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(getApplicationContext(), "Error : "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Error : " + error.getMessage(), Toast.LENGTH_SHORT).show();
                                 linearProgressIndicator.setVisibility(View.GONE);
                             }
                         });
 
 
-                    } else{
-                        Toast.makeText(getApplicationContext(),"User not found", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
                         linearProgressIndicator.setVisibility(View.GONE);
                     }
 
@@ -160,16 +183,16 @@ public class Login extends AppCompatActivity {
         Objects.requireNonNull(pwdEditText.getEditText()).setText("");
     }
 
-    private boolean emailVerificationStatus(){
+    private boolean emailVerificationStatus() {
         boolean flag = false;
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        if(firebaseUser == null){
+        if (firebaseUser == null) {
             return false;
         }
-        if(firebaseUser.isEmailVerified()){
+        if (firebaseUser.isEmailVerified()) {
             flag = true;
-        } else{
+        } else {
             Toast.makeText(getApplicationContext(), "Verify the email", Toast.LENGTH_SHORT).show();
             linearProgressIndicator.setVisibility(View.GONE);
             mAuth.signOut();
@@ -177,7 +200,7 @@ public class Login extends AppCompatActivity {
         return flag;
     }
 
-    private void openForgetPwdDialogue(){ // method for complete forgot password feature
+    private void openForgetPwdDialogue() { // method for complete forgot password feature
         forgotPwdDialogue.setContentView(R.layout.forgot_password_dialog); // setting the layout for the dialogue box
         EditText resetEmail = forgotPwdDialogue.findViewById(R.id.forgot_password_reset_email); // getting id reference through the dialogue reference
         AppCompatButton reset = forgotPwdDialogue.findViewById(R.id.forgot_password_reset_btn);
@@ -191,10 +214,10 @@ public class Login extends AppCompatActivity {
 
         reset.setOnClickListener(v -> {
             String email = resetEmail.getText().toString();
-            if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
-                mAuth.sendPasswordResetEmail(email).addOnSuccessListener(aVoid -> Toast.makeText(Login.this, "Reset email sent successfully", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(Login.this, "Reset email cannot be sent: " +e.getMessage(), Toast.LENGTH_LONG).show());
-            } else{
+                mAuth.sendPasswordResetEmail(email).addOnSuccessListener(aVoid -> Toast.makeText(Login.this, "Reset email sent successfully", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(Login.this, "Reset email cannot be sent: " + e.getMessage(), Toast.LENGTH_LONG).show());
+            } else {
                 Toast.makeText(getApplicationContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
             }
         });
