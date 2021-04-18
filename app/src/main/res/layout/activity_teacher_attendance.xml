@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/student_main_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/blue_accent_custom"
+                app:title="Attendance"
+                app:titleTextColor="@color/white"
+                />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:scrollbars="vertical"
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="60dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/teacher_attendance_deptBtn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Dept"
+                    android:textColor="@color/blue_gray_custom"
+                    android:textStyle="bold"
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_gray_custom" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/teacher_attendance_semBtn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Sem"
+                    android:textColor="@color/blue_gray_custom"
+                    android:textStyle="bold"
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_gray_custom" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/teacher_attendance_searchBtn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Search"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/blue_gray_custom"
+                    android:textStyle="bold"
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_gray_custom"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/teacher_attendance_subjectLayout"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/teacher_attendance_subjectBtn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="320dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Subject"
+                    android:textColor="@color/blue_gray_custom"
+                    android:textStyle="bold"
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_gray_custom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/teacher_attendance_closeBtn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="155dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Close"
+                    android:textColor="@color/blue_accent_custom"
+                    android:textStyle="bold"
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_accent_custom" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/teacher_attendance_updateBtn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="155dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="@color/blue_accent_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Update"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:rippleColor="@color/blue_ripple_custom"
+                    app:strokeColor="@color/blue_accent_custom" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/teacher_attendance_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                tools:layout_editor_absoluteX="0dp"
+                android:choiceMode="multipleChoice"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/teacher_attendance_progressBar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#8DFFFFFF"
+            android:elevation="10dp"
+            android:visibility="gone">
+            <ProgressBar
+                android:id="@+id/student_home_progressBar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/blue_accent_custom"
+                />
+        </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+
+        android:id="@+id/student_Nav_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/student_drawer"
+
+        />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

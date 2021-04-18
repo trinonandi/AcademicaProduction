@@ -22,6 +22,7 @@ import com.example.academica.Login;
 import com.example.academica.R;
 import com.example.academica.SessionManagement;
 import com.example.academica.Student.StudentRegDataHelper;
+import com.example.academica.TeacherAttendanceActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -43,7 +44,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
     private DatabaseReference referenceDB;
     private TeacherRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
-    private CardView cardView1;
+    private CardView attendanceCardView;
     // private TextView navUserName;
 
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
@@ -73,8 +74,12 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-//        cardView1 = findViewById(R.id.teacher_home_cardView1);
-//        cardView1.setOnClickListener(this::showAttendance);
+        attendanceCardView = findViewById(R.id.teacher_home_attendance_cardView);
+        attendanceCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), TeacherAttendanceActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
 
     }
 

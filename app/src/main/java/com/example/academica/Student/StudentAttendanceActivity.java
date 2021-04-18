@@ -10,8 +10,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,13 @@ import com.example.academica.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class StudentAttendanceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,6 +42,8 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
     personalisedResultID = R.id.Personalized_result,
     profilePageID = R.id.profile_page,logoutID = R.id.logout;
     private StudentRegDataHelper currentUserData;
+    private RelativeLayout progressBarLayout;
+    private HashMap<String, Long> userAttendanceMap, totalAttendanceMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +71,11 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         setNavData();   // private method to set nav header data : declared below
 
         mAuth = FirebaseAuth.getInstance();
+        progressBarLayout = findViewById(R.id.student_attendance_progressBar_layout);
+        userAttendanceMap = new HashMap<>();
+        totalAttendanceMap = new HashMap<>();
+
+        fetchAttendanceData();
     }
 
     @Override
@@ -96,6 +112,68 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         navHeaderUserName.setText(currentUserData.getFullName());
         navHeaderEmail.setTextColor(Color.parseColor("#FFFFFF"));
         navHeaderEmail.setText(currentUserData.getEmail());
+
+    }
+
+    private void fetchAttendanceData(){
+        progressBarLayout.setVisibility(View.VISIBLE);
+        String roll = currentUserData.getClassRoll();
+        String sem = currentUserData.getSem();
+        String dept = currentUserData.getDept();
+        TextView dummy = findViewById(R.id.dummy_textView);
+
+        DatabaseReference userAttendanceReference = FirebaseDatabase.getInstance().getReference("attendance").child(dept).child(sem).child(roll);
+        DatabaseReference totalAttendanceReference = FirebaseDatabase.getInstance().getReference("attendance").child(dept).child(sem).child("total");
+
+        userAttendanceReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue() == null){
+                    Toast.makeText(StudentAttendanceActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
+                    progressBarLayout.setVisibility(View.GONE);
+                    return;
+                }
+                for(DataSnapshot item : snapshot.getChildren()){
+                    String code = item.getKey();
+                    Long attendanceValue = (Long) item.getValue();
+                    userAttendanceMap.put(code, attendanceValue);
+                }
+
+                // setting to dummy textView
+                dummy.setText(userAttendanceMap.toString());
+
+                progressBarLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(StudentAttendanceActivity.this, "Error occurred while fetching data", Toast.LENGTH_SHORT).show();
+                progressBarLayout.setVisibility(View.GONE);
+            }
+        });
+
+        totalAttendanceReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue() == null){
+                    Toast.makeText(StudentAttendanceActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
+                    progressBarLayout.setVisibility(View.GONE);
+                    return;
+                }
+                for(DataSnapshot item : snapshot.getChildren()){
+                    String code = item.getKey();
+                    Long attendanceValue = (Long) item.getValue();
+                    totalAttendanceMap.put(code, attendanceValue);
+                }
+                progressBarLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(StudentAttendanceActivity.this, "Error occurred while fetching data", Toast.LENGTH_SHORT).show();
+                progressBarLayout.setVisibility(View.GONE);
+            }
+        });
 
     }
 }

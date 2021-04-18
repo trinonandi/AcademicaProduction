@@ -63,7 +63,7 @@ public class AdminUpdateSessionSubjectActivity extends AppCompatActivity impleme
     private MaterialButton deptButton, semButton, closeBtn, searchBtn;
     private RecyclerView recyclerView;
     private ArrayList<RecyclerItem> recyclerItemsArrayList;
-    private RecyclerView.Adapter recyclerAdapter;
+    private RecyclerAdapter recyclerAdapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
     private RelativeLayout progressBarLayout;
     private Dialog addItemDialog;
@@ -346,10 +346,7 @@ public class AdminUpdateSessionSubjectActivity extends AppCompatActivity impleme
 
                 if(!addNewSubjectFlag){
                     // setting the colours of the existing students to green to segregate from the new students
-                    for(int i = recyclerView.getChildCount() - 1; i >= 0 ; i--){
-                        View currentView = recyclerView.getChildAt(i);
-                        currentView.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.recycler_item_background_green));
-                    }
+                    recyclerAdapter.changeColorFlag();
                     addNewSubjectFlag = true;
                 }
 
