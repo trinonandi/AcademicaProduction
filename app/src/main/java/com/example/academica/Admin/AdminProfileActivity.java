@@ -71,7 +71,7 @@ public class AdminProfileActivity extends AppCompatActivity implements Navigatio
         navigationView.setNavigationItemSelectedListener(this);
 
         //set data to nav headers
-        currentUserData = (AdminRegDataHelper)getIntent().getSerializableExtra("UserData");   // retrieve user data object from home activity
+        currentUserData = (AdminRegDataHelper)getIntent().getSerializableExtra("userData");   // retrieve user data object from home activity
         setNavData();   // private method to set nav header data : declared below
 
         setDataInView(); // sets profile data
@@ -87,7 +87,6 @@ public class AdminProfileActivity extends AppCompatActivity implements Navigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case personalisedAttendanceID:
-
                 startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
 
@@ -95,13 +94,10 @@ public class AdminProfileActivity extends AppCompatActivity implements Navigatio
                 break;
 
             case profilePageID:
-
-
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case logoutID:
                 mAuth.signOut();
-
                 startActivity(new Intent(AdminProfileActivity.this, Login.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 finish();

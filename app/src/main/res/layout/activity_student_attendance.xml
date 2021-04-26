@@ -22,8 +22,24 @@
                 app:titleTextColor="@color/white" />
         </com.google.android.material.appbar.AppBarLayout>
 
+        <RelativeLayout
+            android:id="@+id/student_attendance_pr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/student_attendance_pieChart"
+            android:layout_width="345dp"
+            android:layout_height="415dp"
 
 
+            android:layout_marginTop="150dp"
+            android:padding="15dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

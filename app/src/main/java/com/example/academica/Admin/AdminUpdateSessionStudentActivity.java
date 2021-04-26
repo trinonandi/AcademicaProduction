@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +61,7 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
     private MaterialButton deptButton, semButton, closeBtn, searchBtn;
     private RecyclerView recyclerView;
     private ArrayList<RecyclerItem> recyclerItemsArrayList;
-    private RecyclerView.Adapter recyclerAdapter;
+    private RecyclerAdapter recyclerAdapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
     private RelativeLayout progressBarLayout;
     private Dialog addItemDialog;
@@ -246,6 +247,31 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
                 doLogout();
                 break;
 
+            case R.id.admin_AllNav_Attendance:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showAttendance();
+                break;
+            case R.id.admin_AllNav_createStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateStudent();
+                break;
+            case R.id.admin_AllNav_createSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateSubject();
+                break;
+            case R.id.admin_AllNav_UpdateStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateStudent();
+                break;
+            case R.id.admin_AllNav_UpdateSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateSubject();
+                break;
+            case R.id.personalized_home:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(getApplicationContext(),AdminHomeActivity.class));
+                break;
+
         }
         return true;
     }
@@ -257,11 +283,40 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
     }
 
     public void showProfile(){
-//        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
-//        intent.putExtra("UserData", currentUserData);
-//        startActivity(intent);
-        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
     }
+
+    public void showAttendance() {
+        Intent intent = new Intent(getApplicationContext(), AdminAttendanceActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showCreateStudent()
+    {
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showCreateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showUpdateStudent(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showUpdateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
 
     public void searchData(View view) {
         // method to search student data from dept and sem. Executed on SEARCH button click
@@ -280,7 +335,9 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.getValue() == null){
                     // data is not present in the database
-                    Toast.makeText(AdminUpdateSessionStudentActivity.this, "Data not found. Create the session first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminUpdateSessionStudentActivity.this,
+                            "Data not found. Create the session first",
+                            Toast.LENGTH_SHORT).show();
                     progressBarLayout.setVisibility(View.GONE);
                     return;
                 }
@@ -341,10 +398,7 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
 
                 if(!addNewStudentFlag){
                     // setting the colours of the existing students to green to segregate from the new students
-                    for(int i = recyclerView.getChildCount() - 1; i >= 0 ; i--){
-                        View currentView = recyclerView.getChildAt(i);
-                        currentView.setBackground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.recycler_item_background_green));
-                    }
+                    recyclerAdapter.changeColorFlag();
                     addNewStudentFlag = true;
                 }
 
@@ -367,6 +421,7 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
             return;
         }
         addItemDialog.setContentView(R.layout.instructions_dialog);
+        addItemDialog.show();
         TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
         Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
                 yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
@@ -384,8 +439,8 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
                 finish();
                 startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
             }).addOnFailureListener(e -> Toast.makeText(AdminUpdateSessionStudentActivity.this, "Failed to update data", Toast.LENGTH_SHORT).show());
+            addItemDialog.dismiss();
         });
-        addItemDialog.show();
         progressBarLayout.setVisibility(View.GONE);
     }
 

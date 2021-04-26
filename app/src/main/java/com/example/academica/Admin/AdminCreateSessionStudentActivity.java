@@ -17,7 +17,6 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +34,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -45,25 +43,24 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import static android.util.Log.i;
 
 public class AdminCreateSessionStudentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "ADMIN";
 
-    private Button backButton, semButton, deptButton;
+    private static final String TAG = "ADMIN CREATE SESSION";
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
+    private Button deptButton, semButton;
     private AdminRegDataHelper currentUserData;
-    private Dialog addItemDialog;
     private ArrayList<RecyclerItem> recyclerItemsArrayList;
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager recyclerLayoutManager;
     private RecyclerView recyclerView;
-
+    private Dialog addItemDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_create_session_subject);
+        setContentView(R.layout.activity_admin_create_session_students);
 
         currentUserData = (AdminRegDataHelper)getIntent().getSerializableExtra("userData");
         mAuth = FirebaseAuth.getInstance();
@@ -82,10 +79,8 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
         navigationView.setNavigationItemSelectedListener(this);
         setNavData();
 
-        // getting parcelable data
-        backButton = findViewById(R.id.admin_createSessionSubject_closeBtn);
-        semButton = findViewById(R.id.admin_createSessionSubject_semBtn);
-        deptButton = findViewById(R.id.admin_createSessionSubject_deptBtn);
+        // setting dept menu on the department button
+        deptButton = findViewById(R.id.admin_createSession_student_deptBtn);
         deptButton.setOnClickListener(v -> {
             PopupMenu dept = new PopupMenu(this,deptButton, Gravity.CENTER);
             dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
@@ -96,8 +91,11 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
             dept.show();
         });
+
+        // setting sem menu on the semester button
+        semButton = findViewById(R.id.admin_createSession_student_semBtn);
         semButton.setOnClickListener(v -> {
-            PopupMenu sem = new PopupMenu(this,deptButton, Gravity.CENTER);
+            PopupMenu sem = new PopupMenu(this,semButton, Gravity.CENTER);
             sem.getMenuInflater().inflate(R.menu.sem_menu,sem.getMenu());
             sem.setOnMenuItemClickListener(item -> {
                 semButton.setText(item.getTitle());
@@ -106,7 +104,6 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
             sem.show();
         });
-        backButton.setOnClickListener(v -> onBackPressed());
 
         // initiating dialog box for data input
         addItemDialog = new Dialog(this);
@@ -114,7 +111,7 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
         // Recycler view implementation code
         recyclerItemsArrayList = new ArrayList<>();
-        recyclerView = findViewById(R.id.admin_createSessionSubject_recyclerView);
+        recyclerView = findViewById(R.id.admin_createSession_student_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerLayoutManager = new LinearLayoutManager(this);
         recyclerAdapter = new RecyclerAdapter(recyclerItemsArrayList);
@@ -150,21 +147,19 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
                 case ItemTouchHelper.RIGHT:     // right swipe to edit the data from a dialog box
                     RecyclerItem swipedItem = recyclerItemsArrayList.get(position);
                     addItemDialog.setContentView(R.layout.recycler_add_item_dialog);
-                    TextInputLayout subjectCodeLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_roll),
-                            subjectNameLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_name);
+                    TextInputLayout rollLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_roll),
+                            nameLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_name);
                     Button closeButton = addItemDialog.findViewById(R.id.admin_createSession_dialog_closeBtn),
                             addButton = addItemDialog.findViewById(R.id.admin_createSession_dialog_addBtn);
-                    subjectCodeLayout.setHint(R.string.subject_code);
-                    subjectNameLayout.setHint(R.string.subject_name);
                     // setting data from the swiped item
-                    Objects.requireNonNull(subjectCodeLayout.getEditText()).setText(swipedItem.getKey());
-                    Objects.requireNonNull(subjectNameLayout.getEditText()).setText(swipedItem.getName());
+                    Objects.requireNonNull(rollLayout.getEditText()).setText(swipedItem.getKey());
+                    Objects.requireNonNull(nameLayout.getEditText()).setText(swipedItem.getName());
 
                     addButton.setOnClickListener(v -> {
-                        String code = Objects.requireNonNull(subjectCodeLayout.getEditText()).getText().toString().trim();
-                        String name = Objects.requireNonNull(subjectNameLayout.getEditText()).getText().toString().trim();
-                        if(code.length() > 0 && name.length() > 0){
-                            swipedItem.setName(name); swipedItem.setKey(code);
+                        String roll = Objects.requireNonNull(rollLayout.getEditText()).getText().toString().trim();
+                        String name = Objects.requireNonNull(nameLayout.getEditText()).getText().toString().trim();
+                        if(roll.length() > 0 && name.length() > 0){
+                            swipedItem.setName(name); swipedItem.setKey(roll);
                             recyclerAdapter.notifyItemChanged(position);
                             addItemDialog.dismiss();
                         }
@@ -200,38 +195,6 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
         }
     };
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case idProfilePage:
-                showProfile();
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            case idLogOut:
-                drawerLayout.closeDrawer(GravityCompat.START);
-                doLogout();
-                break;
-
-        }
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        addItemDialog.setContentView(R.layout.instructions_dialog);
-        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
-        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
-                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
-
-        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
-        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
-        yesBtn.setOnClickListener(v ->{
-            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-            finish();
-        });
-        addItemDialog.show();
-    }
-
     private void setNavData(){  // method to set user data in the navigationView
         // getting the navigation element's references
         View navHeaderView = navigationView.getHeaderView(0);
@@ -244,6 +207,64 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
     }
 
+    @Override
+    public void onBackPressed() {
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
+
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            addItemDialog.dismiss();
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
+        addItemDialog.show();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case idProfilePage:
+                showProfile();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case idLogOut:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                doLogout();
+                break;
+
+            case R.id.admin_AllNav_Attendance:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showAttendance();
+                break;
+            case R.id.admin_AllNav_createStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateStudent();
+                break;
+            case R.id.admin_AllNav_createSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateSubject();
+                break;
+            case R.id.admin_AllNav_UpdateStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateStudent();
+                break;
+            case R.id.admin_AllNav_UpdateSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateSubject();
+                break;
+            case R.id.personalized_home:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(getApplicationContext(),AdminHomeActivity.class));
+                break;
+
+        }
+        return true;
+    }
+
     public void doLogout(){
         mAuth.signOut();
         finish();
@@ -251,30 +272,55 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
     }
 
     public void showProfile(){
-//        Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
-//        intent.putExtra("UserData", currentUserData);
-//        startActivity(intent);
-        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
     }
 
-    public void addSubject(View view) {
-        // open the data item adding dialog box and show them on the recyclerView
+    public void showAttendance() {
+        Intent intent = new Intent(getApplicationContext(), AdminAttendanceActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showCreateStudent()
+    {
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showCreateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showUpdateStudent(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showUpdateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void addItem(View view){
+        // open the data item adding dialog box and show them on the recyclerView. Runs on ADD button press
         addItemDialog.setContentView(R.layout.recycler_add_item_dialog);
-        TextInputLayout subjectCodeLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_roll),
-                subjectNameLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_name);
+        TextInputLayout rollLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_roll),
+                nameLayout = addItemDialog.findViewById(R.id.admin_createSession_dialog_name);
         Button closeButton = addItemDialog.findViewById(R.id.admin_createSession_dialog_closeBtn),
                 addButton = addItemDialog.findViewById(R.id.admin_createSession_dialog_addBtn);
-
-        subjectCodeLayout.setHint(R.string.subject_code);
-        subjectNameLayout.setHint(R.string.subject_name);
 
         closeButton.setOnClickListener(v -> addItemDialog.dismiss());
 
         addButton.setOnClickListener(v -> {
-            String code = Objects.requireNonNull(subjectCodeLayout.getEditText()).getText().toString().trim();
-            String name = Objects.requireNonNull(subjectNameLayout.getEditText()).getText().toString().trim();
-            if(code.length() > 0 && name.length() > 0){
-                RecyclerItem item = new RecyclerItem(code,name);
+            String roll = Objects.requireNonNull(rollLayout.getEditText()).getText().toString().trim();
+            String name = Objects.requireNonNull(nameLayout.getEditText()).getText().toString().trim();
+            if(roll.length() > 0 && name.length() > 0){
+                RecyclerItem item = new RecyclerItem(roll,name);
                 recyclerItemsArrayList.add(item);
                 recyclerAdapter.notifyItemInserted(recyclerItemsArrayList.indexOf(item));
                 addItemDialog.dismiss();
@@ -287,25 +333,46 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
         addItemDialog.show();
     }
 
-    public void submitAllData(View view) {
-        HashMap<String, String> subjectDataMap = new HashMap<>();
-        for(RecyclerItem item : recyclerItemsArrayList){
-            subjectDataMap.put(item.getKey(), item.getName());
-        }
+    public void closeWindow(View view) {
+        onBackPressed();
+    }
 
-        String sem = semButton.getText().toString(), dept = deptButton.getText().toString();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        String semNumber = ""+sem.charAt(0);
+    public void createStudentSession(View view) {
+        // runs on NEXT button press
 
-        // storing subject data
-        reference.child("sessions").child(dept).child("subjects").child(semNumber).setValue(subjectDataMap)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Subject data successfully Saved", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-                    finish();
-                })
-                .addOnFailureListener(e -> Toast.makeText(this, "Failed to save data", Toast.LENGTH_SHORT).show());
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        addItemDialog.show();
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
 
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v ->{
+            if (deptButton.getText().toString().toLowerCase().equals("department") || semButton.getText().toString().toLowerCase().equals("semester")){
+                Toast.makeText(this, "Select department and semester", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // converting from object to a hash map for database update
+            Map<String, String> sortedStudentDataMap = new TreeMap<>();
+            for(RecyclerItem item : recyclerItemsArrayList){
+                sortedStudentDataMap.put(item.getKey(), item.getName());
+            }
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+            String sem = semButton.getText().toString(), dept = deptButton.getText().toString();
+            String semNumber = ""+sem.charAt(0);
+            // storing the students data
+            reference.child("sessions").child(dept).child("students").child(semNumber).setValue(sortedStudentDataMap)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(AdminCreateSessionStudentActivity.this, "Student data successfully saved", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(AdminCreateSessionStudentActivity.this, "Failed to save data", Toast.LENGTH_SHORT).show());
+            addItemDialog.dismiss();
+            startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+            finish();
+        });
 
     }
 }

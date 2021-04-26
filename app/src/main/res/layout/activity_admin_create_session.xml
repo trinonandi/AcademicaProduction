@@ -41,7 +41,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_deptBtn"
+                    android:id="@+id/admin_createSession_student_deptBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="148dp"
                     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                     app:strokeColor="@color/blue_gray_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_semBtn"
+                    android:id="@+id/admin_createSession_student_semBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="152dp"
                     android:layout_height="match_parent"
@@ -79,7 +79,7 @@
                 android:padding="10dp">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_closeBtn"
+                    android:id="@+id/admin_createSession_student_closeBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="101dp"
                     android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                     app:strokeColor="@color/blue_accent_custom" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/admin_createSession_addBtn"
+                    android:id="@+id/admin_createSession_student_addBtn"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="110dp"
                     android:layout_height="50dp"
@@ -124,7 +124,7 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/admin_createSession_recyclerView"
+                android:id="@+id/admin_createSession_student_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -164,7 +164,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/student_drawer"
+        app:menu="@menu/admin_all_navmenu"
 
         />
 

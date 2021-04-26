@@ -37,7 +37,7 @@ public class TeacherProfileUpdateActivity extends AppCompatActivity {
 
         deptButton = findViewById(R.id.teacher_profile_update_dept);
 
-        currentUserData = (TeacherRegDataHelper) getIntent().getSerializableExtra("UserData");
+        currentUserData = (TeacherRegDataHelper) getIntent().getSerializableExtra("userData");
 
         Objects.requireNonNull(nameLayout.getEditText()).setText(currentUserData.getFullName());
 

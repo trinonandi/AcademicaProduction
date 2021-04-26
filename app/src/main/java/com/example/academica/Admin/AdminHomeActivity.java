@@ -32,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard, updateSubjectsCard;
+    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard, updateSubjectsCard, attendanceCard;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -73,6 +73,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         createSubjectsCard = findViewById(R.id.admin_home_createSubjects_cardView);
         updateStudentsCard = findViewById(R.id.admin_home_updateadmins_cardView);
         updateSubjectsCard = findViewById(R.id.admin_home_updateSubjects_cardView);
+        attendanceCard = findViewById(R.id.admin_home_attendance);
         createStudentsCard.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
             intent.putExtra("userData", currentUserData);
@@ -90,6 +91,11 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         });
         updateSubjectsCard.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionSubjectActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
+        attendanceCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AdminAttendanceActivity.class);
             intent.putExtra("userData", currentUserData);
             startActivity(intent);
         });

@@ -43,7 +43,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
     private DatabaseReference referenceDB;
     private TeacherRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
-    private CardView cardView1;
+    private CardView attendanceCardView;
     // private TextView navUserName;
 
     private final int idProfilePage = R.id.profile_page, idLogOut = R.id.logout;    // makes the switch case ids final
@@ -73,8 +73,12 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-//        cardView1 = findViewById(R.id.teacher_home_cardView1);
-//        cardView1.setOnClickListener(this::showAttendance);
+        attendanceCardView = findViewById(R.id.teacher_home_attendance_cardView);
+        attendanceCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), TeacherAttendanceActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
 
     }
 
@@ -100,10 +104,11 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
             case idProfilePage:
                 Intent intent = new Intent(getApplicationContext(), TeacherProfileActivity.class);
-                intent.putExtra("UserData",currentUserData);
+                intent.putExtra("userData",currentUserData);
 
                 startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -112,6 +117,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
                 drawerLayout.closeDrawer(GravityCompat.START);
                 doLogout();
                 break;
+
 
         }
         return true;

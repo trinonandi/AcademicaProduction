@@ -4,16 +4,22 @@
     <item
         android:id="@+id/personalized_home"
         android:title="Home"
-        android:icon="@drawable/ic_register_icon"
+        android:icon="@drawable/ic_home"
         />
-
+    <item
+        android:id="@+id/teacher_AllNav_attendance"
+        android:title="Attendance"
+        android:icon="@drawable/ic_attendance"
+        />
 
 
     <item
         android:id="@+id/profile_page"
+        android:icon="@drawable/ic_profille"
         android:title="Profile" />
     <item
         android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
         android:title="Logout" />
 
 </menu>

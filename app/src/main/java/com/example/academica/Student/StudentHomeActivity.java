@@ -76,7 +76,7 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
         fetchUserData();
 
-        attendanceCardView = findViewById(R.id.student_home_cardView1);
+        attendanceCardView = findViewById(R.id.student_home_attendance_cardView);
         attendanceCardView.setOnClickListener(this::showAttendance);
 
         sessionManagement = new SessionManagement(getApplicationContext());

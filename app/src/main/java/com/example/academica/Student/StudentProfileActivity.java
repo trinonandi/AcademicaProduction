@@ -32,12 +32,12 @@ import java.util.Objects;
 public class StudentProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
-    private DrawerLayout drawerLayout ;
+    private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
     private final int personalisedAttendanceID = R.id.personalized_attendance,
             personalisedResultID = R.id.Personalized_result,
-            profilePageID = R.id.profile_page,logoutID = R.id.logout;
+            profilePageID = R.id.profile_page, logoutID = R.id.logout;
     private StudentRegDataHelper currentUserData;
     private Dialog resetPwdDialog;
     private TextView nameTextView, emailTextView, univRollTextView, classRollTextView, semTextView, deptTextView;
@@ -47,9 +47,9 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
-        toolbar=findViewById(R.id.student_attendance_toolbar);
+        toolbar = findViewById(R.id.student_attendance_toolbar);
         drawerLayout = findViewById(R.id.student_drawer_attendance);
-        navigationView  = findViewById(R.id.student_AllNav_menu);
+        navigationView = findViewById(R.id.student_AllNav_menu);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -74,7 +74,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
         navigationView.setNavigationItemSelectedListener(this);
 
         //set data to nav headers
-        currentUserData = (StudentRegDataHelper)getIntent().getSerializableExtra("UserData");   // retrieve user data object from home activity
+        currentUserData = (StudentRegDataHelper) getIntent().getSerializableExtra("userData");   // retrieve user data object from home activity
         setNavData();   // private method to set nav header data : declared below
 
         setDataInView(); // sets profile data
@@ -87,14 +87,13 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case personalisedAttendanceID:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(getApplicationContext(),StudentHomeActivity.class));
+                startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
                 break;
             case personalisedResultID:
-                Toast.makeText(getApplicationContext(),"profile result",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "profile result", Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case profilePageID:
@@ -106,11 +105,13 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
                 startActivity(new Intent(StudentProfileActivity.this, Login.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
+
         }
 
         return true;
     }
-    private void setNavData(){  // method to set user data in the navigationView
+
+    private void setNavData() {  // method to set user data in the navigationView
         // getting the navigation element's references
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
@@ -122,7 +123,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
 
     }
 
-    private void setDataInView(){   // method to set profile data
+    private void setDataInView() {   // method to set profile data
         nameTextView.setText(currentUserData.getFullName());
         emailTextView.setText(currentUserData.getEmail());
         semTextView.setText(currentUserData.getSem());
@@ -131,13 +132,13 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
         classRollTextView.setText(currentUserData.getClassRoll());
     }
 
-    public void updateProfile(View view){
-        Intent intent = new Intent(getApplicationContext(),StudentProfileUpdateActivity.class);
+    public void updateProfile(View view) {
+        Intent intent = new Intent(getApplicationContext(), StudentProfileUpdateActivity.class);
         intent.putExtra("UserData", currentUserData);
         startActivity(intent);
     }
 
-    public void resetPassword(View view){
+    public void resetPassword(View view) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         resetPwdDialog.setContentView(R.layout.reset_password_dialog);
@@ -156,7 +157,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Navigat
                 resetPwdDialog.dismiss();
                 mAuth.signOut();
                 finish();
-                startActivity(new Intent(getApplicationContext(),Login.class));
+                startActivity(new Intent(getApplicationContext(), Login.class));
             }).addOnFailureListener(e -> Toast.makeText(StudentProfileActivity.this, "Failed to reset password", Toast.LENGTH_SHORT).show());
         });
 
