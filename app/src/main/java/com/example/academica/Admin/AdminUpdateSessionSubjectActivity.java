@@ -267,7 +267,7 @@ public class AdminUpdateSessionSubjectActivity extends AppCompatActivity impleme
                 break;
             case R.id.admin_AllNav_UpdateSubject:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                showUpdateSubject();
+
                 break;
             case R.id.personalized_home:
                 drawerLayout.closeDrawer(GravityCompat.START);

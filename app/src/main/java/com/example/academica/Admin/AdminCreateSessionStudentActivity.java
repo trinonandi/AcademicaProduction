@@ -242,7 +242,7 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
                 break;
             case R.id.admin_AllNav_createStudent:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                showCreateStudent();
+
                 break;
             case R.id.admin_AllNav_createSubject:
                 drawerLayout.closeDrawer(GravityCompat.START);

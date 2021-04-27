@@ -261,7 +261,7 @@ public class AdminUpdateSessionStudentActivity extends AppCompatActivity impleme
                 break;
             case R.id.admin_AllNav_UpdateStudent:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                showUpdateStudent();
+
                 break;
             case R.id.admin_AllNav_UpdateSubject:
                 drawerLayout.closeDrawer(GravityCompat.START);

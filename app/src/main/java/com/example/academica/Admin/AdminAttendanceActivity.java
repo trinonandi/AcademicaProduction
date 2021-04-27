@@ -235,7 +235,7 @@ public class AdminAttendanceActivity extends AppCompatActivity implements Naviga
                 break;
             case R.id.admin_AllNav_Attendance:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                showAttendance();
+
                 break;
             case R.id.admin_AllNav_createStudent:
                 drawerLayout.closeDrawer(GravityCompat.START);
