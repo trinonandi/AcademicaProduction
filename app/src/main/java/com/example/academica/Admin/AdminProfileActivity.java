@@ -131,7 +131,7 @@ public class AdminProfileActivity extends AppCompatActivity implements Navigatio
 
     public void updateProfile(View view) {
         Intent intent = new Intent(getApplicationContext(), AdminProfileUpdateActivity.class);
-        intent.putExtra("UserData", currentUserData);
+        intent.putExtra("userData", currentUserData);
         startActivity(intent);
     }
 

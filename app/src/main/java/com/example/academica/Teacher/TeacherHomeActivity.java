@@ -22,7 +22,6 @@ import com.example.academica.Login;
 import com.example.academica.R;
 import com.example.academica.SessionManagement;
 import com.example.academica.Student.StudentRegDataHelper;
-import com.example.academica.TeacherAttendanceActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -105,10 +104,11 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
             case idProfilePage:
                 Intent intent = new Intent(getApplicationContext(), TeacherProfileActivity.class);
-                intent.putExtra("UserData",currentUserData);
+                intent.putExtra("userData",currentUserData);
 
                 startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -117,6 +117,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements Navigation
                 drawerLayout.closeDrawer(GravityCompat.START);
                 doLogout();
                 break;
+
 
         }
         return true;

@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,11 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.academica.Admin.AdminHomeActivity;
-import com.example.academica.Admin.AdminProfileActivity;
-import com.example.academica.Admin.AdminRegDataHelper;
-import com.example.academica.Admin.RecyclerAdapter;
-import com.example.academica.Admin.RecyclerItem;
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -137,64 +134,7 @@ public class AdminAttendanceActivity extends AppCompatActivity implements Naviga
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-//    private void submitAttendanceData(){
-//
-//        attendanceReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.getValue() == null){
-//                    // create a completely new attendance database
-//
-//                    // making a new hash map with key as subject code and initial attendance(value) as 0
-//                    HashMap<String, Integer> subjectItemMap = new HashMap<>();
-//                    for(String code : subjectMap.keySet()){
-//                        subjectItemMap.put(code, 0);
-//                    }
-//
-//                    // setting the initial attendance hash map for all the students
-//                    for(String roll : studentMap.keySet()){
-//                        attendanceReference.child(roll).setValue(subjectItemMap);
-//                    }
-//
-//                }
-//                else{
-//                    // attendance is already created
-//                    ArrayList<String> currentAttendanceRollList = new ArrayList<>();
-//                    for(DataSnapshot attendanceItem : snapshot.getChildren()){
-//                        currentAttendanceRollList.add(attendanceItem.getKey());
-//                    }
-//                    if(currentAttendanceRollList.size() == studentMap.size()){
-//                        // no new students are found in student database
-//                        Toast.makeText(AdminAttendanceActivity.this, "All students are present in attendance database", Toast.LENGTH_SHORT).show();
-//                    }
-//                    else{
-//                        // will add only the new students found in student database
-//
-//                        Collections.sort(currentAttendanceRollList);
-//                        // making a new hash map with key as subject code and initial attendance(value) as 0
-//                        HashMap<String, Integer> subjectItemMap = new HashMap<>();
-//                        for(String code : subjectMap.keySet()){
-//                            subjectItemMap.put(code, 0);
-//                        }
-//
-//                        // setting the initial attendance hash map for new students only
-//                        for(String studentRoll : studentMap.keySet()){
-//                            if(!currentAttendanceRollList.contains(studentRoll)){
-//                                attendanceReference.child(studentRoll).setValue(subjectItemMap);
-//                            }
-//                        }
-//                        Toast.makeText(AdminAttendanceActivity.this, "New students added successfully", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(AdminAttendanceActivity.this, "Error occurred while fetching data", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
+
 
     @Override
     public void onBackPressed() {
@@ -236,6 +176,30 @@ public class AdminAttendanceActivity extends AppCompatActivity implements Naviga
                 drawerLayout.closeDrawer(GravityCompat.START);
                 doLogout();
                 break;
+            case R.id.admin_AllNav_Attendance:
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                break;
+            case R.id.admin_AllNav_createStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateStudent();
+                break;
+            case R.id.admin_AllNav_createSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateSubject();
+                break;
+            case R.id.admin_AllNav_UpdateStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateStudent();
+                break;
+            case R.id.admin_AllNav_UpdateSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateSubject();
+                break;
+            case R.id.personalized_home:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(getApplicationContext(),AdminHomeActivity.class));
+                break;
 
         }
         return true;
@@ -249,6 +213,35 @@ public class AdminAttendanceActivity extends AppCompatActivity implements Naviga
 
     public void showProfile(){
         Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showAttendance() {
+        Intent intent = new Intent(getApplicationContext(), AdminAttendanceActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showCreateStudent()
+    {
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showCreateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showUpdateStudent(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showUpdateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionSubjectActivity.class);
         intent.putExtra("userData", currentUserData);
         startActivity(intent);
     }

@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.academica.AdminAttendanceActivity;
+import com.example.academica.AdminPromoteSessionActivity;
 import com.example.academica.Login;
 import com.example.academica.R;
 import com.example.academica.SessionManagement;
@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard, updateSubjectsCard, attendanceCard;
+    private CardView createStudentsCard, createSubjectsCard, updateStudentsCard, updateSubjectsCard, attendanceCard, promoteCard;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -75,6 +75,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         updateStudentsCard = findViewById(R.id.admin_home_updateadmins_cardView);
         updateSubjectsCard = findViewById(R.id.admin_home_updateSubjects_cardView);
         attendanceCard = findViewById(R.id.admin_home_attendance);
+        promoteCard = findViewById(R.id.admin_home_promote);
         createStudentsCard.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
             intent.putExtra("userData", currentUserData);
@@ -100,6 +101,11 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
             intent.putExtra("userData", currentUserData);
             startActivity(intent);
         });
+        promoteCard.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), AdminPromoteSessionActivity.class);
+            intent.putExtra("userData", currentUserData);
+            startActivity(intent);
+        });
 
 
         sessionManagement = new SessionManagement(getApplicationContext());
@@ -111,7 +117,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         switch (item.getItemId()) {
             case idProfilePage:
                 Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
-                intent.putExtra("UserData", currentUserData);
+                intent.putExtra("userData", currentUserData);
                 startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 Toast.makeText(this,"Profile",Toast.LENGTH_LONG).show();
@@ -133,12 +139,6 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         sessionManagement.setLogin("login");
     }
 
-//    public void showProfile(){
-//        Intent intent = new Intent(getApplicationContext(),AdminProfileActivity.class);
-//        intent.putExtra("UserData", currentUserData);
-//        startActivity(intent);
-//        Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-//    }
 
     private void fetchUserData() { // method to fetch data from firebase
 

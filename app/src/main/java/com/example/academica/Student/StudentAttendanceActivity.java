@@ -1,59 +1,69 @@
 package com.example.academica.Student;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.academica.Login;
 import com.example.academica.R;
-import com.google.firebase.auth.FirebaseAuth;
-
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class StudentAttendanceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "StudentAttendance";
-    
+
     private FirebaseAuth mAuth;
     private Toolbar toolbar;
-    private DrawerLayout drawerLayout ;
+    private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private final int personalisedAttendanceID = R.id.personalized_attendance,
-    personalisedResultID = R.id.Personalized_result,
-    profilePageID = R.id.profile_page,logoutID = R.id.logout;
+            personalisedResultID = R.id.Personalized_result,
+            profilePageID = R.id.profile_page, logoutID = R.id.logout;
     private StudentRegDataHelper currentUserData;
     private RelativeLayout progressBarLayout;
-    private HashMap<String, Long> userAttendanceMap, totalAttendanceMap;
+    private Map<String, Long> userAttendanceMap, totalAttendanceMap;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_attendance);
 
-
-        toolbar=findViewById(R.id.student_attendance_toolbar);
+        progressBarLayout = findViewById(R.id.student_attendance_progressBar);
+        toolbar = findViewById(R.id.student_attendance_toolbar);
         drawerLayout = findViewById(R.id.student_drawer_attendance);
-        navigationView  = findViewById(R.id.student_AllNav_menu);
+        navigationView = findViewById(R.id.student_AllNav_menu);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,
@@ -67,30 +77,86 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         navigationView.setNavigationItemSelectedListener(this);
 
         //set data to nav headers
-        currentUserData = (StudentRegDataHelper)getIntent().getSerializableExtra("UserData");   // retrieve user data object from home activity
+        currentUserData = (StudentRegDataHelper) getIntent().getSerializableExtra("userData");   // retrieve user data object from home activity
         setNavData();   // private method to set nav header data : declared below
 
         mAuth = FirebaseAuth.getInstance();
-        progressBarLayout = findViewById(R.id.student_attendance_progressBar_layout);
+        //  progressBarLayout = findViewById(R.id.student_attendance_progressBar_layout);
         userAttendanceMap = new HashMap<>();
         totalAttendanceMap = new HashMap<>();
 
+        progressBarLayout.setVisibility(View.VISIBLE);
         fetchAttendanceData();
+//        studentChart();
+
+
     }
+
+    private void showAttendanceChart() {
+        ArrayList<String> labels = new ArrayList<>(userAttendanceMap.keySet());
+        ArrayList<Long> percent = new ArrayList<>();
+        ArrayList<Long> uval = new ArrayList<>(userAttendanceMap.values());
+        ArrayList<Long> tval = new ArrayList<>(totalAttendanceMap.values());
+
+        for (int i = 0; i < userAttendanceMap.size(); i++) {
+            percent.add(uval.get(i) * 100 / tval.get(i));
+        }
+        ArrayList<PieEntry> studentData = new ArrayList<>();
+
+        for (int i = 0; i < userAttendanceMap.size(); i++) {
+            studentData.add(new PieEntry(percent.get(i), labels.get(i)));
+        }
+
+        PieChart studentChart = findViewById(R.id.student_attendance_pieChart);
+        PieDataSet pieDataSet = new PieDataSet(studentData,"");
+        PieData pieData = new PieData(pieDataSet);
+        Legend legend = studentChart.getLegend();
+
+        // legend parameters
+        legend.setTextSize(16f);
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setWordWrapEnabled(true);
+        legend.setTextColor(getResources().getColor(R.color.blue_gray_custom));
+        legend.setXEntrySpace(20f);
+
+        // data set parameters
+        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextSize(18f);
+        pieDataSet.setValueLineColor(Color.WHITE);
+
+        // chart parameters
+        studentChart.setData(pieData);
+        studentChart.getDescription().setEnabled(false);
+        studentChart.setCenterText("Attendance");
+        studentChart.setCenterTextSize(20f);
+        studentChart.setCenterTextColor(getResources().getColor(R.color.blue_gray_custom));
+        studentChart.animateY(800);
+        
+    }
+
+    public void showProfile(){
+        Intent intent = new Intent(getApplicationContext(), StudentProfileActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case personalisedAttendanceID:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(getApplicationContext(),StudentHomeActivity.class));
+                startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
                 break;
             case personalisedResultID:
-                Toast.makeText(getApplicationContext(),"result",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "result", Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case profilePageID:
+                showProfile();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case logoutID:
@@ -103,7 +169,7 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
         return true;
     }
 
-    private void setNavData(){  // method to set user data in the navigationView
+    private void setNavData() {  // method to set user data in the navigationView
         // getting the navigation element's references
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
@@ -115,57 +181,26 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
 
     }
 
-    private void fetchAttendanceData(){
-        progressBarLayout.setVisibility(View.VISIBLE);
-        String roll = currentUserData.getClassRoll();
-        String sem = currentUserData.getSem();
-        String dept = currentUserData.getDept();
-        TextView dummy = findViewById(R.id.dummy_textView);
+    private void fetchAttendanceData() {
+        DatabaseReference userAttendanceReference = FirebaseDatabase.getInstance().getReference("attendance").child(currentUserData.getDept()).child(currentUserData.getSem()).child(currentUserData.getClassRoll());
+        DatabaseReference totalAttendanceReference = FirebaseDatabase.getInstance().getReference("attendance").child(currentUserData.getDept()).child(currentUserData.getSem()).child("total");
 
-        DatabaseReference userAttendanceReference = FirebaseDatabase.getInstance().getReference("attendance").child(dept).child(sem).child(roll);
-        DatabaseReference totalAttendanceReference = FirebaseDatabase.getInstance().getReference("attendance").child(dept).child(sem).child("total");
-
-        userAttendanceReference.addValueEventListener(new ValueEventListener() {
+        totalAttendanceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getValue() == null){
+                if (snapshot.getValue() == null) {
                     Toast.makeText(StudentAttendanceActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
                     progressBarLayout.setVisibility(View.GONE);
                     return;
                 }
-                for(DataSnapshot item : snapshot.getChildren()){
-                    String code = item.getKey();
-                    Long attendanceValue = (Long) item.getValue();
-                    userAttendanceMap.put(code, attendanceValue);
-                }
 
-                // setting to dummy textView
-                dummy.setText(userAttendanceMap.toString());
-
-                progressBarLayout.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(StudentAttendanceActivity.this, "Error occurred while fetching data", Toast.LENGTH_SHORT).show();
-                progressBarLayout.setVisibility(View.GONE);
-            }
-        });
-
-        totalAttendanceReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getValue() == null){
-                    Toast.makeText(StudentAttendanceActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
-                    progressBarLayout.setVisibility(View.GONE);
-                    return;
-                }
-                for(DataSnapshot item : snapshot.getChildren()){
+                for (DataSnapshot item : snapshot.getChildren()) {
                     String code = item.getKey();
                     Long attendanceValue = (Long) item.getValue();
                     totalAttendanceMap.put(code, attendanceValue);
                 }
-                progressBarLayout.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -175,5 +210,30 @@ public class StudentAttendanceActivity extends AppCompatActivity implements Navi
             }
         });
 
+        userAttendanceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() == null) {
+                    Toast.makeText(StudentAttendanceActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
+                    progressBarLayout.setVisibility(View.GONE);
+                    return;
+                }
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    String code = item.getKey();
+
+                    Long attendanceValue = (Long) item.getValue();
+                    userAttendanceMap.put(code, attendanceValue);
+
+                }
+                progressBarLayout.setVisibility(View.GONE);
+                showAttendanceChart();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(StudentAttendanceActivity.this, "Error occurred while fetching data", Toast.LENGTH_SHORT).show();
+                progressBarLayout.setVisibility(View.GONE);
+            }
+        });
     }
 }

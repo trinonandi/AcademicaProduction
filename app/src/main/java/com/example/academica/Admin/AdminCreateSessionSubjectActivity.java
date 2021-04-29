@@ -39,7 +39,7 @@ import java.util.Objects;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
-public class AdminCreateSessionSubjectActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class AdminCreateSessionSubjectActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "ADMIN";
 
@@ -61,11 +61,11 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_create_session_subject);
 
-        currentUserData = (AdminRegDataHelper)getIntent().getSerializableExtra("userData");
+        currentUserData = (AdminRegDataHelper) getIntent().getSerializableExtra("userData");
         mAuth = FirebaseAuth.getInstance();
-        toolbar=findViewById(R.id.student_main_drawer);
+        toolbar = findViewById(R.id.student_main_drawer);
         drawerLayout = findViewById(R.id.student_drawer_layout);
-        navigationView  = findViewById(R.id.student_Nav_menu);
+        navigationView = findViewById(R.id.student_Nav_menu);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,
@@ -83,8 +83,8 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         semButton = findViewById(R.id.admin_createSessionSubject_semBtn);
         deptButton = findViewById(R.id.admin_createSessionSubject_deptBtn);
         deptButton.setOnClickListener(v -> {
-            PopupMenu dept = new PopupMenu(this,deptButton, Gravity.CENTER);
-            dept.getMenuInflater().inflate(R.menu.dept_menu,dept.getMenu());
+            PopupMenu dept = new PopupMenu(this, deptButton, Gravity.CENTER);
+            dept.getMenuInflater().inflate(R.menu.dept_menu, dept.getMenu());
             dept.setOnMenuItemClickListener(item -> {
                 deptButton.setText(item.getTitle());
                 return true;
@@ -93,8 +93,8 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
             dept.show();
         });
         semButton.setOnClickListener(v -> {
-            PopupMenu sem = new PopupMenu(this,deptButton, Gravity.CENTER);
-            sem.getMenuInflater().inflate(R.menu.sem_menu,sem.getMenu());
+            PopupMenu sem = new PopupMenu(this, deptButton, Gravity.CENTER);
+            sem.getMenuInflater().inflate(R.menu.sem_menu, sem.getMenu());
             sem.setOnMenuItemClickListener(item -> {
                 semButton.setText(item.getTitle());
                 return true;
@@ -131,13 +131,13 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             final int position = viewHolder.getAbsoluteAdapterPosition();
-            switch (direction){
+            switch (direction) {
                 case ItemTouchHelper.LEFT:      // left swipe removes the data
                     RecyclerItem deletedItem = recyclerItemsArrayList.get(position);
                     recyclerItemsArrayList.remove(position);
                     recyclerAdapter.notifyItemRemoved(position);
                     // a snack bar for undo action
-                    Snackbar.make(recyclerView, deletedItem.getKey() + " " +deletedItem.getName(), Snackbar.LENGTH_SHORT)
+                    Snackbar.make(recyclerView, deletedItem.getKey() + " " + deletedItem.getName(), Snackbar.LENGTH_SHORT)
                             .setAction("Undo", v -> {
                                 recyclerItemsArrayList.add(position, deletedItem);
                                 recyclerAdapter.notifyItemInserted(position);
@@ -159,17 +159,17 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
                     addButton.setOnClickListener(v -> {
                         String code = Objects.requireNonNull(subjectCodeLayout.getEditText()).getText().toString().trim();
                         String name = Objects.requireNonNull(subjectNameLayout.getEditText()).getText().toString().trim();
-                        if(code.length() > 0 && name.length() > 0){
-                            swipedItem.setName(name); swipedItem.setKey(code);
+                        if (code.length() > 0 && name.length() > 0) {
+                            swipedItem.setName(name);
+                            swipedItem.setKey(code);
                             recyclerAdapter.notifyItemChanged(position);
                             addItemDialog.dismiss();
-                        }
-                        else{
+                        } else {
                             Toast.makeText(getApplicationContext(), "Empty Fields", Toast.LENGTH_SHORT).show();
                         }
                     });
 
-                    closeButton.setOnClickListener(v ->{
+                    closeButton.setOnClickListener(v -> {
                         recyclerAdapter.notifyItemChanged(position);
                         addItemDialog.dismiss();
                     });
@@ -198,7 +198,7 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case idProfilePage:
                 showProfile();
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -207,6 +207,31 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
                 drawerLayout.closeDrawer(GravityCompat.START);
                 doLogout();
                 break;
+            case R.id.admin_AllNav_Attendance:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showAttendance();
+                break;
+            case R.id.admin_AllNav_createStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateStudent();
+                break;
+            case R.id.admin_AllNav_createSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                break;
+            case R.id.admin_AllNav_UpdateStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateStudent();
+                break;
+            case R.id.admin_AllNav_UpdateSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateSubject();
+                break;
+            case R.id.personalized_home:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(getApplicationContext(),AdminHomeActivity.class));
+                break;
+
 
         }
         return true;
@@ -221,14 +246,14 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
 
         messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
         noBtn.setOnClickListener(v -> addItemDialog.dismiss());
-        yesBtn.setOnClickListener(v ->{
+        yesBtn.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
             finish();
         });
         addItemDialog.show();
     }
 
-    private void setNavData(){  // method to set user data in the navigationView
+    private void setNavData() {  // method to set user data in the navigationView
         // getting the navigation element's references
         View navHeaderView = navigationView.getHeaderView(0);
         TextView navHeaderUserName = navHeaderView.findViewById(R.id.nav_header_userName);
@@ -240,17 +265,47 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
 
     }
 
-    public void doLogout(){
+    public void doLogout() {
         mAuth.signOut();
         finish();
         startActivity(new Intent(getApplicationContext(), Login.class));
     }
 
-    public void showProfile(){
+    public void showProfile() {
         Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
         intent.putExtra("userData", currentUserData);
         startActivity(intent);
     }
+
+    public void showAttendance() {
+        Intent intent = new Intent(getApplicationContext(), AdminAttendanceActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showCreateStudent()
+    {
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showCreateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showUpdateStudent(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showUpdateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
 
     public void addSubject(View view) {
         // open the data item adding dialog box and show them on the recyclerView
@@ -268,13 +323,12 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
         addButton.setOnClickListener(v -> {
             String code = Objects.requireNonNull(subjectCodeLayout.getEditText()).getText().toString().trim();
             String name = Objects.requireNonNull(subjectNameLayout.getEditText()).getText().toString().trim();
-            if(code.length() > 0 && name.length() > 0){
-                RecyclerItem item = new RecyclerItem(code,name);
+            if (code.length() > 0 && name.length() > 0) {
+                RecyclerItem item = new RecyclerItem(code, name);
                 recyclerItemsArrayList.add(item);
                 recyclerAdapter.notifyItemInserted(recyclerItemsArrayList.indexOf(item));
                 addItemDialog.dismiss();
-            }
-            else{
+            } else {
                 Toast.makeText(this, "Empty Fields", Toast.LENGTH_SHORT).show();
             }
         });
@@ -283,27 +337,40 @@ public class AdminCreateSessionSubjectActivity extends AppCompatActivity impleme
     }
 
 
-
     public void submitAllData(View view) {
 
 
-        HashMap<String, String> subjectDataMap = new HashMap<>();
-        for(RecyclerItem item : recyclerItemsArrayList){
-            subjectDataMap.put(item.getKey(), item.getName());
-        }
+        addItemDialog.setContentView(R.layout.instructions_dialog);
+        TextView messageView = addItemDialog.findViewById(R.id.instruction_dialog_textView);
+        Button noBtn = addItemDialog.findViewById(R.id.instruction_dialog_noBtn),
+                yesBtn = addItemDialog.findViewById(R.id.instruction_dialog_yesBtn);
 
-        String sem = semButton.getText().toString(), dept = deptButton.getText().toString();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        String semNumber = ""+sem.charAt(0);
+        messageView.setText("Do you want to close? Any unsaved change will be discarded. Press YES to close NO to go back");
+        noBtn.setOnClickListener(v -> addItemDialog.dismiss());
+        yesBtn.setOnClickListener(v -> {
 
-        // storing subject data
-        reference.child("sessions").child(dept).child("subjects").child(semNumber).setValue(subjectDataMap)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Subject data successfully Saved", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
-                    finish();
-                })
-                .addOnFailureListener(e -> Toast.makeText(this, "Failed to save data", Toast.LENGTH_SHORT).show());
+
+            HashMap<String, String> subjectDataMap = new HashMap<>();
+            for (RecyclerItem item : recyclerItemsArrayList) {
+                subjectDataMap.put(item.getKey(), item.getName());
+            }
+
+            String sem = semButton.getText().toString(), dept = deptButton.getText().toString();
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+            String semNumber = "" + sem.charAt(0);
+
+            // storing subject data
+            reference.child("sessions").child(dept).child("subjects").child(semNumber).setValue(subjectDataMap)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Subject data successfully Saved", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), AdminHomeActivity.class));
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to save data", Toast.LENGTH_SHORT).show());
+
+
+        });
+        addItemDialog.show();
 
 
     }

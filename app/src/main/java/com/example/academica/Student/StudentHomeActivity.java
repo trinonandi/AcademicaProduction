@@ -99,13 +99,13 @@ public class StudentHomeActivity extends AppCompatActivity implements Navigation
 
     public void showProfile(){
         Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
-        intent.putExtra("UserData", currentUserData);
+        intent.putExtra("userData", currentUserData);
         startActivity(intent);
     }
 
     private void showAttendance(View view){
         Intent intent = new Intent(getApplicationContext(), StudentAttendanceActivity.class);
-        intent.putExtra("UserData", currentUserData);
+        intent.putExtra("userData", currentUserData);
         startActivity(intent);
     }
 

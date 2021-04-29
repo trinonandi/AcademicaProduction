@@ -37,7 +37,7 @@ public class TeacherProfileUpdateActivity extends AppCompatActivity {
 
         deptButton = findViewById(R.id.teacher_profile_update_dept);
 
-        currentUserData = (TeacherRegDataHelper) getIntent().getSerializableExtra("UserData");
+        currentUserData = (TeacherRegDataHelper) getIntent().getSerializableExtra("userData");
 
         Objects.requireNonNull(nameLayout.getEditText()).setText(currentUserData.getFullName());
 
@@ -74,7 +74,7 @@ public class TeacherProfileUpdateActivity extends AppCompatActivity {
         databaseReference.child(key).setValue(currentUserData).addOnSuccessListener(aVoid -> {
             Toast.makeText(TeacherProfileUpdateActivity.this, "Profile updated successfully", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(), TeacherProfileActivity.class);
-            intent.putExtra("UserData", currentUserData);
+            intent.putExtra("userData", currentUserData);
             startActivity(intent);
         }).addOnFailureListener(e -> Toast.makeText(TeacherProfileUpdateActivity.this, "Cannot update profile", Toast.LENGTH_SHORT).show());
     }

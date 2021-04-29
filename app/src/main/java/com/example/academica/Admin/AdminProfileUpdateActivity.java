@@ -31,7 +31,7 @@ public class AdminProfileUpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_profile_update);
 
         nameLayout = findViewById(R.id.admin_profile_update_name);
-        currentUserData = (AdminRegDataHelper) getIntent().getSerializableExtra("UserData");
+        currentUserData = (AdminRegDataHelper) getIntent().getSerializableExtra("userData");
         Objects.requireNonNull(nameLayout.getEditText()).setText(currentUserData.getFullName());
     }
 

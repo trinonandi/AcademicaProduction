@@ -11,4 +11,5 @@
     <item name="teacherReg_authId_editText" type="id" />
     <item name="constraintLayout2" type="id" />
     <item name="reg_instruction" type="id"/>
+    <item name="student_attendance_pieChart" type="id" />
 </resources>

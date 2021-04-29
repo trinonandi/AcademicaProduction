@@ -140,7 +140,7 @@
             </LinearLayout>
 
             <ListView
-                android:id="@+id/teacher_attendance_recyclerView"
+                android:id="@+id/teacher_attendance_listView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -181,7 +181,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/student_drawer"
+        app:menu="@menu/teacher_all_navmenu"
 
         />
 

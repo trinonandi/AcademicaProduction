@@ -38,7 +38,7 @@ public class StudentProfileUpdateActivity extends AppCompatActivity {
         deptButton = findViewById(R.id.student_profile_update_dept);
 
 
-        currentUserData = (StudentRegDataHelper)getIntent().getSerializableExtra("UserData");   // retrieve user data object from home activity
+        currentUserData = (StudentRegDataHelper)getIntent().getSerializableExtra("userData");   // retrieve user data object from home activity
 
         // displaying the existing user data
         Objects.requireNonNull(nameLayout.getEditText()).setText(currentUserData.getFullName());
@@ -83,7 +83,7 @@ public class StudentProfileUpdateActivity extends AppCompatActivity {
         databaseReference.child(key).setValue(currentUserData).addOnSuccessListener(aVoid -> {
             Toast.makeText(StudentProfileUpdateActivity.this, "Profile updated successfully", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(),StudentProfileActivity.class);
-            intent.putExtra("UserData", currentUserData);
+            intent.putExtra("userData", currentUserData);
             startActivity(intent);
         }).addOnFailureListener(e -> Toast.makeText(StudentProfileUpdateActivity.this, "Cannot update profile", Toast.LENGTH_SHORT).show());
     }

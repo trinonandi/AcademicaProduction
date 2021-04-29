@@ -236,6 +236,31 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
                 doLogout();
                 break;
 
+            case R.id.admin_AllNav_Attendance:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showAttendance();
+                break;
+            case R.id.admin_AllNav_createStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                break;
+            case R.id.admin_AllNav_createSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showCreateSubject();
+                break;
+            case R.id.admin_AllNav_UpdateStudent:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateStudent();
+                break;
+            case R.id.admin_AllNav_UpdateSubject:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                showUpdateSubject();
+                break;
+            case R.id.personalized_home:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(getApplicationContext(),AdminHomeActivity.class));
+                break;
+
         }
         return true;
     }
@@ -248,6 +273,35 @@ public class AdminCreateSessionStudentActivity extends AppCompatActivity impleme
 
     public void showProfile(){
         Intent intent = new Intent(getApplicationContext(), AdminProfileActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showAttendance() {
+        Intent intent = new Intent(getApplicationContext(), AdminAttendanceActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showCreateStudent()
+    {
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showCreateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminCreateSessionSubjectActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+
+    public void showUpdateStudent(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionStudentActivity.class);
+        intent.putExtra("userData", currentUserData);
+        startActivity(intent);
+    }
+    public void showUpdateSubject(){
+        Intent intent = new Intent(getApplicationContext(), AdminUpdateSessionSubjectActivity.class);
         intent.putExtra("userData", currentUserData);
         startActivity(intent);
     }

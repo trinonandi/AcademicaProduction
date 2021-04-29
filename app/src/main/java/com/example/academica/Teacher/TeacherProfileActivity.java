@@ -80,7 +80,7 @@ public class TeacherProfileActivity extends AppCompatActivity implements Navigat
         navigationView.setNavigationItemSelectedListener(this);
 
         //set data to nav headers
-        currentUserData = (TeacherRegDataHelper)getIntent().getSerializableExtra("UserData");   // retrieve user data object from home activity
+        currentUserData = (TeacherRegDataHelper)getIntent().getSerializableExtra("userData");   // retrieve user data object from home activity
         setNavData();   // private method to set nav header data : declared below
 
         setDataInView(); // sets profile data
@@ -142,7 +142,7 @@ public class TeacherProfileActivity extends AppCompatActivity implements Navigat
 
     public void updateProfile(View view) {
         Intent intent = new Intent(getApplicationContext(), TeacherProfileUpdateActivity.class);
-        intent.putExtra("UserData", currentUserData);
+        intent.putExtra("userData", currentUserData);
         startActivity(intent);
     }
 

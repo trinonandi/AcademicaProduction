@@ -1,4 +1,4 @@
-package com.example.academica;
+package com.example.academica.Teacher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,7 +13,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -26,11 +25,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.academica.Admin.AdminProfileActivity;
-import com.example.academica.Admin.AdminRegDataHelper;
-import com.example.academica.Teacher.TeacherHomeActivity;
-import com.example.academica.Teacher.TeacherProfileActivity;
-import com.example.academica.Teacher.TeacherRegDataHelper;
+import com.example.academica.Login;
+import com.example.academica.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -142,7 +138,7 @@ public class TeacherAttendanceActivity extends AppCompatActivity implements Navi
         // list view implementation
         listViewItemList = new ArrayList<>();
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listViewItemList);
-        listView = findViewById(R.id.teacher_attendance_recyclerView);
+        listView = findViewById(R.id.teacher_attendance_listView);
         listView.setAdapter(listAdapter);
     }
 
@@ -178,6 +174,11 @@ public class TeacherAttendanceActivity extends AppCompatActivity implements Navi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.personalized_home:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(TeacherAttendanceActivity.this,TeacherHomeActivity.class));
+                finish();
+                break;
             case idProfilePage:
                 showProfile();
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -185,6 +186,10 @@ public class TeacherAttendanceActivity extends AppCompatActivity implements Navi
             case idLogOut:
                 drawerLayout.closeDrawer(GravityCompat.START);
                 doLogout();
+                break;
+            case R.id.teacher_AllNav_attendance:
+
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
         }
